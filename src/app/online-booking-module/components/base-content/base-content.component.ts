@@ -14,7 +14,8 @@ export class BaseContentComponent implements OnInit {
   constructor(private serv: BookingModuleService) { }
 
   ngOnInit(): void {
-    console.log('hello from base');
+
+    console.log(btoa('carlo:1234'));
     this.serv.generateAPIKey(this.loginBody).subscribe(response => {
       this.loginResponse.Initialize(response);
       console.log(this.loginResponse);

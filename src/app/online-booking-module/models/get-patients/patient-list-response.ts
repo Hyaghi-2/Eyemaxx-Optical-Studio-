@@ -5,13 +5,15 @@ export class PatientListResponse {
 
     Initialize(data: any): Patient[] {
         var list = data["patientList"];
-        for (let i = 0; i < list.length; i++) {
+        list.array.forEach((_element: any) => {
             let p: Patient = new Patient();
-            p = Object.assign(list[i]);
+            p = Object.assign(_element);
             this.patientList.push(p);
-        }
+        });
         return this.patientList;
     }
+
+
     constructor() {
 
     }

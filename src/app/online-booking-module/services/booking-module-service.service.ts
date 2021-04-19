@@ -21,4 +21,14 @@ export class BookingModuleService {
     return this.http.post<LoginResponse>(this.Url + '/login/doctors', data, options);
   }
 
+  getAvailableAppointmentSluts(){
+    const options = {
+      headers: new HttpHeaders({
+        'Accept': 'application/json',
+        'token':'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMDQwfHUzMzR8MXxmYWxzZSIsImV4cCI6MTYxODkyNTY2Mn0.hFMlPpU8a2YWHJZWjRveHcSe4--aHdNbDr9pEVF0LRLF2N5n3HWkVWI9mPGPDtA3DBB8ACcGH4lASVmm_1qrBA'
+      })
+    };
+    return this.http.get('https://testing.orderoptical.com/Web/Appointment/list?accountsId=2040&companyName=Test EyeMaxx&storeId=1&appointmentTypeId=13&doctorId=332&storeTimeZone=Canada/Eastern&locale=en',options);
+  }
+
 }

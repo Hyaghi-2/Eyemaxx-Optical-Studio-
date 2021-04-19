@@ -21,6 +21,11 @@ export class BaseContentComponent implements OnInit {
       console.log(this.loginResponse);
 
     });
+    this.serv.getAvailableAppointmentSluts().subscribe((s:any)=>{
+      console.log(s);
+      
+      console.log(JSON.parse(JSON.stringify(s["mobileDateTimeSlots"])));
+    });
   }
 
 }

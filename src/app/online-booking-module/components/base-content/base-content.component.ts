@@ -15,7 +15,7 @@ export class BaseContentComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(btoa('carlo:1234'));
+    //console.log(btoa('carlo:1234'));
     this.serv.generateAPIKey(this.loginBody).subscribe(response => {
       this.loginResponse.Initialize(response);
       console.log(this.loginResponse);
@@ -23,7 +23,7 @@ export class BaseContentComponent implements OnInit {
     });
     this.serv.getAvailableAppointmentSluts().subscribe((s:any)=>{
       console.log(s);
-      
+
       console.log(JSON.parse(JSON.stringify(s["mobileDateTimeSlots"])));
     });
   }

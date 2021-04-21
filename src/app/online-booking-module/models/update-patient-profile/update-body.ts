@@ -1,25 +1,25 @@
 export class UpdateBody {
     public lastName!: string;
-    public country!: string;
-    public gender!: number;
-    public streetNumber!: number;
-    public city!: string;
-    public postalCode!: string;
-    public dateOfBirth!: string;
+    public country: string | undefined;
+    public gender: number | undefined;
+    public streetNumber: number | undefined;
+    public city: string | undefined;
+    public postalCode: string | undefined;
+    public dateOfBirth: string | undefined;
     public cell!: string;
-    public version!: string;
-    public countryId!: number;
-    public medicalCard!: string;
+    public version: string | undefined;
+    public countryId: number | undefined;
+    public medicalCard: string | undefined;
     public firstName!: string;
-    public languagePreference!: string;
-    public streetName!: string;
-    public unit!: string;
-    public province!: string;
-    public phone!: string;
-    public medicalCardVersion!: string;
+    public languagePreference: string | undefined;
+    public streetName: string | undefined;
+    public unit: string | undefined;
+    public province: string | undefined;
+    public phone: string | undefined;
+    public medicalCardVersion: string | undefined;
     public id!: number;
     public email!: string;
-    public medicalCardExp!: string;
+    public medicalCardExp: string | undefined;
 
     constructor() {
 

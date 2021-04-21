@@ -1,34 +1,113 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from "src/environments/environment";
 import { LoginBody } from '../models/login/login-body';
 import { LoginResponse } from '../models/login/login-response';
+import { switchMap } from "rxjs/operators";
+import { CreatePatientBody } from '../models/create-patient/create-patient-body';
+import { BookAppointmentBody } from '../models/book-appointment/book-appointment-body';
+import { FailedAppointmentResponse } from '../models/book-appointment/failed-appointment-response';
+import { SuccessfullAppointmentResponse } from '../models/book-appointment/successfull-appointment-response';
+import { UpdateBody } from '../models/update-patient-profile/update-body';
 @Injectable({
   providedIn: 'root'
 })
-export class BookingModuleService {
+export class BookingModuleService implements HttpInterceptor {
+  //intercept the http request to add Authorization headers to the request
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    let url: string = this.Url + '/login/doctors';
+    if (request.url == url) {
+      return next.handle(request);
+    }
+    else {
+      let loginBody: LoginBody = new LoginBody();
+      let loginReponse: LoginResponse = new LoginResponse();
+      const options = {
+        headers: new HttpHeaders({
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Basic ' + btoa('carlo:1234')
+        }),
+      };
+      return this.http.post(url, loginBody, options).pipe(switchMap((reponse) => {
+        loginReponse.Initialize(reponse);
+        request = request.clone({
+          setHeaders: {
+            'Content-Type': 'application/json',
+            'accept': 'application/json',
+            'token': loginReponse.getToken
+          }
+        });
+        return next.handle(request);
+      }));
+    }
+  }
+  //base api url
   private Url: string = environment.ApiUrl;
+  //using http client module to make api calls
   constructor(private http: HttpClient) { }
-
-  generateAPIKey(data: LoginBody): Observable<LoginResponse> {
+  //login method to generate api key by staff credentials
+  generateAPIKey(body: LoginBody): Observable<LoginResponse> {
     const options = {
       headers: new HttpHeaders({
         'Accept': 'application/json',
         'Authorization': 'Basic ' + btoa('carlo:1234')
-      })
+      }),
+
     }
-    return this.http.post<LoginResponse>(this.Url + '/login/doctors', data, options);
+    return this.http.post<LoginResponse>(this.Url + '/login/doctors', body, options);
+  }
+  //create new patient
+  createPatient(body: CreatePatientBody) {
+    return this.http.post(this.Url + '/Patient', body);
   }
 
-  getAvailableAppointmentSluts(){
-    const options = {
-      headers: new HttpHeaders({
-        'Accept': 'application/json',
-        'token':'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMDQwfHUzMzR8MXxmYWxzZSIsImV4cCI6MTYxODkyNTY2Mn0.hFMlPpU8a2YWHJZWjRveHcSe4--aHdNbDr9pEVF0LRLF2N5n3HWkVWI9mPGPDtA3DBB8ACcGH4lASVmm_1qrBA'
-      })
-    };
-    return this.http.get('https://testing.orderoptical.com/Web/Appointment/list?accountsId=2040&companyName=Test EyeMaxx&storeId=1&appointmentTypeId=13&doctorId=332&storeTimeZone=Canada/Eastern&locale=en',options);
+  //get patient list related to a patient email
+  getPatientList(email: string) {
+    return this.http.get(this.Url + '/Patient/list?email=' + email);
   }
+
+  //get patient info by his ID
+  getPatientById(id: number) {
+    return this.http.get(this.Url + '/Patient/patient-' + id);
+  }
+
+  //get stores doctors and appointments
+  getStoresTypesDoctors(accountsId: number, companyName: string) {
+    return this.http.get(this.Url + '/Appointment?accountsId=' + accountsId + '&companyName=' + companyName);
+  }
+
+
+  //get available appointments slots based on query strings parameters
+  getAvailableAppointmentSluts(accountsId: number, companyName: string, storeId: number,
+    appointmentTypeId: number, doctorId: number, storeTimeZone: string) {
+    return this.http.get(this.Url + '/Appointment/list?accountsId=' + accountsId + '&companyName=' + companyName +
+      '&storeId=' + storeId + '&appointmentTypeId=' + appointmentTypeId + '&doctorId=' + doctorId +
+      '&storeTimeZone=' + storeTimeZone + '&locale=en');
+  }
+
+  //book new appointment
+  bookNewAppointment(body: BookAppointmentBody): Observable<FailedAppointmentResponse | SuccessfullAppointmentResponse> {
+    return this.http.post<FailedAppointmentResponse | SuccessfullAppointmentResponse>('/Appointment', body);
+  }
+
+  //get specific patient appointments
+  getPatientAppointments(id: number) {
+    return this.http.get(this.Url + '/Appointment/patient/' + id);
+  }
+
+  //get patient profile
+  getPatientProfile(id: number) {
+    return this.http.get(this.Url + '/Patient/' + id);
+  }
+
+  //update patient profile
+  updatePatientProfile(body: UpdateBody) {
+    this.http.put(this.Url + '/Patient', body);
+  }
+
+
+
 
 }

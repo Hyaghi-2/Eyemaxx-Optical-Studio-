@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { OnlineBookingModuleRoutingModule } from './online-booking-module-routing.module';
 import { BaseContentComponent } from './components/base-content/base-content.component';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { BookingModuleService } from './services/booking-module-service.service';
 
 @NgModule({
   declarations: [BaseContentComponent],
@@ -12,6 +13,11 @@ import { HttpClientModule } from "@angular/common/http";
     OnlineBookingModuleRoutingModule,
     HttpClientModule
 
-  ]
+  ],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: BookingModuleService,
+    multi: true
+  }]
 })
 export class OnlineBookingModuleModule { }

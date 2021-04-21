@@ -14,18 +14,7 @@ export class BaseContentComponent implements OnInit {
   constructor(private serv: BookingModuleService) { }
 
   ngOnInit(): void {
-
-    //console.log(btoa('carlo:1234'));
-    this.serv.generateAPIKey(this.loginBody).subscribe(response => {
-      this.loginResponse.Initialize(response);
-      console.log(this.loginResponse);
-
-    });
-    this.serv.getAvailableAppointmentSluts().subscribe((s:any)=>{
-      console.log(s);
-
-      console.log(JSON.parse(JSON.stringify(s["mobileDateTimeSlots"])));
-    });
+   
   }
 
 }

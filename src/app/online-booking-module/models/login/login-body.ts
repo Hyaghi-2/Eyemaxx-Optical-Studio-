@@ -5,6 +5,6 @@ export class LoginBody {
     constructor() {
         this.accountsId = 2040;
         this.storeId = 1;
-        this.expiration = 24;
+        this.expiration = 1;
     }
 }

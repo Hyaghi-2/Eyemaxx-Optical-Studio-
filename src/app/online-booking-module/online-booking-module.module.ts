@@ -5,9 +5,11 @@ import { OnlineBookingModuleRoutingModule } from './online-booking-module-routin
 import { BaseContentComponent } from './components/base-content/base-content.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { BookingModuleService } from './services/booking-module-service.service';
+import { ErrormessageComponent } from './components/errormessage/errormessage.component';
+import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 
 @NgModule({
-  declarations: [BaseContentComponent],
+  declarations: [BaseContentComponent, ErrormessageComponent, PagenotfoundComponent],
   imports: [
     CommonModule,
     OnlineBookingModuleRoutingModule,

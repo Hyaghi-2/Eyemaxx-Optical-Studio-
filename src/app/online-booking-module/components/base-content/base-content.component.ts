@@ -14,7 +14,10 @@ export class BaseContentComponent implements OnInit {
   constructor(private serv: BookingModuleService) { }
 
   ngOnInit(): void {
-   
+    this.serv.getPatientList('williamnodfah@gmail.com').subscribe(s => {
+      console.log(s);
+
+    });
   }
 
 }

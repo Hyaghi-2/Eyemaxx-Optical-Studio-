@@ -1,15 +1,16 @@
-import { HttpClient, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { environment } from "src/environments/environment";
 import { LoginBody } from '../models/login/login-body';
 import { LoginResponse } from '../models/login/login-response';
-import { switchMap } from "rxjs/operators";
+import { catchError, retry, switchMap } from "rxjs/operators";
 import { CreatePatientBody } from '../models/create-patient/create-patient-body';
 import { BookAppointmentBody } from '../models/book-appointment/book-appointment-body';
 import { FailedAppointmentResponse } from '../models/book-appointment/failed-appointment-response';
 import { SuccessfullAppointmentResponse } from '../models/book-appointment/successfull-appointment-response';
 import { UpdateBody } from '../models/update-patient-profile/update-body';
+import { NavigationExtras, Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +19,50 @@ export class BookingModuleService implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let url: string = this.Url + '/login/doctors';
     if (request.url == url) {
-      return next.handle(request);
+      return next.handle(request).pipe(
+        retry(1),
+        catchError((error: HttpErrorResponse) => {
+          let errorMessage: string = '';
+          if (error.error instanceof ErrorEvent) {
+            // client-side error
+            errorMessage = `Error: ${error.error.message}`;
+          } else {
+            // server-side error
+            errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+
+            switch (error.status) {
+              case 400:      //bad request
+                errorMessage += '   bad request';
+                break;
+              case 401:      //login
+                errorMessage += '   unauthorized';
+                break;
+              case 403:     //forbidden
+                errorMessage += '   forbidden';
+                break;
+              case 404:     //not found
+                errorMessage += '   not found';
+                break;
+              case 405:     //method nor allowed
+                errorMessage += '   method nor allowed';
+                break;
+              case 500:     //internal server error
+                errorMessage += '   internal server error';
+                break;
+              case 502:     //bad gateway
+                errorMessage += '   bad gateway';
+                break;
+            }
+          }
+          let params: NavigationExtras = {
+            queryParams: {
+              "error": errorMessage,
+            }
+          };
+          this.router.navigate(['/error',], params);
+          return throwError(errorMessage);
+        })
+      );;
     }
     else {
       let loginBody: LoginBody = new LoginBody();
@@ -39,14 +83,58 @@ export class BookingModuleService implements HttpInterceptor {
             'token': loginReponse.getToken
           }
         });
-        return next.handle(request);
+        return next.handle(request).pipe(
+          retry(1),
+          catchError((error: HttpErrorResponse) => {
+            let errorMessage: string = '';
+            if (error.error instanceof ErrorEvent) {
+              // client-side error
+              errorMessage = `Error: ${error.error.message}`;
+            } else {
+              // server-side error
+              errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+
+              switch (error.status) {
+                case 400:      //bad request
+                  errorMessage += '   bad request';
+                  break;
+                case 401:      //login
+                  errorMessage += '   unauthorized';
+                  break;
+                case 403:     //forbidden
+                  errorMessage += '   forbidden';
+                  break;
+                case 404:     //not found
+                  errorMessage += '   not found';
+                  break;
+                case 405:     //method nor allowed
+                  errorMessage += '   method nor allowed';
+                  break;
+                case 500:     //internal server error
+                  errorMessage += '   internal server error';
+                  break;
+                case 502:     //bad gateway
+                  errorMessage += '   bad gateway';
+                  break;
+              }
+            }
+            let params: NavigationExtras = {
+              queryParams: {
+                "error": errorMessage,
+              }
+            };
+            this.router.navigate(['/error',], params);
+            this.router.navigate(['/error', { error: errorMessage }]);
+            return throwError(errorMessage);
+          })
+        );
       }));
     }
   }
   //base api url
   private Url: string = environment.ApiUrl;
   //using http client module to make api calls
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
   //login method to generate api key by staff credentials
   generateAPIKey(body: LoginBody): Observable<LoginResponse> {
     const options = {
@@ -67,6 +155,7 @@ export class BookingModuleService implements HttpInterceptor {
   getPatientList(email: string) {
     return this.http.get(this.Url + '/Patient/list?email=' + email);
   }
+
 
   //get patient info by his ID
   getPatientById(id: number) {
@@ -107,7 +196,43 @@ export class BookingModuleService implements HttpInterceptor {
     this.http.put(this.Url + '/Patient', body);
   }
 
+  // error handler 
+  handleError(error: HttpErrorResponse) {
+    let errorMessage: string = '';
+    if (error.error instanceof ErrorEvent) {
+      // client-side error
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
 
-
-
+      switch (error.status) {
+        case 400:      //bad request
+          errorMessage += '   bad request';
+          break;
+        case 401:      //login
+          errorMessage += '   unauthorized';
+          break;
+        case 403:     //forbidden
+          errorMessage += '   forbidden';
+          break;
+        case 404:     //not found
+          errorMessage += '   not found';
+          break;
+        case 405:     //method nor allowed
+          errorMessage += '   method nor allowed';
+          break;
+        case 500:     //internal server error
+          errorMessage += '   internal server error';
+          break;
+        case 502:     //bad gateway
+          errorMessage += '   bad gateway';
+          break;
+      }
+    }
+    return throwError(errorMessage);
+  }
 }
+
+
+

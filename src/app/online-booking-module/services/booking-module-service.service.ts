@@ -124,7 +124,6 @@ export class BookingModuleService implements HttpInterceptor {
               }
             };
             this.router.navigate(['/error',], params);
-            this.router.navigate(['/error', { error: errorMessage }]);
             return throwError(errorMessage);
           })
         );
@@ -171,7 +170,8 @@ export class BookingModuleService implements HttpInterceptor {
   //get available appointments slots based on query strings parameters
   getAvailableAppointmentSluts(accountsId: number, companyName: string, storeId: number,
     appointmentTypeId: number, doctorId: number, storeTimeZone: string) {
-    return this.http.get(this.Url + '/Appointment/list?accountsId=' + accountsId + '&companyName=' + companyName +
+    return this.http.get(this.Url + '/Appointment/list?accountsId=' + accountsId +
+      '&companyName=' + companyName +
       '&storeId=' + storeId + '&appointmentTypeId=' + appointmentTypeId + '&doctorId=' + doctorId +
       '&storeTimeZone=' + storeTimeZone + '&locale=en');
   }

@@ -1,4 +1,102 @@
-<h1>{{steps.s}}</h1>
+<div style="background: #fff">
+    <!-- <a href="#">
+        <div class="logo-container">
+            <div class="">
+                <a href="#">
+                    <h4>Eyemaxx</h4><a/>
+            </div>
+        </div>
+        </a> -->
 
-<app-covid-pre-screening></app-covid-pre-screening>
-<app-optimitrist-optician-selection></app-optimitrist-optician-selection>
+    <!--   Big container   -->
+    <div class="container">
+        <div class="row text-center">
+            <img src="../../../../assets/img/header.PNG" width="100%">
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col">
+                <!--      Wizard container        -->
+                <div class="wizard-container">
+                    <div class="card wizard-card" data-color="red" id="wizard">
+                        <form action="" method="">
+                            <div class="wizard-header">
+                                <h3 class="wizard-title">
+                                    Book an Appointment with Eyemaxx Optical Studio
+                                </h3>
+                                <h5>Please follow the steps to book an appointment</h5>
+                            </div>
+                            <div class="wizard-navigation">
+                                <ul>
+                                    <li id="step1" [class.liDisabled]="!stepsEnabled(1)"><a href="#covid19"
+                                            data-toggle="tab">Step 1 (COVID19-Screening)</a>
+                                    </li>
+                                    <li id="step2" [class.liDisabled]="!stepsEnabled(2)"><a href="#appointment-type"
+                                            data-toggle="tab">Step 2 (Service
+                                            Type)</a></li>
+                                    <li id="step3"><a href="#exam-type" data-toggle="tab">Step 3 (Appointment Type)</a>
+                                    </li>
+                                    <li id="step4"><a href="#date-time" data-toggle="tab">Step 4 (Date & Time)</a></li>
+                                    <li id="step5"><a href="#optician-appointment" data-toggle="tab">Step 5 (Optician
+                                            Appointment)</a></li>
+                                    <li id="step6"><a href="#confirm" data-toggle="tab">Step 6 (Confirmation)</a></li>
+                                    <li id="step7"><a href="#summary" data-toggle="tab">Step 7 (Summary)</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="tab-content">
+                                <div class="tab-pane" id="covid19">
+                                    <app-covid-pre-screening *ngIf="stepsEnabled(1)"></app-covid-pre-screening>
+                                </div>
+                                <div class="tab-pane" id="appointment-type">
+                                    <app-optimitrist-optician-selection *ngIf="stepsEnabled(2)">
+                                    </app-optimitrist-optician-selection>
+                                </div>
+                                <div class="tab-pane" id="exam-type">
+                                    <app-appointmentstypes></app-appointmentstypes>
+                                </div>
+                                <div class="tab-pane" id="date-time">
+                                    <app-appointmentsluts></app-appointmentsluts>
+                                </div>
+                                <div class="tab-pane" id="optician-appointment">
+                                    <app-opticianappointment></app-opticianappointment>
+                                </div>
+                                <div class="tab-pane" id="confirm">
+                                    <app-appointmentconfirmation></app-appointmentconfirmation>
+                                </div>
+                                <div class="tab-pane" id="summary">
+                                    <app-appointmentsummary></app-appointmentsummary>
+                                </div>
+
+                            </div>
+                            <div class="wizard-footer">
+                                <div class="pull-right">
+                                    <input type='button' class='btn btn-next btn-fill btn-danger btn-wd' name='next'
+                                        value='Next' />
+                                    <input type='button' class='btn btn-finish btn-fill btn-danger btn-wd' name='finish'
+                                        value='Finish' />
+                                </div>
+                                <div class="pull-left">
+                                    <input type='button' class='btn btn-previous btn-fill btn-default btn-wd'
+                                        name='previous' value='Previous' />
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- wizard container -->
+            </div>
+        </div>
+        <!-- row -->
+    </div>
+    <!--  big container -->
+
+    <!-- <div class="footer">
+            <div class="container text-center" style="color:#000">
+                Footer
+            </div>
+        </div> -->
+    <div class="row text-center">
+        <img src="../../../../assets/img/footer.PNG" width="75%">
+    </div>
+</div>

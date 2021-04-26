@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StepsManagementService } from '../../services/steps-management.service';
 
 @Component({
@@ -7,14 +8,25 @@ import { StepsManagementService } from '../../services/steps-management.service'
   styleUrls: ['./optimitrist-optician-selection.component.css']
 })
 export class OptimitristOpticianSelectionComponent implements OnInit {
-
-  constructor(private steps: StepsManagementService) { }
+  OpticianOptimitristForm: FormGroup;
+  submitted: boolean = false;
+  constructor(private steps: StepsManagementService,
+    private fb: FormBuilder) {
+    this.OpticianOptimitristForm = this.fb.group({
+      OpticianOptimitristSelection: ['', Validators.required]
+    });
+  }
 
   ngOnInit(): void {
   }
-  deacrease() {
-    this.steps.s -= 1;
 
+
+  onOpticianOptimitristFormSubmit(e: any) {
+    if (this.OpticianOptimitristForm.invalid) {
+      e.preventDefault();
+      return;
+    }
+    console.log(this.OpticianOptimitristForm.value);
   }
 
 }

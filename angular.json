@@ -28,9 +28,16 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/jquery-2.2.4.min.js",
+              "src/assets/js/bootstrap.min.js",
+              "src/assets/js/jquery.bootstrap.js",
+              "src/assets/js/material-bootstrap-wizard.js",
+              "src/assets/js/jquery.validate.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -91,6 +98,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []

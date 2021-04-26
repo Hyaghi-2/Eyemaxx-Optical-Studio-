@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { OnlineBookingModuleModule } from './online-booking-module/online-booking-module.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { OnlineBookingModuleModule } from './online-booking-module/online-bookin
   imports: [
     BrowserModule,
     AppRoutingModule,
-    OnlineBookingModuleModule
+    OnlineBookingModuleModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

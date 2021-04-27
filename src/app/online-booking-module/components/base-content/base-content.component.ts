@@ -13,7 +13,11 @@ export class BaseContentComponent implements OnInit {
   loginResponse: LoginResponse = new LoginResponse();
   loginBody: LoginBody = new LoginBody();
 <<<<<<< HEAD
+<<<<<<< HEAD
   constructor(private serv: BookingModuleService, private steps: StepsManagementService) { }
+=======
+  constructor(private serv: BookingModuleService) { }
+>>>>>>> parent of af21616 (steps test)
 =======
   constructor(private serv: BookingModuleService) { }
 >>>>>>> parent of af21616 (steps test)

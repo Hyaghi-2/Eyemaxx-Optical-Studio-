@@ -3,6 +3,7 @@ import { LoginBody } from '../../models/login/login-body';
 import { LoginResponse } from '../../models/login/login-response';
 import { Step } from '../../models/Step/step';
 import { BookingModuleService } from '../../services/booking-module-service.service';
+import { StepsManagementService } from '../../services/steps-management.service';
 
 @Component({
   selector: 'app-base-content',
@@ -12,15 +13,7 @@ import { BookingModuleService } from '../../services/booking-module-service.serv
 export class BaseContentComponent implements OnInit {
   loginResponse: LoginResponse = new LoginResponse();
   loginBody: LoginBody = new LoginBody();
-<<<<<<< HEAD
-<<<<<<< HEAD
   constructor(private serv: BookingModuleService, private steps: StepsManagementService) { }
-=======
-  constructor(private serv: BookingModuleService) { }
->>>>>>> parent of af21616 (steps test)
-=======
-  constructor(private serv: BookingModuleService) { }
->>>>>>> parent of af21616 (steps test)
 
   ngOnInit(): void {
     this.steps.Steps.push(new Step(1, 'COVID19preScr', false, true, false));

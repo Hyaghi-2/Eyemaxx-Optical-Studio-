@@ -9,9 +9,12 @@
             <div class="col-sm-6">
                 <div class="form-group label-floating">
                     <label class="control-label">Please Select Exam Type</label>
-                    <select class="form-control">
+                    <select  class="form-control">
                         <option disabled="" selected=""></option>
-                        <option value="1">Full Eye Exam: Non-Contact Lens Wearer
+
+                        <option *ngFor="let type of DoctorStoreTypeData.AppointmentTypes" value="type.id">{{ type.name }}
+                        </option>
+                        <!-- <option value="1">Full Eye Exam: Non-Contact Lens Wearer
                         </option>
                         <option value="2">Full Eye Exam: Contact Lens Wearer (Previous
                             Patient) </option>
@@ -22,7 +25,7 @@
                         <option value="6">OHIP: 0-19 (V406A)</option>
                         <option value="7">OHIP: 65+ (V406A)</option>
                         <option value="8">Appointment not available for online booking
-                        </option>
+                        </option> -->
                     </select>
                 </div>
             </div>

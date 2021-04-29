@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [{
-  path: '', redirectTo: '/base', pathMatch: 'full'
+  path: '', redirectTo: '/appointment/covid19', pathMatch: 'full'
 }];
 
 @NgModule({

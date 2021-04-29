@@ -1,11 +1,12 @@
-
+<!-- <div class="tab-pane" id="appointment-type"> -->
     <h4 class="info-text">Service Type</h4>
     <h4 class="info-text">Choose the service that you would like to book</h4>
     <div class="row">
         <div class="col-sm-10 col-sm-offset-1">
             <div class="col-sm-4">
                 <div class="choice" data-toggle="wizard-radio" rel="tooltip"
-                    title="Book an appointment with an optometrist only">
+                    title="Book an appointment with an optometrist only"
+                    (click)="onOpticianOptimitristFormSubmit('optometrist')">
                     <input type="radio" name="job" value="Design">
                     <div class="icon">
                         <i class="material-icons">medication</i>
@@ -15,7 +16,8 @@
             </div>
             <div class="col-sm-4">
                 <div class="choice" data-toggle="wizard-radio" rel="tooltip"
-                    title="Book an appointment with an optician only">
+                    title="Book an appointment with an optician only"
+                    (click)="onOpticianOptimitristFormSubmit('opticians')">
                     <input type="radio" name="job" value="Code">
                     <div class="icon">
                         <i class="material-icons">find_replace</i>
@@ -25,7 +27,8 @@
             </div>
             <div class="col-sm-4">
                 <div class="choice" data-toggle="wizard-radio" rel="tooltip"
-                    title="Book an appointment with an optometrist & optician">
+                    title="Book an appointment with an optometrist & optician"
+                    (click)="onOpticianOptimitristFormSubmit('both')">
                     <input type="radio" name="job" value="Code">
                     <div class="icon">
                         <i class="material-icons">person_search</i>
@@ -55,3 +58,4 @@
             <p>Phone: 613.216.6076</p>
         </div>
     </div>
+<!-- </div> -->

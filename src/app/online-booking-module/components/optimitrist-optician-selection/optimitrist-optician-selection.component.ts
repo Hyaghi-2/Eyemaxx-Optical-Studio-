@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Step } from '../../models/Step/step';
 import { StepsManagementService } from '../../services/steps-management.service';
 
 @Component({
@@ -8,25 +9,18 @@ import { StepsManagementService } from '../../services/steps-management.service'
   styleUrls: ['./optimitrist-optician-selection.component.css']
 })
 export class OptimitristOpticianSelectionComponent implements OnInit {
-  OpticianOptimitristForm: FormGroup;
-  submitted: boolean = false;
-  constructor(private steps: StepsManagementService,
-    private fb: FormBuilder) {
-    this.OpticianOptimitristForm = this.fb.group({
-      OpticianOptimitristSelection: ['', Validators.required]
-    });
+  currentStepInfo: Step = new Step(2, 'ServiceType', false, true, false, 'service-type');
+
+  constructor(private steps: StepsManagementService) {
+
   }
 
   ngOnInit(): void {
+    this.currentStepInfo.enabled = true;
+    this.steps.currentStep = this.currentStepInfo;
   }
-
-
-  onOpticianOptimitristFormSubmit(e: any) {
-    if (this.OpticianOptimitristForm.invalid) {
-      e.preventDefault();
-      return;
-    }
-    console.log(this.OpticianOptimitristForm.value);
+  onOpticianOptimitristFormSubmit(job: string) {
+    console.log(job);
   }
 
 }

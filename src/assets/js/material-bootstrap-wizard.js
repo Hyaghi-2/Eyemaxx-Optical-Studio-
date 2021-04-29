@@ -55,7 +55,7 @@ $(document).ready(function(){
         'previousSelector': '.btn-previous',
 
         onNext: function(tab, navigation, index) {
-        	var $valid = $('.wizard-card form').valid();
+        	var $valid = true;
         	if(!$valid) {
         		$validator.focusInvalid();
         		return false;
@@ -77,7 +77,7 @@ $(document).ready(function(){
        },
 
         onTabClick : function(tab, navigation, index){
-            var $valid = $('.wizard-card form').valid();
+            var $valid = true;
 
             if(!$valid){
                 return false;

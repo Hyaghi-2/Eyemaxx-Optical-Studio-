@@ -1,49 +1,53 @@
-<div class="row">
-    <div class="col-sm-12">
-        <h4 class="info-text">COVID-19 Pre-screening</h4>
-        <h5 class="info-text">Please check all the boxes to continue</h5>
-    </div>
+<div class="tab-pane" id="covid19">
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="info-text">COVID-19 Pre-screening</h4>
+            <h5 class="info-text">Please check all the boxes to continue</h5>
+        </div>
 
-    <div class="col-sm-2">
+        <div class="col-sm-2">
 
-    </div>
-    <div class="col-sm-8">
-        <form [formGroup]="CovidPreScrForm" (ngSubmit)="onCovidPreScrFormSubmit($event)">
-            <div class="col-sm-12">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="covid1" formControlName="firstOption">
-                    </label> I do not have fever, cough, shortness of breath, cold or
-                    flu-like symptoms, or any
-                    other sudden changes to my health. In the last 14 days, I have not
-                    been in contact with someone who has.
+        </div>
+        <div class="col-sm-8">
+            <form [formGroup]="CovidPreScrForm">
+                <div class="col-sm-12">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="covid1" formControlName="firstOption"
+                               >
+                        </label> I do not have fever, cough, shortness of breath, cold or
+                        flu-like symptoms, or any
+                        other sudden changes to my health. In the last 14 days, I have not
+                        been in contact with someone who has.
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-12">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="covid2" formControlName="secondOption">
-                    </label> In the last 14 days, I have not travelled outside of Canada
-                    or been in contact with
-                    someone who has.
+                <div class="col-sm-12">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="covid2" formControlName="secondOption"
+                               >
+                        </label> In the last 14 days, I have not travelled outside of Canada
+                        or been in contact with
+                        someone who has.
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-12">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="covid3" formControlName="thirdOption">
-                    </label> I do not have a confirmed case of COVID-19 or had close
-                    contact with a confirmed case
-                    of COVID-19 without wearing appropriate PPE.
+                <div class="col-sm-12">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="covid3" formControlName="thirdOption"
+                               >
+                        </label> I do not have a confirmed case of COVID-19 or had close
+                        contact with a confirmed case
+                        of COVID-19 without wearing appropriate PPE.
+                    </div>
                 </div>
-            </div>
-            <div
-                *ngIf="(submitted && f.firstOption.errors) ||(submitted && f.secondOption.errors) || (submitted && f.thirdOption.errors)">
-                You Must Choose Option
-            </div>
-        </form>
-    </div>
+                <div *ngIf="( f.firstOption.errors) ||(f.secondOption.errors) || (f.thirdOption.errors)">
+                    You Must Choose Option
+                </div>
+            </form>
+        </div>
 
-    <div class="col-sm-2">
+        <div class="col-sm-2">
+        </div>
     </div>
 </div>

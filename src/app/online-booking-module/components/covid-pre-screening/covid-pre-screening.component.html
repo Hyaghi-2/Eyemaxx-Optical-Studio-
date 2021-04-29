@@ -11,35 +11,32 @@
         <div class="col-sm-8">
             <form [formGroup]="CovidPreScrForm">
                 <div class="col-sm-12">
-                    <div class="checkbox">
+                    <!-- <div class="checkbox"> -->
                         <label>
-                            <input type="checkbox" name="covid1" formControlName="firstOption"
-                               >
+                            <input type="checkbox" name="covid1" formControlName="firstOption">
                         </label> I do not have fever, cough, shortness of breath, cold or
                         flu-like symptoms, or any
                         other sudden changes to my health. In the last 14 days, I have not
                         been in contact with someone who has.
-                    </div>
+                    <!-- </div> -->
                 </div>
                 <div class="col-sm-12">
-                    <div class="checkbox">
+                    <!-- <div class="checkbox"> -->
                         <label>
-                            <input type="checkbox" name="covid2" formControlName="secondOption"
-                               >
+                            <input type="checkbox" name="covid2" formControlName="secondOption">
                         </label> In the last 14 days, I have not travelled outside of Canada
                         or been in contact with
                         someone who has.
-                    </div>
+                    <!-- </div> -->
                 </div>
                 <div class="col-sm-12">
-                    <div class="checkbox">
+                    <!-- <div class="checkbox"> -->
                         <label>
-                            <input type="checkbox" name="covid3" formControlName="thirdOption"
-                               >
+                            <input type="checkbox" name="covid3" formControlName="thirdOption">
                         </label> I do not have a confirmed case of COVID-19 or had close
                         contact with a confirmed case
                         of COVID-19 without wearing appropriate PPE.
-                    </div>
+                    <!-- </div> -->
                 </div>
                 <div *ngIf="( f.firstOption.errors) ||(f.secondOption.errors) || (f.thirdOption.errors)">
                     You Must Choose Option

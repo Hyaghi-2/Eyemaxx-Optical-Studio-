@@ -2,6 +2,8 @@ import { AfterViewChecked, AfterViewInit, Component, Input, OnInit } from '@angu
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { delay, startWith } from 'rxjs/operators';
 import { Step } from '../../models/Step/step';
+import { Covid19Data } from '../../models/Steps-Data/covid19-data';
+import { DataParent } from '../../models/Steps-Data/data-parent';
 import { StepsManagementService } from '../../services/steps-management.service';
 
 @Component({
@@ -11,16 +13,28 @@ import { StepsManagementService } from '../../services/steps-management.service'
 })
 export class CovidPreScreeningComponent implements OnInit, AfterViewChecked {
   @Input('COVID19Enabled') StepEnabled!: boolean;
-  CovidPreScrForm: FormGroup;
-  currentStepInfo: Step = new Step(1, 'COVID19preScr', false, true, false, 'covid19');
+  CovidPreScrForm!: FormGroup;
   submitted: boolean = false;
   constructor(public steps: StepsManagementService,
     private fb: FormBuilder) {
-    this.CovidPreScrForm = this.fb.group({
-      firstOption: [false, Validators.requiredTrue],
-      secondOption: [false, Validators.requiredTrue],
-      thirdOption: [false, Validators.requiredTrue]
-    });
+    let s: Covid19Data = <Covid19Data>this.steps.stepsData.filter(x => x.order == 1)[0];
+    if (!s) {
+      this.CovidPreScrForm = this.fb.group({
+        firstOption: [false, Validators.requiredTrue],
+        secondOption: [false, Validators.requiredTrue],
+        thirdOption: [false, Validators.requiredTrue]
+      });
+      this.steps.currentStep = new Step(1, 'COVID19preScr', false, true, false, 'covid19');
+
+    } else {
+      this.CovidPreScrForm = this.fb.group({
+        firstOption: [s.firstOption, Validators.requiredTrue],
+        secondOption: [s.secondOption, Validators.requiredTrue],
+        thirdOption: [s.thirdOption, Validators.requiredTrue]
+      });
+      this.steps.currentStep = new Step(1, 'COVID19preScr', false, true, true, 'covid19');
+
+    }
   }
   ngAfterViewChecked(): void {
     this.onCovidPreScrFormChanges();
@@ -32,17 +46,25 @@ export class CovidPreScreeningComponent implements OnInit, AfterViewChecked {
   }
 
   onCovidPreScrFormChanges() {
-
     this.CovidPreScrForm.valueChanges.subscribe(x => {
-      this.currentStepInfo.validated = this.CovidPreScrForm.valid;
-      this.steps.currentStep = this.currentStepInfo;
-      this.steps.Steps.filter(x => x.order == this.currentStepInfo.order + 1)[0].enabled = this.steps.currentStep.validated;
+      this.steps.clearSteps(1);
+      if (this.CovidPreScrForm.valid) {
+        this.steps.currentStep.validated = true;
+        let p: Covid19Data = new Covid19Data(1, true, true, true);
+        this.steps.stepsData.push(p);
+        this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = this.steps.currentStep.validated;
+        console.log(this.steps.Steps);
+        console.log(this.steps.stepsData);
+        console.log(this.steps.currentStep.validated);
+        console.log(this.CovidPreScrForm.valid);
+      }
     });
+
   }
 
 
   ngOnInit(): void {
-    this.steps.currentStep = this.currentStepInfo;
+
   }
 
 

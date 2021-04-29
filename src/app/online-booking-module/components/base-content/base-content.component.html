@@ -31,17 +31,21 @@
                                 </li>
                                 <li id="step2" [class.liDisabled]="!stepsEnabled(2)" (click)="navigate(2)"><a
                                         href="#appointment-type" data-toggle="tab">Step 2 (Service Type)</a></li>
-                                <li id="step3" (click)="navigate(3)"><a href="#exam-type" data-toggle="tab">Step 3
+                                <li id="step3" [class.liDisabled]="!stepsEnabled(3)" (click)="navigate(3)"><a
+                                        href="#exam-type" data-toggle="tab">Step 3
                                         (Appointment Type)</a>
                                 </li>
-                                <li id="step4" (click)="navigate(4)"><a href="#date-time" data-toggle="tab">Step 4 (Date
+                                <li id="step4" [class.liDisabled]="!stepsEnabled(4)" (click)="navigate(4)"><a
+                                        href="#date-time" data-toggle="tab">Step 4 (Date
                                         & Time)</a></li>
-                                <li id="step5" (click)="navigate(5)"><a href="#optician-appointment"
-                                        data-toggle="tab">Step 5 (Optician
+                                <li id="step5" [class.liDisabled]="!stepsEnabled(5)" (click)="navigate(5)"><a
+                                        href="#optician-appointment" data-toggle="tab">Step 5 (Optician
                                         Appointment)</a></li>
-                                <li id="step6" (click)="navigate(6)"><a href="#confirm" data-toggle="tab">Step 6
+                                <li id="step6" [class.liDisabled]="!stepsEnabled(6)" (click)="navigate(6)"><a
+                                        href="#confirm" data-toggle="tab">Step 6
                                         (Confirmation)</a></li>
-                                <li id="step7" (click)="navigate(7)"><a href="#summary" data-toggle="tab">Step 7
+                                <li id="step7" [class.liDisabled]="!stepsEnabled(7)" (click)="navigate(7)"><a
+                                        href="#summary" data-toggle="tab">Step 7
                                         (Summary)</a></li>
                             </ul>
                         </div>
@@ -77,8 +81,9 @@
                         </div> -->
                         <div class="wizard-footer">
                             <div class="pull-right">
-                                <button type='button' class='btn btn-next btn-fill btn-danger btn-wd'
-                                    (click)="navigate(currentStepStatus().order+1)">Next</button>
+                                <button type='button' class='btn btn-next btn-fill btn-danger btn-wd liDisabled'
+                                    (click)="navigate(currentStepStatus().order+1)"
+                                    [class.liDisabled]="!currentStepStatus().validated">Next</button>
                                 <button type='button' class='btn btn-finish btn-fill btn-danger btn-wd'>Finish</button>
                             </div>
                             <div class="pull-left" *ngIf="currentStepStatus().order != 1">

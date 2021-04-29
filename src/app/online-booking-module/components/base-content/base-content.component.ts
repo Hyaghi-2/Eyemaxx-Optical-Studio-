@@ -1,7 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoginBody } from '../../models/login/login-body';
-import { LoginResponse } from '../../models/login/login-response';
 import { Step } from '../../models/Step/step';
 import { BookingModuleService } from '../../services/booking-module-service.service';
 import { StepsManagementService } from '../../services/steps-management.service';
@@ -11,14 +9,11 @@ import { StepsManagementService } from '../../services/steps-management.service'
   templateUrl: './base-content.component.html',
   styleUrls: ['./base-content.component.css']
 })
-export class BaseContentComponent implements OnInit ,AfterViewInit{
-  loginResponse: LoginResponse = new LoginResponse();
-  loginBody: LoginBody = new LoginBody();
-  constructor(private serv: BookingModuleService, private steps: StepsManagementService,
+export class BaseContentComponent implements OnInit {
+
+  constructor(private steps: StepsManagementService,
     private router: Router, private route: ActivatedRoute) { }
 
-  ngAfterViewInit(): void {
-  }
 
   ngOnInit(): void {
 

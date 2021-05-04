@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  ApiUrl: 'https://testing.orderoptical.com/Web'
+  ApiUrl: 'https://onlinebooking.downloadwink.com/Web'
 };
 
 /*

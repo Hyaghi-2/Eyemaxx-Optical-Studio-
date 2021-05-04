@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpParams, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { environment } from "src/environments/environment";
@@ -168,13 +168,19 @@ export class BookingModuleService implements HttpInterceptor {
 
 
   //get available appointments slots based on query strings parameters
-  getAvailableAppointmentSluts(accountsId: number, companyName: string, storeId: number,
-    appointmentTypeId: number, doctorId: number, storeTimeZone: string) {
-    return this.http.get(this.Url + '/Appointment/list?accountsId=' + accountsId +
-      '&companyName=' + companyName +
-      '&storeId=' + storeId + '&appointmentTypeId=' + appointmentTypeId + '&doctorId=' + doctorId +
-      '&storeTimeZone=' + storeTimeZone + '&locale=en');
+  getAvailableAppointmentSluts(accountsId: string, companyName: string,
+    appointmentTypeId: string, doctorId: string) {
+    const params = new HttpParams()
+      .set('accountsId', accountsId)
+      .set('companyName', companyName)
+      .set('storeId', '1')
+      .set('appointmentTypeId', appointmentTypeId)
+      .set('doctorId', doctorId)
+      .set('storeTimeZone', 'Canada/Eastern')
+      .set('locale', 'en');
+    return this.http.get(this.Url + '/Appointment/list', { params });
   }
+
 
   //book new appointment
   bookNewAppointment(body: BookAppointmentBody): Observable<FailedAppointmentResponse | SuccessfullAppointmentResponse> {

@@ -22,7 +22,8 @@ export class CovidPreScreeningComponent implements OnInit, AfterViewChecked {
       this.CovidPreScrForm = this.fb.group({
         firstOption: [false, Validators.requiredTrue],
         secondOption: [false, Validators.requiredTrue],
-        thirdOption: [false, Validators.requiredTrue]
+        thirdOption: [false, Validators.requiredTrue],
+        fourthOption: [false, Validators.requiredTrue]
       });
       this.steps.currentStep = new Step(1, 'COVID19preScr', false, true, false, 'covid19');
 
@@ -30,7 +31,9 @@ export class CovidPreScreeningComponent implements OnInit, AfterViewChecked {
       this.CovidPreScrForm = this.fb.group({
         firstOption: [s.firstOption, Validators.requiredTrue],
         secondOption: [s.secondOption, Validators.requiredTrue],
-        thirdOption: [s.thirdOption, Validators.requiredTrue]
+        thirdOption: [s.thirdOption, Validators.requiredTrue],
+        fourthOption: [s.fourthOption, Validators.requiredTrue]
+
       });
       this.steps.currentStep = new Step(1, 'COVID19preScr', false, true, true, 'covid19');
 
@@ -50,7 +53,7 @@ export class CovidPreScreeningComponent implements OnInit, AfterViewChecked {
       this.steps.clearSteps(1);
       if (this.CovidPreScrForm.valid) {
         this.steps.currentStep.validated = true;
-        let p: Covid19Data = new Covid19Data(1, true, true, true);
+        let p: Covid19Data = new Covid19Data(1, true, true, true, true);
         this.steps.stepsData.push(p);
         this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = this.steps.currentStep.validated;
         console.log(this.steps.Steps);

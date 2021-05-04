@@ -14,7 +14,7 @@ import { AppointmentslutsComponent } from './components/appointmentsluts/appoint
 import { AppointmentsummaryComponent } from './components/appointmentsummary/appointmentsummary.component';
 import { OpticianappointmentComponent } from './components/opticianappointment/opticianappointment.component';
 import { AppointmentconfirmationComponent } from './components/appointmentconfirmation/appointmentconfirmation.component';
-
+import { CalendarModule } from 'primeng/calendar';
 
 //assets modules
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -26,7 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     OnlineBookingModuleRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule, CalendarModule
 
   ],
   providers: [{

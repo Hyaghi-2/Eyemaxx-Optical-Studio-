@@ -9,10 +9,10 @@
             <div class="col-sm-6">
                 <div class="form-group label-floating">
                     <label class="control-label">Please Select Exam Type</label>
-                    <select  class="form-control">
-                        <option disabled="" selected=""></option>
+                    <select class="form-control" [(ngModel)]="SelectedExamId" (change)="SelectExam()">
 
-                        <option *ngFor="let type of DoctorStoreTypeData.AppointmentTypes" value="type.id">{{ type.name }}
+                        <option *ngFor="let type of DoctorStoreTypeData.AppointmentTypes" value="{{type.id}}">{{
+                            type.name }}
                         </option>
                         <!-- <option value="1">Full Eye Exam: Non-Contact Lens Wearer
                         </option>
@@ -65,44 +65,9 @@
             <h4 class="info-text">Please select an Optometrist / Any Optometrist</h4>
             <div class="col-sm-1">
             </div>
-            <div class="col-sm-2">
-                <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Alexa Lavigne OD">
-                    <input type="radio" name="job" value="Design">
-                    <div class="icon">
-                        <i class="material-icons">person</i>
-                    </div>
-                    <h6>Alexa Lavigne OD</h6>
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Mimosa Vo OD">
-                    <input type="radio" name="job" value="Code">
-                    <div class="icon">
-                        <i class="material-icons">person</i>
-                    </div>
-                    <h6>Mimosa Vo OD</h6>
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Reberto Sgarbossa OD">
-                    <input type="radio" name="job" value="Code">
-                    <div class="icon">
-                        <i class="material-icons">person</i>
-                    </div>
-                    <h6>Reberto Sgarbossa OD</h6>
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Shelly Huang OD">
-                    <input type="radio" name="job" value="Code">
-                    <div class="icon">
-                        <i class="material-icons">person</i>
-                    </div>
-                    <h6>Shelly Huang OD</h6>
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Any Optometrist">
+            <div class="col-sm-2" *ngIf="isOptomitrist" (click)="SelectStaff(-1)">
+                <div class="choice " data-toggle="wizard-radio " rel="tooltip" title="Any Optometrist"
+                    [class.active]="SelectedStaff.id === -1">
                     <input type="radio" name="job" value="Code">
                     <div class="icon">
                         <i class="material-icons">groups</i>
@@ -110,6 +75,18 @@
                     <h6>Any Optometrist</h6>
                 </div>
             </div>
+
+            <div class="col-sm-2" *ngFor="let s of Staffs" (click)="SelectStaff(s.id)">
+                <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="{{s.description}}"
+                    [class.active]="SelectedStaff.id === s.id">
+                    <input type="radio" name="job" value="Design">
+                    <div class="icon">
+                        <i class="material-icons">person</i>
+                    </div>
+                    <h6>{{s.firstName}} {{s.lastName}}</h6>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

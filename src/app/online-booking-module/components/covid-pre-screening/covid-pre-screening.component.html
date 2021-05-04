@@ -12,39 +12,67 @@
             <form [formGroup]="CovidPreScrForm">
                 <div class="col-sm-12">
                     <!-- <div class="checkbox"> -->
-                        <label>
-                            <input type="checkbox" name="covid1" formControlName="firstOption">
-                        </label> I do not have fever, cough, shortness of breath, cold or
-                        flu-like symptoms, or any
-                        other sudden changes to my health. In the last 14 days, I have not
-                        been in contact with someone who has.
+                    <label>
+                        <input type="checkbox" name="covid1" formControlName="firstOption">
+                    </label> I do not have fever, cough, shortness of breath, cold or
+                    flu-like symptoms, or any
+                    other sudden changes to my health. In the last 14 days, I have not
+                    been in contact with someone who has.
                     <!-- </div> -->
                 </div>
                 <div class="col-sm-12">
                     <!-- <div class="checkbox"> -->
-                        <label>
-                            <input type="checkbox" name="covid2" formControlName="secondOption">
-                        </label> In the last 14 days, I have not travelled outside of Canada
-                        or been in contact with
-                        someone who has.
+                    <label>
+                        <input type="checkbox" name="covid2" formControlName="secondOption">
+                    </label> In the last 14 days, I have not travelled outside of Canada
+                    or been in contact with
+                    someone who has.
                     <!-- </div> -->
                 </div>
                 <div class="col-sm-12">
                     <!-- <div class="checkbox"> -->
-                        <label>
-                            <input type="checkbox" name="covid3" formControlName="thirdOption">
-                        </label> I do not have a confirmed case of COVID-19 or had close
-                        contact with a confirmed case
-                        of COVID-19 without wearing appropriate PPE.
+                    <label>
+                        <input type="checkbox" name="covid3" formControlName="thirdOption">
+                    </label> I do not have a confirmed case of COVID-19 or had close
+                    contact with a confirmed case
+                    of COVID-19 without wearing appropriate PPE.
                     <!-- </div> -->
                 </div>
-                <div *ngIf="( f.firstOption.errors) ||(f.secondOption.errors) || (f.thirdOption.errors)">
-                    You Must Choose Option
+                <div class="col-sm-12">
+                    <!-- <div class="checkbox"> -->
+                    <label>
+                        <input type="checkbox" name="covid4" formControlName="fourthOption">
+                    </label>I am not experiencing symptoms such as: redness, itching, swelling, pain, discharge, blurred
+                    vision, vision loss, floaters, flashers
+                    <!-- </div> -->
+                </div>
+                <div
+                    *ngIf="( f.firstOption.errors) ||(f.secondOption.errors) || (f.thirdOption.errors) || (f.fourthOption.errors)">
+                    You Must Choose Option or Call Our Store.
                 </div>
             </form>
         </div>
 
         <div class="col-sm-2">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div style="width: 100%">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2800.532816985996!2d-75.69317238448114!3d45.418759679100376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cce05a9635628f5%3A0x126623ec6dff4430!2sEyemaxx%20Optical%20Studio!5e0!3m2!1sen!2sat!4v1619019877515!5m2!1sen!2sat"
+                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <a target="_blank" class="btn btn-next btn-fill btn-danger btn-wd"
+                href="https://www.google.com/maps/place/Eyemaxx+Optical+Studio/@45.4187597,-75.6931724,17z/data=!3m2!4b1!5s0x4cce05a97c9f1ddf:0xe0b6f9110f255594!4m5!3m4!1s0x4cce05a9635628f5:0x126623ec6dff4430!8m2!3d45.4187597!4d-75.6909837">Get
+                Directions</a>
+        </div>
+        <div class="col-md-4">
+            <h3>Eyemaxx Store Optical Studio</h3>
+            <p>Address: 237 Elgin St Ottawa, ON K2P 1L6
+            </p>
+            <p>Email: staff@eyemaxx.ca</p>
+            <p>Phone: 613.216.6076</p>
         </div>
     </div>
 </div>

@@ -17,7 +17,6 @@ const routes: Routes = [
     path: 'appointment', component: BaseContentComponent,
     children: [
       { path: 'covid19', component: CovidPreScreeningComponent },
-      { path: 'service-type', component: OptimitristOpticianSelectionComponent, canActivate: [AuthGuard] },
       { path: 'appointment-type', component: AppointmentstypesComponent },
       { path: 'date-time', component: AppointmentslutsComponent },
       { path: 'optician-appointment', component: OpticianappointmentComponent },

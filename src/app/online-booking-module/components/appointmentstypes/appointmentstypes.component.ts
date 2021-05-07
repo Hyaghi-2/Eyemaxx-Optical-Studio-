@@ -17,15 +17,13 @@ export class AppointmentstypesComponent implements OnInit {
   Staffs: Doctor[] = [];
   SelectedExam: AppointmentType = new AppointmentType();
   SelectedStaff: Doctor = new Doctor();
-  SelectedExamId: number = -1;
+  SelectedExamId: number = 0;
   DoctorStoreTypeData: DoctorStoreTypeResponse = new DoctorStoreTypeResponse();
   accountsId: number = 1922;
   companyName: string = 'Eyemaxx Optical Studio';
   ExamSelectionValidated!: boolean;
   StaffSelectionValidated!: boolean;
   isOptomitrist: boolean = false;
-  isEdgeDown: boolean = false;
-  isAnyOptomitrist: boolean = false;
   constructor(private serv: BookingModuleService, private steps: StepsManagementService) {
     this.serv.getStoresTypesDoctors(this.accountsId, this.companyName).subscribe(t => {
       this.DoctorStoreTypeData.Initialize(t);
@@ -46,8 +44,6 @@ export class AppointmentstypesComponent implements OnInit {
         this.SelectedExam = s.ExamType;
         this.SelectedStaff = s.Staff;
         this.isOptomitrist = s.isOptomitrist;
-        this.isEdgeDown = s.isEdgeDown;
-        this.isAnyOptomitrist = s.isAnyOptomitrist;
         if (!this.isOptomitrist) {
           this.Staffs = [];
           this.StaffSelectionValidated = true;
@@ -68,19 +64,18 @@ export class AppointmentstypesComponent implements OnInit {
   }
 
   SelectStaff(id: number) {
+    this.steps.clearSteps(2);
     this.StaffSelectionValidated = true;
     if (id > 0) {
       this.SelectedStaff = this.Staffs.filter(x => x.id == id)[0];
     }
     else {
       this.SelectedStaff = new Doctor();
-      this.isAnyOptomitrist = true;
+      this.SelectedStaff.id = -1;
     }
-    this.steps.clearSteps(2);
     if (this.StaffSelectionValidated && this.ExamSelectionValidated) {
       this.steps.currentStep.validated = true;
-      let p: AppointmentTypeData = new AppointmentTypeData(2, 'ExamType', this.SelectedExam,
-        this.SelectedStaff, this.isOptomitrist, this.isEdgeDown, this.isAnyOptomitrist);
+      let p: AppointmentTypeData = new AppointmentTypeData(2, 'ExamType', this.SelectedExam, true, this.SelectedStaff);
       this.steps.stepsData.push(p);
       this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = this.steps.currentStep.validated;
     }
@@ -88,16 +83,20 @@ export class AppointmentstypesComponent implements OnInit {
   }
 
   SelectExam() {
-    this.ExamSelectionValidated = true;
-    this.SelectedExam = this.DoctorStoreTypeData.AppointmentTypes.filter(x => x.id == this.SelectedExamId)[0];
     this.steps.clearSteps(2);
+    this.SelectedExam = this.DoctorStoreTypeData.AppointmentTypes.filter(x => x.id == this.SelectedExamId)[0];
     this.isOptomitrist = this.SelectedExam.name.split(':')[0] != 'Optical' ? true : false;
     if (!this.isOptomitrist) {
-      this.isEdgeDown = this.SelectedExam.name == 'Optical: Edgedown' ? true : false;
       this.Staffs = [];
       this.StaffSelectionValidated = true;
+      this.ExamSelectionValidated = true;
+      this.steps.currentStep.validated = true;
+      let p: AppointmentTypeData = new AppointmentTypeData(2, 'ExamType', this.SelectedExam, false);
+      this.steps.stepsData.push(p);
+      this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = this.steps.currentStep.validated;
     }
     else {
+      this.ExamSelectionValidated = true;
       this.Staffs = this.DoctorStoreTypeData.Doctors.filter(x => x.designation == 'OD');
     }
   }

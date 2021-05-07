@@ -22,15 +22,18 @@ export class StepsManagementService {
 
   clearSteps(id: number) {
     this.Steps.forEach(x => {
-      if (x.order > id) {
+      if (x.order >= id) {
         x.needRefresh = false;
         x.enabled = false;
         x.validated = false;
       }
     });
-    while (this.stepsData.length > id) {
+    while (this.stepsData.length >= id) {
       this.stepsData.pop();
     }
+    console.log(this.Steps);
+    console.log(this.stepsData);
+
   }
 
 

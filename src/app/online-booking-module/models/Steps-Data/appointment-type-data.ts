@@ -6,16 +6,13 @@ export class AppointmentTypeData extends DataParent {
     ExamType!: AppointmentType;
     Staff!: Doctor;
     public isOptomitrist: boolean;
-    public isEdgeDown: boolean;
-    public isAnyOptomitrist: boolean;
-
-    constructor(_order: number, _type: string, _typeId: AppointmentType, _staffid: Doctor,
-        _job: boolean, _isED: boolean, _isAny: boolean) {
+    constructor(_order: number, _type: string, _appType: AppointmentType,
+        _isOptst: boolean, _staff?: Doctor) {
         super(_order, _type);
-        this.ExamType = _typeId;
-        this.Staff = _staffid;
-        this.isOptomitrist = _job;
-        this.isEdgeDown = _isED;
-        this.isAnyOptomitrist = _isAny;
+        this.ExamType = _appType;
+        this.isOptomitrist = _isOptst;
+        if (_staff) {
+            this.Staff = _staff;
+        }
     }
 }

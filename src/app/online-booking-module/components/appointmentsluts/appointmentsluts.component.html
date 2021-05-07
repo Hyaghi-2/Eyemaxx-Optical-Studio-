@@ -8,7 +8,9 @@
             <img src="../../../../assets/img/1.PNG" width="100%" height="100%">
         </div> -->
         <div class="col-sm-5">
-            <p-calendar [(ngModel)]="SelectedDate" [inline]="true" [showWeek]="true" [numberOfMonths]="2" [minDate]="MinDate" [maxDate]="MaxDate">
+            <p-calendar [(ngModel)]="SelectedDate" [inline]="true" [showWeek]="true" [numberOfMonths]="2"
+                [minDate]="MinDate" [maxDate]="MaxDate" [disabledDates]="InvalidDates" (onSelect)="onCallendarSelect()"
+                [required]="true" [disabled]="!CallendarEnabled">
             </p-calendar>
         </div>
         <div class="col-sm-3">
@@ -17,29 +19,9 @@
 
     <div class="row text-center">
         <h4 class="info-text">Select time slot</h4>
-        <div class="col-sm-2">
-            <a class="btn btn-next btn-fill btn-danger btn-wd" href="#">09:00 -
-                09:30</a>
-        </div>
-        <div class="col-sm-2">
-            <a class="btn btn-next btn-fill btn-danger btn-wd" href="#">10:00 -
-                10:30</a>
-        </div>
-        <div class="col-sm-2">
-            <a class="btn btn-next btn-fill btn-danger btn-wd" href="#">11:00 -
-                11:30</a>
-        </div>
-        <div class="col-sm-2">
-            <a class="btn btn-next btn-fill btn-danger btn-wd" href="#">13:30 -
-                14:00</a>
-        </div>
-        <div class="col-sm-2">
-            <a class="btn btn-next btn-fill btn-danger btn-wd" href="#">14:30 -
-                15:00</a>
-        </div>
-        <div class="col-sm-2">
-            <a class="btn btn-next btn-fill btn-danger btn-wd" href="#">15:30 -
-                16:00</a>
+        <div class="col-sm-2" *ngFor="let slot of ActiveSlots" (click)="onSlotSelect(slot)">
+            <a class="btn btn-next btn-fill btn-danger btn-wd">{{formatSlot(slot.start)}} -
+                {{formatSlot(slot.end)}} </a>
         </div>
     </div>
 </div>

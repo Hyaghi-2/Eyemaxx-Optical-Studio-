@@ -56,10 +56,6 @@ export class CovidPreScreeningComponent implements OnInit, AfterViewChecked {
         let p: Covid19Data = new Covid19Data(1, true, true, true, true);
         this.steps.stepsData.push(p);
         this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = this.steps.currentStep.validated;
-        console.log(this.steps.Steps);
-        console.log(this.steps.stepsData);
-        console.log(this.steps.currentStep.validated);
-        console.log(this.CovidPreScrForm.valid);
       }
     });
 

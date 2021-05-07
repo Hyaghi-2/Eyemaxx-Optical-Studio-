@@ -169,15 +169,17 @@ export class BookingModuleService implements HttpInterceptor {
 
   //get available appointments slots based on query strings parameters
   getAvailableAppointmentSluts(accountsId: string, companyName: string,
-    appointmentTypeId: string, doctorId: string) {
-    const params = new HttpParams()
+    appointmentTypeId: string, doctorId?: string) {
+    var params = new HttpParams()
       .set('accountsId', accountsId)
       .set('companyName', companyName)
       .set('storeId', '1')
       .set('appointmentTypeId', appointmentTypeId)
-      .set('doctorId', doctorId)
       .set('storeTimeZone', 'Canada/Eastern')
-      .set('locale', 'en');
+      .set('locale', 'en');;
+    if (doctorId) {
+      params.set('doctorId', doctorId);
+    }
     return this.http.get(this.Url + '/Appointment/list', { params });
   }
 

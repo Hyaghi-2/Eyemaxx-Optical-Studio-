@@ -14,6 +14,62 @@
                         <option *ngFor="let type of DoctorStoreTypeData.AppointmentTypes" value="{{type.id}}">{{
                             type.name }}
                         </option>
+                        <option value='-2'>
+                            Contact Lens Fitting: Multifocal or Monovision
+                        </option>
+                        <option value='-2'>
+                            Contact Lens Fitting: Single Vision
+                        </option>
+                        <option value='-2'>
+                            Contact Lens Teach: Multifocal or Monovision
+                        </option>
+                        <option value='-2'>
+                            Contact Lens Teach: Single Vision
+                        </option>
+                        <option value='-2'>
+                            Forms
+                        </option>
+                        <option value='-2'>
+                            Laser Post-op
+                        </option>
+                        <option value='-2'>
+                            NIHB (Non-Insured Health Benefits)
+                        </option>
+                        <option value='-2'>
+                            No Charge CL Follow Up
+                        </option>
+                        <option value='-2'>
+                            No Charge Rx Check
+                        </option>
+                        <option value='-2'>
+                            Partial Eye Exam
+                        </option>
+                        <option value='-2'>
+                            Retinal Images
+                        </option>
+                        <option value='-2'>
+                            Visual Field
+                        </option>
+                        <option value='-2'>
+                            OHIP: Partial (V408A)
+                        </option>
+                        <option value='-2'>
+                            OHIP: Visual Fields (V410A)
+                        </option>
+                        <option value='-2'>
+                            OHIP: ODSP (V450A)
+                        </option>
+                        <option value='-2'>
+                            OHIP: Ontario Works (V451A)
+                        </option>
+                        <option value='-2'>
+                            Optical: Sales Rep
+                        </option>
+                        <option value='-2'>
+                            Optical: Troubleshooting
+                        </option>
+
+
                         <!-- <option value="1">Full Eye Exam: Non-Contact Lens Wearer
                         </option>
                         <option value="2">Full Eye Exam: Contact Lens Wearer (Previous
@@ -27,13 +83,19 @@
                         <option value="8">Appointment not available for online booking
                         </option> -->
                     </select>
+                    <div *ngIf="ExamErrorMessage">
+                        <mat-error>This type of exam can not be booked online,
+                            Please select another type or call our
+                            store to book an appointment.</mat-error>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-3">
+
             </div>
         </div>
 
-        <div class="col-sm-4">
+        <!-- <div class="col-sm-4">
             <li>Contact Lens Fitting: Multifocal or Monovision</li>
             <li>Contact Lens Fitting: Single Vision</li>
             <li>Contact Lens Teach: Multifocal or Monovision</li>
@@ -59,9 +121,9 @@
             <li>OHIP: Visual Fields (V410A)</li>
             <li>OHIP: ODSP (V450A)</li>
             <li>OHIP: Ontario Works (V451A)</li>
-        </div>
+        </div> -->
 
-        <div class="col-sm-10 col-sm-offset-1">
+        <div class="col-sm-10 col-sm-offset-1" *ngIf="isOptomitrist">
             <h4 class="info-text">Please select an Optometrist / Any Optometrist</h4>
             <div class="col-sm-1">
             </div>
@@ -85,6 +147,9 @@
                     </div>
                     <h6>{{s.firstName}} {{s.lastName}}</h6>
                 </div>
+            </div>
+            <div *ngIf="StaffErrorMessage">
+                <mat-error>The selected staff doesnt have any available appointments.</mat-error>
             </div>
 
         </div>

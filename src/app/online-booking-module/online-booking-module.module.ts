@@ -15,6 +15,7 @@ import { AppointmentsummaryComponent } from './components/appointmentsummary/app
 import { OpticianappointmentComponent } from './components/opticianappointment/opticianappointment.component';
 import { AppointmentconfirmationComponent } from './components/appointmentconfirmation/appointmentconfirmation.component';
 import { CalendarModule } from 'primeng/calendar';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 //assets modules
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -26,7 +27,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     OnlineBookingModuleRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule, CalendarModule
+    FormsModule, CalendarModule, MatFormFieldModule
 
   ],
   providers: [{

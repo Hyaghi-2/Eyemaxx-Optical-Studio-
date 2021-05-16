@@ -19,18 +19,18 @@ export class AppointmentslutsComponent implements OnInit {
   AllAppointments: AppointmentSlotsResponse = new AppointmentSlotsResponse();
   MinDate!: Date;
   MaxDate!: Date;
-  SelectedDate: Date = new Date();
+  SelectedDate!: Date;
   SelectedSlot!: SlotViewModel;
   ActiveDistinctAppointments: AppointmentViewModel[] = [];
   InvalidDates: Date[] = [];
   ActiveSlots: SlotViewModel[] = [];
   DateSelectedValidated!: boolean;
   SlutSelectedValidated!: boolean;
-  CallendarEnabled: boolean = false;
+  CallendarDisabled!: boolean;
   constructor(private serv: BookingModuleService, private steps: StepsManagementService) {
+    this.CallendarDisabled = true;
     let s: AppointmentSlotData = <AppointmentSlotData>this.steps.stepsData.filter(x => x.order == 3)[0];
     let p: AppointmentTypeData = <AppointmentTypeData>this.steps.stepsData.filter(x => x.order == 2)[0];
-    console.log(p);   
 
     if (!s) {
       this.steps.currentStep = new Step(3, 'AppointmentsSlots', false, false, false, 'date-time');
@@ -38,23 +38,23 @@ export class AppointmentslutsComponent implements OnInit {
         this.serv.getAvailableAppointmentSluts(this.accountsId, this.companyName, p.ExamType.id.toString()).subscribe(x => {
           this.AllAppointments.Initialize(x);
           this.MinDate = new Date();
-          this.MaxDate = new Date();
           this.MinDate.setDate(this.AllAppointments.AppointmentSlotsList[0].start.getDate() + 2);
-          this.MaxDate.setDate(this.AllAppointments.AppointmentSlotsList[this.AllAppointments.AppointmentSlotsList.length - 1].start.getDate())
+          this.MaxDate = new Date();
+          this.MaxDate = this.AllAppointments.AppointmentSlotsList[this.AllAppointments.AppointmentSlotsList.length - 1].start;
           this.InitializeAppointmentsSlots();
           this.InitializeInvalidDates();
-          this.CallendarEnabled = true;
+          this.CallendarDisabled = false;
         });
       } else {
         this.serv.getAvailableAppointmentSluts(this.accountsId, this.companyName, p.ExamType.id.toString(), p.Staff.id.toString()).subscribe(x => {
           this.AllAppointments.Initialize(x);
           this.MinDate = new Date();
-          this.MaxDate = new Date();
           this.MinDate.setDate(this.AllAppointments.AppointmentSlotsList[0].start.getDate() + 2);
-          this.MaxDate.setDate(this.AllAppointments.AppointmentSlotsList[this.AllAppointments.AppointmentSlotsList.length - 1].start.getDate())
+          this.MaxDate = new Date();
+          this.MaxDate = this.AllAppointments.AppointmentSlotsList[this.AllAppointments.AppointmentSlotsList.length - 1].start;
           this.InitializeAppointmentsSlots();
           this.InitializeInvalidDates();
-          this.CallendarEnabled = true;
+          this.CallendarDisabled = false;
         });
       }
     }
@@ -64,11 +64,12 @@ export class AppointmentslutsComponent implements OnInit {
       this.SelectedDate = s.SelectedDate;
       this.ActiveDistinctAppointments = s.ActiveDistinctAppointments;
       this.InvalidDates = s.InvalidAppointments;
-      this.CallendarEnabled = s.CallendarEnabled;
+      this.CallendarDisabled = s.CallendarDisabled;
     }
   }
 
   ngOnInit(): void {
+
 
   }
 
@@ -117,6 +118,8 @@ export class AppointmentslutsComponent implements OnInit {
   }
 
   onCallendarSelect() {
+    console.log(this.SelectedDate);
+
     this.DateSelectedValidated = true;
     this.steps.clearSteps(3);
     this.ActiveDistinctAppointments.forEach(x => {
@@ -137,7 +140,7 @@ export class AppointmentslutsComponent implements OnInit {
     this.SelectedSlot = new SlotViewModel(slot.id, slot.start, slot.end);
     if (this.SlutSelectedValidated && this.DateSelectedValidated) {
       this.steps.currentStep.validated = true;
-      let s: AppointmentSlotData = new AppointmentSlotData(3, 'AppointmentsSlots', this.CallendarEnabled, this.SelectedDate, this.MinDate, this.MaxDate, this.ActiveDistinctAppointments, this.InvalidDates, this.SelectedSlot);
+      let s: AppointmentSlotData = new AppointmentSlotData(3, 'AppointmentsSlots', this.CallendarDisabled, this.SelectedDate, this.MinDate, this.MaxDate, this.ActiveDistinctAppointments, this.InvalidDates, this.SelectedSlot);
       this.steps.stepsData.push(s);
       this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = this.steps.currentStep.validated;
     }

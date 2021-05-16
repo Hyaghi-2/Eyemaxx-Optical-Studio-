@@ -3,7 +3,7 @@ import { DataParent } from "./data-parent";
 import { SlotViewModel } from "./slot-view-model";
 
 export class AppointmentSlotData extends DataParent {
-    public CallendarEnabled: boolean;
+    public CallendarDisabled: boolean;
     public SelectedDate: Date;
     public MinDate: Date;
     public MaxDate: Date;
@@ -15,7 +15,7 @@ export class AppointmentSlotData extends DataParent {
     constructor(_order: number, _type: string, _ce: boolean, _sd: Date, _min: Date, _max: Date, _dis: AppointmentViewModel[]
         , _invalid: Date[], _slot: SlotViewModel) {
         super(_order, _type);
-        this.CallendarEnabled = _ce;
+        this.CallendarDisabled = _ce;
         this.SelectedDate = _sd;
         this.MinDate = _min;
         this.MaxDate = _max;

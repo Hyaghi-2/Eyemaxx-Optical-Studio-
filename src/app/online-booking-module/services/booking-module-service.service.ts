@@ -152,13 +152,14 @@ export class BookingModuleService implements HttpInterceptor {
 
   //get patient list related to a patient email
   getPatientList(email: string) {
-    return this.http.get(this.Url + '/Patient/list?email=' + email);
+    const params = new HttpParams().set('email', email).set('match', 'all');
+    return this.http.get(this.Url + '/Patient/list', { params });
   }
 
 
   //get patient info by his ID
-  getPatientById(id: number) {
-    return this.http.get(this.Url + '/Patient/patient-' + id);
+  getPatientById(id: string) {
+    return this.http.get(this.Url + '/Patient/' + id);
   }
 
   //get stores doctors and appointments
@@ -201,7 +202,7 @@ export class BookingModuleService implements HttpInterceptor {
 
   //update patient profile
   updatePatientProfile(body: UpdateBody) {
-    this.http.put(this.Url + '/Patient', body);
+    return this.http.put(this.Url + '/Patient', body);
   }
 
   // error handler 

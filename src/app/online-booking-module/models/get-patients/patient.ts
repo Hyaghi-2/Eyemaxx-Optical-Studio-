@@ -1,4 +1,4 @@
-export class Patient {
+export class SinglePatient {
     public firstName!: string;
     public lastName!: string;
     public birthdate!: string;

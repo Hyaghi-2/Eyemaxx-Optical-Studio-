@@ -13,6 +13,9 @@ export class AppointmentTypeData extends DataParent {
         this.isOptomitrist = _isOptst;
         if (_staff) {
             this.Staff = _staff;
+        } else {
+            this.Staff = new Doctor();
+            this.Staff.id = -1;
         }
     }
 }

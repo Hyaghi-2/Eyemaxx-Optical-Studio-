@@ -1,4 +1,5 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
+import { AppointmentSlotsResponse } from '../../models/get-appointments-slots/appointment-slots-response';
 import { AppointmentType } from '../../models/get-stores-types-doctors/appointment-type';
 import { Doctor } from '../../models/get-stores-types-doctors/doctor';
 import { DoctorStoreTypeResponse } from '../../models/get-stores-types-doctors/doctor-store-type-response';
@@ -14,6 +15,7 @@ import { StepsManagementService } from '../../services/steps-management.service'
   styleUrls: ['./appointmentstypes.component.css']
 })
 export class AppointmentstypesComponent implements OnInit {
+
   Staffs: Doctor[] = [];
   SelectedExam: AppointmentType = new AppointmentType();
   SelectedStaff: Doctor = new Doctor();
@@ -24,10 +26,16 @@ export class AppointmentstypesComponent implements OnInit {
   ExamSelectionValidated!: boolean;
   StaffSelectionValidated!: boolean;
   isOptomitrist: boolean = false;
+  StaffErrorMessage: boolean = false;
+  ExamErrorMessage: boolean = false;
   constructor(private serv: BookingModuleService, private steps: StepsManagementService) {
     this.serv.getStoresTypesDoctors(this.accountsId, this.companyName).subscribe(t => {
       this.DoctorStoreTypeData.Initialize(t);
+      console.log(this.DoctorStoreTypeData);
+
       let s: AppointmentTypeData = <AppointmentTypeData>this.steps.stepsData.filter(x => x.order == 2)[0];
+      console.log();
+
       if (!s) {
         this.steps.currentStep = new Step(2, 'ExamType', false, true, false, 'appointment-type');
         this.ExamSelectionValidated = false;
@@ -74,31 +82,77 @@ export class AppointmentstypesComponent implements OnInit {
       this.SelectedStaff.id = -1;
     }
     if (this.StaffSelectionValidated && this.ExamSelectionValidated) {
-      this.steps.currentStep.validated = true;
-      let p: AppointmentTypeData = new AppointmentTypeData(2, 'ExamType', this.SelectedExam, true, this.SelectedStaff);
-      this.steps.stepsData.push(p);
-      this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = this.steps.currentStep.validated;
+      if (this.SelectedStaff.id != -1) {
+        let AllAppointments: AppointmentSlotsResponse = new AppointmentSlotsResponse();
+        this.serv.getAvailableAppointmentSluts(this.accountsId.toString(), this.companyName, this.SelectedExam.id.toString(), this.SelectedStaff.id.toString())
+          .subscribe(x => {
+            AllAppointments.Initialize(x);
+            if (AllAppointments.AppointmentSlotsList.length > 0) {
+              this.StaffErrorMessage = false;
+              this.ExamErrorMessage = false;
+              this.steps.currentStep.validated = true;
+              let index = this.steps.Steps.findIndex(x => x.order == this.steps.currentStep.order);
+              this.steps.Steps[index].validated = true;
+              let p: AppointmentTypeData = new AppointmentTypeData(2, 'ExamType', this.SelectedExam, true, this.SelectedStaff);
+              this.steps.stepsData.push(p);
+              this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = this.steps.currentStep.validated;
+            }
+            else {
+              this.StaffErrorMessage = true;
+            }
+          });
+      } else {
+        this.StaffErrorMessage = false;
+        this.ExamErrorMessage = false;
+        this.steps.currentStep.validated = true;
+        let index = this.steps.Steps.findIndex(x => x.order == this.steps.currentStep.order);
+        this.steps.Steps[index].validated = true;
+        let p: AppointmentTypeData = new AppointmentTypeData(2, 'ExamType', this.SelectedExam, true, this.SelectedStaff);
+        this.steps.stepsData.push(p);
+        this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = this.steps.currentStep.validated;
+      }
+
+
+
     }
 
   }
 
   SelectExam() {
     this.steps.clearSteps(2);
-    this.SelectedExam = this.DoctorStoreTypeData.AppointmentTypes.filter(x => x.id == this.SelectedExamId)[0];
-    this.isOptomitrist = this.SelectedExam.name.split(':')[0] != 'Optical' ? true : false;
-    if (!this.isOptomitrist) {
-      this.Staffs = [];
-      this.StaffSelectionValidated = true;
-      this.ExamSelectionValidated = true;
-      this.steps.currentStep.validated = true;
-      let p: AppointmentTypeData = new AppointmentTypeData(2, 'ExamType', this.SelectedExam, false);
-      this.steps.stepsData.push(p);
-      this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = this.steps.currentStep.validated;
+    if (this.SelectedExamId != -2) {
+      this.ExamErrorMessage = false;
+      this.StaffErrorMessage = false;
+      this.SelectedExam = this.DoctorStoreTypeData.AppointmentTypes.filter(x => x.id == this.SelectedExamId)[0];
+      console.log(this.SelectedExam);
+
+      this.isOptomitrist = this.SelectedExam.name.split(':')[0] != 'Optical' ? true : false;
+      if (!this.isOptomitrist) {
+        this.Staffs = [];
+        this.StaffSelectionValidated = true;
+        this.ExamSelectionValidated = true;
+        this.steps.currentStep.validated = true;
+        let index = this.steps.Steps.findIndex(x => x.order == this.steps.currentStep.order);
+        this.steps.Steps[index].validated = true;
+        let p: AppointmentTypeData = new AppointmentTypeData(2, 'ExamType', this.SelectedExam, false);
+        this.steps.stepsData.push(p);
+        this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = this.steps.currentStep.validated;
+      }
+      else {
+        this.ExamSelectionValidated = true;
+        this.Staffs = this.DoctorStoreTypeData.Doctors.filter(x => x.designation == 'OD');
+      }
     }
     else {
-      this.ExamSelectionValidated = true;
-      this.Staffs = this.DoctorStoreTypeData.Doctors.filter(x => x.designation == 'OD');
+      this.ExamErrorMessage = true;
+      this.StaffErrorMessage = false;
+      this.Staffs = [];
+      this.SelectedExamId = -20;
+      this.SelectedStaff = new Doctor();
+      this.isOptomitrist = false;
+
     }
+
   }
 
 }

@@ -1,14 +1,14 @@
 export class Patient {
     public lastName!: string
     public country!: string
-    public gender!: number
-    public streetNumber!: number
+    public gender!: string
+    public streetNumber!: string
     public city!: string
     public postalCode!: string
     public dateOfBirth!: string
     public cell!: string
     public version!: string
-    public countryId!: number
+    public countryId!: string
     public medicalCard!: string
     public firstName!: string
     public languagePreference!: string
@@ -17,7 +17,7 @@ export class Patient {
     public province!: string
     public phone!: string
     public medicalCardVersion!: string
-    public id!: number
+    public id!: string
     public email!: string
     public medicalCardExp!: string
 

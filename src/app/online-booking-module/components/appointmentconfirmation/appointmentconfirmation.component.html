@@ -2,9 +2,13 @@
     <div class="row">
         <h4 class="info-text">Confirmation</h4>
         <h4 class="info-text">Please enter your email to confirm your appointment</h4>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
+            <mat-error *ngIf="UserNotFound">The selected entered email does not exists, try to create new account.
+            </mat-error>
+        </div>
+        <!-- <div class="col-sm-6">
             <div class="input-group">
                 <span class="input-group-addon">
                     <i class="material-icons">email</i>
@@ -14,31 +18,24 @@
                     <input name="email" type="text" class="form-control">
                 </div>
             </div>
-        </div>
-        <div class="col-sm-3">
+        </div> -->
+        <div class="col-sm-4">
         </div>
     </div>
     <div class="row">
         <div class="col-sm-10 col-sm-offset-1">
-            <div class="col-sm-4">
-                <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="User 1">
+            <div class="col-sm-4" *ngFor="let p of UsersList.patientList" (click)="SelectUser(p)">
+                <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="{{p.firstName}} {{p.lastName}}"
+                    [class.active]="SelectedUser.id === p.id">
                     <input type="radio" name="job" value="Design">
                     <div class="icon">
                         <i class="material-icons">person</i>
                     </div>
-                    <h6>User 2</h6>
+                    <h6>{{p.firstName}} {{p.lastName}}</h6>
                 </div>
             </div>
-            <div class="col-sm-4">
-                <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="User 2">
-                    <input type="radio" name="job" value="Code">
-                    <div class="icon">
-                        <i class="material-icons">person</i>
-                    </div>
-                    <h6>User 2</h6>
-                </div>
-            </div>
-            <div class="col-sm-4">
+
+            <div class="col-sm-4" (click)="showPatientFormToAdd()">
                 <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="New User">
                     <input type="radio" name="job" value="Code">
                     <div class="icon">
@@ -47,6 +44,216 @@
                     <h6>New User</h6>
                 </div>
             </div>
+
         </div>
+
+    </div>
+    <div class="row">
+        <button type="button" (click)="ShowPatientFormToEdit()" class="btn btn-secondary"
+            *ngIf="SelectedUser.id!='-1'">Edit
+            Current User</button>
+    </div>
+    <div class="row">
+        <form [formGroup]="newPatientForm" (ngSubmit)="onNewPatientFormSubmit($event)" *ngIf="newPatientFormEnabled">
+            <div class="col-md-12" id="optician-contact-form">
+                <!-- col1 -->
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">face</i>
+                        </span>
+                        <div class="form-group label-floating">
+                            <label class="control-label">First Name
+                                <small>(required)</small></label>
+                            <input name="firstname" type="text" class="form-control" formControlName="firstName">
+                        </div>
+                        <div *ngIf="newPatientFormSubmitted && f.firstName.errors">
+                            <mat-error *ngIf="f.firstName.errors?.required">First Name is required</mat-error>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">location_city</i>
+                        </span>
+                        <div class="form-group label-floating">
+                            <label class="control-label">Province
+                                <small>(required)</small></label>
+                            <input name="province" type="text" class="form-control" formControlName="province">
+                        </div>
+                        <div *ngIf="newPatientFormSubmitted && f.province.errors">
+                            <mat-error *ngIf="f.province.errors?.required">Province is required</mat-error>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">tag</i>
+                        </span>
+                        <div class="form-group label-floating">
+                            <label class="control-label">Unit Number
+                                <small>(required)</small></label>
+                            <input name="unit" type="text" class="form-control" formControlName="unit">
+                        </div>
+                        <div *ngIf="newPatientFormSubmitted && f.unit.errors">
+                            <mat-error *ngIf="f.unit.errors?.required">Unit Number is required</mat-error>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">smartphone</i>
+                        </span>
+                        <div class="form-group label-floating">
+                            <label class="control-label">Cell Phone
+                                <small>(required)</small></label>
+                            <input name="cell" type="text" class="form-control" formControlName="cell">
+                        </div>
+                        <div *ngIf="newPatientFormSubmitted && f.cell.errors">
+                            <mat-error *ngIf="f.cell.errors?.required">Cell Phone is required</mat-error>
+                            <mat-error *ngIf="f.cell.errors?.pattern">Invalid Cell Phone format</mat-error>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">business</i>
+                        </span>
+                        <div class="form-group label-floating">
+                            <label class="control-label">Health Card & Expiry<small>(if
+                                    applicable for glasses shopping)</small></label>
+                            <input name="medicalCardExp" type="text" class="form-control"
+                                formControlName="medicalCardExp">
+                        </div>
+                        <div *ngIf="newPatientFormSubmitted && f.medicalCardExp.errors">
+                            <mat-error *ngIf="f.medicalCardExp.errors?.required">Health Card & Expiry is required
+                            </mat-error>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- col2 -->
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">record_voice_over</i>
+                        </span>
+                        <div class="form-group label-floating">
+                            <label class="control-label">Last Name
+                                <small>(required)</small></label>
+                            <input name="lastName" type="text" class="form-control" formControlName="lastName">
+                        </div>
+                        <div *ngIf="newPatientFormSubmitted && f.lastName.errors">
+                            <mat-error *ngIf="f.lastName.errors?.required">Last Name is required</mat-error>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">edit_road</i>
+                        </span>
+                        <div class="form-group label-floating">
+                            <label class="control-label">Street Name
+                                <small>(required)</small></label>
+                            <input name="streetName" type="text" class="form-control" formControlName="streetName">
+                        </div>
+                        <div *ngIf="newPatientFormSubmitted && f.streetName.errors">
+                            <mat-error *ngIf="f.streetName.errors?.required">Street Name is required</mat-error>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">plus_one</i>
+                        </span>
+                        <div class="form-group label-floating">
+                            <label class="control-label">Postal Code
+                                <small>(required)</small></label>
+                            <input name="postalCode" type="text" class="form-control" formControlName="postalCode">
+                        </div>
+                        <div *ngIf="newPatientFormSubmitted && f.postalCode.errors">
+                            <mat-error *ngIf="f.postalCode.errors?.required">Postal Code is required</mat-error>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">plus_one</i>
+                        </span>
+                        <div class="form-group label-floating">
+                            <label class="control-label">Date of Birth
+                                <small>(required)</small></label>
+                            <input name="dateOfBirth" type="date" class="form-control" formControlName="dateOfBirth">
+                        </div>
+                        <div *ngIf="newPatientFormSubmitted && f.dateOfBirth.errors">
+                            <mat-error *ngIf="f.dateOfBirth.errors?.required">Date of Birth is required</mat-error>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- col3 -->
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">location_city</i>
+                        </span>
+                        <div class="form-group label-floating">
+                            <label class="control-label">City
+                                <small>(required)</small></label>
+                            <input name="city" type="text" class="form-control" formControlName="city">
+                        </div>
+                        <div *ngIf="newPatientFormSubmitted && f.city.errors">
+                            <mat-error *ngIf="f.city.errors?.required">City is required</mat-error>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">looks_one</i>
+                        </span>
+                        <div class="form-group label-floating">
+                            <label class="control-label">Street Number
+                                <small>(required)</small></label>
+                            <input name="streetNumber" type="text" class="form-control" formControlName="streetNumber">
+                        </div>
+                        <div *ngIf="newPatientFormSubmitted && f.streetNumber.errors">
+                            <mat-error *ngIf="f.streetNumber.errors?.required">Street Number is required</mat-error>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">email</i>
+                        </span>
+                        <div class="form-group label-floating">
+                            <label class="control-label">Email
+                                <small>(required)</small></label>
+                            <input name="email" type="text" class="form-control" formControlName="email">
+                        </div>
+                        <div *ngIf="newPatientFormSubmitted && f.email.errors">
+                            <mat-error *ngIf="f.email.errors?.required">Email is required</mat-error>
+                            <mat-error *ngIf="f.email.errors?.email">Invalid E-mail format</mat-error>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">business</i>
+                        </span>
+                        <div class="form-group label-floating">
+                            <label class="control-label">Insurance Company <small>(if
+                                    applicable for glasses shopping)</small></label>
+                            <input name="medicalCard" type="text" class="form-control" formControlName="medicalCard">
+                        </div>
+                        <div *ngIf="newPatientFormSubmitted && f.medicalCard.errors">
+                            <mat-error *ngIf="f.medicalCard.errors?.required">Insurance Company is required</mat-error>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div>
+                        <button type="submit" class="btn btn-primary">submit</button>
+                        <button type="button" (click)="resetNewPatientFrom()" class="btn btn-secondary">reset</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
     </div>
 </div>

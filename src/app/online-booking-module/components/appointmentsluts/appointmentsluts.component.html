@@ -9,8 +9,8 @@
         </div> -->
         <div class="col-sm-5">
             <p-calendar [(ngModel)]="SelectedDate" [inline]="true" [showWeek]="true" [numberOfMonths]="2"
-                [minDate]="MinDate" [maxDate]="MaxDate" [disabledDates]="InvalidDates" (onSelect)="onCallendarSelect()"
-                [required]="true" [disabled]="!CallendarEnabled">
+                (onSelect)="onCallendarSelect()" [minDate]="MinDate" [maxDate]="MaxDate" [disabledDates]="InvalidDates"
+                >
             </p-calendar>
         </div>
         <div class="col-sm-3">

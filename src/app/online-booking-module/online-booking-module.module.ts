@@ -15,14 +15,9 @@ import { AppointmentsummaryComponent } from './components/appointmentsummary/app
 import { OpticianappointmentComponent } from './components/opticianappointment/opticianappointment.component';
 import { AppointmentconfirmationComponent } from './components/appointmentconfirmation/appointmentconfirmation.component';
 import { CalendarModule } from 'primeng/calendar';
-<<<<<<< Updated upstream
 import { MatFormFieldModule } from '@angular/material/form-field';
-
-=======
->>>>>>> Stashed changes
 //assets modules
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatFormFieldModule} from '@angular/material/form-field';
 @NgModule({
   declarations: [BaseContentComponent, ErrormessageComponent, PagenotfoundComponent, CovidPreScreeningComponent, OptimitristOpticianSelectionComponent, AppointmentstypesComponent, AppointmentslutsComponent, AppointmentsummaryComponent, OpticianappointmentComponent, AppointmentconfirmationComponent],
   imports: [
@@ -30,13 +25,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     OnlineBookingModuleRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-<<<<<<< Updated upstream
-    FormsModule, CalendarModule, MatFormFieldModule
 
-=======
     FormsModule, CalendarModule,
     MatFormFieldModule
->>>>>>> Stashed changes
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

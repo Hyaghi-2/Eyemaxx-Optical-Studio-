@@ -29,22 +29,23 @@ export class AppointmentstypesComponent implements OnInit {
   StaffErrorMessage: boolean = false;
   ExamErrorMessage: boolean = false;
   constructor(private serv: BookingModuleService, private steps: StepsManagementService) {
-    this.serv.getStoresTypesDoctors(this.accountsId, this.companyName).subscribe(t => {
-      this.DoctorStoreTypeData.Initialize(t);
-      console.log(this.DoctorStoreTypeData);
-
-      let s: AppointmentTypeData = <AppointmentTypeData>this.steps.stepsData.filter(x => x.order == 2)[0];
-      console.log();
-
-      if (!s) {
-        this.steps.currentStep = new Step(2, 'ExamType', false, true, false, 'appointment-type');
-        this.ExamSelectionValidated = false;
-        this.StaffSelectionValidated = false;
-        this.SelectedExam = new AppointmentType();
-        this.SelectedStaff = new Doctor();
-        this.SelectedStaff.id = -1;
-      }
-      else {
+    //checking if the user visit this step before
+    let s: AppointmentTypeData = <AppointmentTypeData>this.steps.stepsData.filter(x => x.order == 2)[0];
+    //check if the first time
+    if (!s) {
+      this.steps.currentStep = new Step(2, 'ExamType', false, true, false, 'appointment-type');
+      this.ExamSelectionValidated = false;
+      this.StaffSelectionValidated = false;
+      this.SelectedExam = new AppointmentType();
+      this.SelectedStaff = new Doctor();
+      this.SelectedStaff.id = -1;
+      this.serv.getStoresTypesDoctors(this.accountsId, this.companyName).subscribe(t => {
+        this.DoctorStoreTypeData.Initialize(t);
+      });
+    }
+    else {
+      this.serv.getStoresTypesDoctors(this.accountsId, this.companyName).subscribe(t => {
+        this.DoctorStoreTypeData.Initialize(t);
         this.steps.currentStep = new Step(2, 'ExamType', false, true, true, 'appointment-type');
         this.ExamSelectionValidated = true;
         this.StaffSelectionValidated = true;
@@ -59,15 +60,12 @@ export class AppointmentstypesComponent implements OnInit {
         else {
           this.Staffs = this.DoctorStoreTypeData.Doctors.filter(x => x.designation == 'OD');
         }
-      }
-    });
-
-
+      });
+    }
   }
 
 
   ngOnInit(): void {
-
 
   }
 

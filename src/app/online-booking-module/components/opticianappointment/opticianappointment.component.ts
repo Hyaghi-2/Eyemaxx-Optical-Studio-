@@ -20,11 +20,13 @@ export class OpticianappointmentComponent implements OnInit {
   isOpticianFormEnabled: boolean = false;
   constructor(private FormBuilder: FormBuilder, public steps: StepsManagementService) {
     let s: AppointmentTypeData = <AppointmentTypeData>this.steps.stepsData.filter(x => x.order == 2)[0];
+    console.log(s);
+
     this.isOptitian = s.isOptomitrist ? false : true;
     let s2: OpticianAppointmentData = <OpticianAppointmentData>this.steps.stepsData.filter(x => x.order == 4)[0];
     if (!s2) {
       this.EmailForm = this.FormBuilder.group({
-        Email: ['', Validators.compose([Validators.required, Validators.email])]
+        Op_email: ['', Validators.compose([Validators.required, Validators.email])]
       });
       this.OpticianForm = this.FormBuilder.group({
         firstname: ['', Validators.compose([Validators.required])],
@@ -50,7 +52,7 @@ export class OpticianappointmentComponent implements OnInit {
     } else {
 
       this.EmailForm = this.FormBuilder.group({
-        Email: [s2.Email, Validators.compose([Validators.required, Validators.email])]
+        Op_email: [s2.Email, Validators.compose([Validators.required, Validators.email])]
       });
       this.OpticianForm = this.FormBuilder.group({
         firstname: ['', Validators.compose([Validators.required])],
@@ -77,12 +79,16 @@ export class OpticianappointmentComponent implements OnInit {
   get f() {
     return this.OpticianForm.controls;
   }
-  ngOnInit(): void {
 
+  get fE() {
+    return this.EmailForm.controls;
+  }
+
+  ngOnInit(): void {
+    this.onEmailFormChanges();
   }
 
   ngAfterViewChecked(): void {
-    this.onEmailFormChanges();
   }
 
   onOpticianFormSubmit(event: any) {
@@ -91,18 +97,18 @@ export class OpticianappointmentComponent implements OnInit {
       event.preventDefault();
       return;
     }
-      //this.hideorshow = true;
-      let p: OptitianContactData = new OptitianContactData();
-      p = Object.assign(this.OpticianForm.value);
-      let p2: OpticianAppointmentData = new OpticianAppointmentData(4, 'OpticianAppointment', this.EmailForm.get('email')?.value);
-      this.steps.stepsData.push(p2);
-       //pass  p to send  email api
-       //inside subscribe body
-       let index: number = this.steps.Steps.findIndex(x => x.order == 4);
-       this.steps.Steps[index].enabled = true;
-       this.steps.Steps[index].validated = true;
-       index = this.steps.Steps.findIndex(x => x.order == this.steps.currentStep.order + 1);
-       this.steps.Steps[index].enabled = true;
+    //this.hideorshow = true;
+    let p: OptitianContactData = new OptitianContactData();
+    p = Object.assign(this.OpticianForm.value);
+    let p2: OpticianAppointmentData = new OpticianAppointmentData(4, 'OpticianAppointment', this.OpticianForm.get('email')?.value);
+    this.steps.stepsData.push(p2);
+    //pass  p to send  email api
+    //inside subscribe body
+    let index: number = this.steps.Steps.findIndex(x => x.order == 4);
+    this.steps.Steps[index].enabled = true;
+    this.steps.Steps[index].validated = true;
+    index = this.steps.Steps.findIndex(x => x.order == this.steps.currentStep.order + 1);
+    this.steps.Steps[index].enabled = true;
 
 
   }
@@ -121,7 +127,5 @@ export class OpticianappointmentComponent implements OnInit {
       }
     });
   }
-  onCovidPreScrFormChanges() {
 
-  }
 }

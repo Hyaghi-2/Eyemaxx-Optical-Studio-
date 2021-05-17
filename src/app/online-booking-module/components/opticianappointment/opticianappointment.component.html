@@ -1,27 +1,31 @@
 <!-- <div class="tab-pane" id="optician-appointment"> -->
-    <div class="row">
-        <h4 class="info-text">Do you want to book an appointment for in-store shopping,
-            repairs or pick-up?</h4>
-        <div   class="col-sm-12" *ngIf="isOptitian">
-            <div [(ngModel)]="isOpticianFormEnabled"   class="checkbox">
-                <label>
-                    <input [(ngModel)]="isOptitian" type="checkbox" name="chk-optician" id="chk-optician ">
-                </label> Yes I would like to book an appointment with an Optician
+<div class="row">
+    <h4 class="info-text">Do you want to book an appointment for in-store shopping,
+        repairs or pick-up?</h4>
+     
+    <div class="col-sm-12" *ngIf="!isOptitian">
+        <!-- <div class="checkbox"> -->
+        <label>
+            <input type="checkbox" name="covid1" [(ngModel)]="isOpticianFormEnabled">
+        </label> Yes I would like to book an
+        appointment with an Optician
+        <!-- </div> -->
+    </div>
+
+    <div class="col-sm-4"></div>
+    <form [formGroup]="EmailForm" *ngIf="isOptitian">
+        <div class="col-sm-4">
+            <div class="form-group label-floating">
+                <label class="control-label">Email
+                    <small>(required)</small></label>
+                <input name="email" type="text" class="form-control" formControlName="Op_email">
+                <mat-error *ngIf="fE.Op_email.errors?.required">Email is required</mat-error>
+                <mat-error *ngIf="fE.Op_email.errors?.email">Email Format is incorrect</mat-error>
             </div>
         </div>
-        <form [formGroup]="EmailForm"  *ngIf="!isOptitian">
-          <div   class="col-sm-4">
-            <div class="form-group label-floating">
-              <label class="control-label">Email
-                  <small>(required)</small></label>
-              <input name="email" type="text" class="form-control" formControlName="email">
-                <mat-error *ngIf="f.email.errors?.required">Email  is required</mat-error>
-                <mat-error *ngIf="f.email.errors?.email">Email Format is incorrect</mat-error>
-          </div>
-        </div>
-      </form>
-        <form [formGroup]="OpticianForm" (ngSubmit)="onOpticianFormSubmit($event)" *ngIf="isOpticianFormEnabled">
-        <div class="col-md-12" id="optician-contact-form" name="optician-contact-form"  >
+    </form>
+    <form [formGroup]="OpticianForm" (ngSubmit)="onOpticianFormSubmit($event)" *ngIf="isOpticianFormEnabled">
+        <div class="col-md-12" id="optician-contact-form" name="optician-contact-form">
             <div class="col-sm-4">
                 <div class="input-group">
                     <span class="input-group-addon">
@@ -31,11 +35,11 @@
                         <label class="control-label">First Name
                             <small>(required)</small></label>
                         <input name="firstname" type="text" class="form-control" formControlName="firstname">
-                          <mat-error *ngIf="f.firstname.errors?.required">first Name is required</mat-error>
+                        <mat-error *ngIf="f.firstname.errors?.required">first Name is required</mat-error>
                     </div>
                 </div>
 
-                 <div class="input-group">
+                <div class="input-group">
                     <span class="input-group-addon">
                         <i class="material-icons">record_voice_over</i>
                     </span>
@@ -43,10 +47,10 @@
                         <label class="control-label">Last Name
                             <small>(required)</small></label>
                         <input name="lastname" type="text" class="form-control" formControlName="lastname">
-                          <mat-error *ngIf="f.lastname.errors?.required">last Name is required</mat-error>
+                        <mat-error *ngIf="f.lastname.errors?.required">last Name is required</mat-error>
                     </div>
                 </div>
-               <div class="input-group">
+                <div class="input-group">
                     <span class="input-group-addon">
                         <i class="material-icons">looks_one</i>
                     </span>
@@ -55,8 +59,9 @@
                             <small>(required)</small></label>
                         <input name="streetnumber" type="text" class="form-control" formControlName="streetnumber">
                         <div *ngIf="submitted && f.streetnumber.errors">
-                          <mat-error *ngIf="f.streetnumber.errors?.required">street number Name is required</mat-error>
-                      </div>
+                            <mat-error *ngIf="f.streetnumber.errors?.required">street number Name is required
+                            </mat-error>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -69,7 +74,7 @@
                         <label class="control-label">Unit Number
                             <small>(required)</small></label>
                         <input name="unitnumber" type="text" class="form-control" formControlName="unitnumber">
-                          <mat-error *ngIf="f.unitnumber.errors?.required">unit number Name is required</mat-error>
+                        <mat-error *ngIf="f.unitnumber.errors?.required">unit number Name is required</mat-error>
                     </div>
                 </div>
 
@@ -81,7 +86,7 @@
                         <label class="control-label">Street Name
                             <small>(required)</small></label>
                         <input name="streetname" type="text" class="form-control" formControlName="streetname">
-                          <mat-error *ngIf="f.streetname.errors?.required">street  Name is required</mat-error>
+                        <mat-error *ngIf="f.streetname.errors?.required">street Name is required</mat-error>
                     </div>
                 </div>
                 <div class="input-group">
@@ -92,7 +97,7 @@
                         <label class="control-label">City
                             <small>(required)</small></label>
                         <input name="city" type="text" class="form-control" formControlName="city">
-                          <mat-error *ngIf="f.city.errors?.required">city Name is required</mat-error>
+                        <mat-error *ngIf="f.city.errors?.required">city Name is required</mat-error>
                     </div>
                 </div>
             </div>
@@ -105,7 +110,7 @@
                         <label class="control-label">Province
                             <small>(required)</small></label>
                         <input name="province" type="text" class="form-control" formControlName="province">
-                          <mat-error *ngIf="f.province.errors?.required">province Name is required</mat-error>
+                        <mat-error *ngIf="f.province.errors?.required">province Name is required</mat-error>
                     </div>
                 </div>
 
@@ -117,7 +122,7 @@
                         <label class="control-label">Postal Code
                             <small>(required)</small></label>
                         <input name="postalcode" type="text" class="form-control" formControlName="postalcode">
-                          <mat-error *ngIf="f.postalcode.errors?.required">postalcode  is required</mat-error>
+                        <mat-error *ngIf="f.postalcode.errors?.required">postalcode is required</mat-error>
                     </div>
                 </div>
                 <div class="input-group">
@@ -128,9 +133,10 @@
                         <label class="control-label">Cell Phone
                             <small>(required)</small></label>
                         <input name="cellphone" type="text" class="form-control" formControlName="cellphone">
-                          <mat-error *ngIf="f.cellphone.errors?.required">firstname Name is required</mat-error>
-                          <mat-error *ngIf="f.cellphone.errors?.minLength">Cell phone doesn't match the required length</mat-error>
-                          <mat-error *ngIf="f.cellphone.errors?.pattern">Cell phone doesn't match the pattern</mat-error>
+                        <mat-error *ngIf="f.cellphone.errors?.required">firstname Name is required</mat-error>
+                        <mat-error *ngIf="f.cellphone.errors?.minLength">Cell phone doesn't match the required length
+                        </mat-error>
+                        <mat-error *ngIf="f.cellphone.errors?.pattern">Cell phone doesn't match the pattern</mat-error>
                     </div>
                 </div>
             </div>
@@ -143,8 +149,8 @@
                         <label class="control-label">Email
                             <small>(required)</small></label>
                         <input name="email" type="text" class="form-control" formControlName="email">
-                          <mat-error *ngIf="f.email.errors?.required">Email  is required</mat-error>
-                          <mat-error *ngIf="f.email.errors?.email">Email Format is incorrect</mat-error>
+                        <mat-error *ngIf="f.email.errors?.required">Email is required</mat-error>
+                        <mat-error *ngIf="f.email.errors?.email">Email Format is incorrect</mat-error>
                     </div>
                 </div>
 
@@ -155,12 +161,14 @@
                     <div class="form-group label-floating">
                         <label class="control-label">Insurance Company <small>(if
                                 applicable for glasses shopping)</small></label>
-                        <input name="insurancecompany" type="text" class="form-control" formControlName="insurancecompany">
-                          <mat-error *ngIf="f.insurancecompany.errors?.required">insurance company Name is required</mat-error>
+                        <input name="insurancecompany" type="text" class="form-control"
+                            formControlName="insurancecompany">
+                        <mat-error *ngIf="f.insurancecompany.errors?.required">insurance company Name is required
+                        </mat-error>
                     </div>
                 </div>
             </div>
         </div>
-      </form>
-    </div>
+    </form>
+</div>
 <!-- </div> -->

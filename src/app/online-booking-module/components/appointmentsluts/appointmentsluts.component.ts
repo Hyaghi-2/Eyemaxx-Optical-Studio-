@@ -27,8 +27,10 @@ export class AppointmentslutsComponent implements OnInit {
   DateSelectedValidated!: boolean;
   SlutSelectedValidated!: boolean;
   CallendarDisabled!: boolean;
+  isLoadingSpinnerEnabled!: boolean;
   constructor(private serv: BookingModuleService, private steps: StepsManagementService) {
     this.CallendarDisabled = true;
+    this.isLoadingSpinnerEnabled = true;
     let s: AppointmentSlotData = <AppointmentSlotData>this.steps.stepsData.filter(x => x.order == 3)[0];
     let p: AppointmentTypeData = <AppointmentTypeData>this.steps.stepsData.filter(x => x.order == 2)[0];
 
@@ -44,6 +46,7 @@ export class AppointmentslutsComponent implements OnInit {
           this.InitializeAppointmentsSlots();
           this.InitializeInvalidDates();
           this.CallendarDisabled = false;
+          this.isLoadingSpinnerEnabled = false;
         });
       } else {
         this.serv.getAvailableAppointmentSluts(this.accountsId, this.companyName, p.ExamType.id.toString(), p.Staff.id.toString()).subscribe(x => {
@@ -55,6 +58,7 @@ export class AppointmentslutsComponent implements OnInit {
           this.InitializeAppointmentsSlots();
           this.InitializeInvalidDates();
           this.CallendarDisabled = false;
+          this.isLoadingSpinnerEnabled = false;
         });
       }
     }

@@ -27,10 +27,10 @@ export class AppointmentconfirmationComponent implements OnInit {
   SelectedUser: Patient = new Patient();
   newPatientFormStatus: string = '';
   constructor(private serv: BookingModuleService, private steps: StepsManagementService, private fb: FormBuilder) {
-    let s: AppointmentConfirmationData = <AppointmentConfirmationData>this.steps.stepsData.filter(x => x.order == 5)[0];
+    let s: AppointmentConfirmationData = <AppointmentConfirmationData>this.steps.stepsData.filter(x => x.order == 4)[0];
     if (!s) {
-      this.steps.currentStep = new Step(5, 'AppointmentConfirmation', false, true, false, 'confirmation');
-      let index = this.steps.Steps.findIndex(x => x.order == 5);
+      this.steps.currentStep = new Step(4, 'AppointmentConfirmation', false, true, false, 'confirmation');
+      let index = this.steps.Steps.findIndex(x => x.order == 4);
       this.steps.Steps[index].enabled = true;
       this.steps.Steps[index].validated = false;
 
@@ -58,8 +58,8 @@ export class AppointmentconfirmationComponent implements OnInit {
         this.SelectUserValidated = false;
       });
     } else {
-      this.steps.currentStep = new Step(5, 'AppointmentConfirmation', false, true, true, 'confirmation');
-      let index = this.steps.Steps.findIndex(x => x.order == 5);
+      this.steps.currentStep = new Step(4, 'AppointmentConfirmation', false, true, true, 'confirmation');
+      let index = this.steps.Steps.findIndex(x => x.order == 4);
       this.steps.Steps[index].enabled = true;
       this.steps.Steps[index].validated = true;
       this.SelectedUser = s.SelectedUser;
@@ -116,12 +116,12 @@ export class AppointmentconfirmationComponent implements OnInit {
   SelectUser(p: SinglePatient) {
     this.newPatientFormEnabled = false;
     this.newPatientFormSubmitted = false;
-    this.steps.clearSteps(5);
+    this.steps.clearSteps(4);
     this.serv.getPatientById(p.id).subscribe(x => {
       this.SelectedUser = new Patient();
       this.SelectedUser = this.SelectedUser.Initialize(x);
       this.SelectUserValidated = true;
-      let p: AppointmentConfirmationData = new AppointmentConfirmationData(5, 'AppointmentConfirmation', this.SelectedUser);
+      let p: AppointmentConfirmationData = new AppointmentConfirmationData(4, 'AppointmentConfirmation', this.SelectedUser);
       this.steps.stepsData.push(p);
       let index = this.steps.Steps.findIndex(x => x.order == this.steps.currentStep.order);
       this.steps.Steps[index].validated = true;

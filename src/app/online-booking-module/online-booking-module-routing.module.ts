@@ -19,7 +19,6 @@ const routes: Routes = [
       { path: 'covid19', component: CovidPreScreeningComponent },
       { path: 'appointment-type', component: AppointmentstypesComponent },
       { path: 'date-time', component: AppointmentslutsComponent },
-      { path: 'optician-appointment', component: OpticianappointmentComponent },
       { path: 'confirmation', component: AppointmentconfirmationComponent },
       { path: 'summary', component: AppointmentsummaryComponent }
     ]

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-//main components
 import { OnlineBookingModuleRoutingModule } from './online-booking-module-routing.module';
 import { BaseContentComponent } from './components/base-content/base-content.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -16,8 +15,8 @@ import { OpticianappointmentComponent } from './components/opticianappointment/o
 import { AppointmentconfirmationComponent } from './components/appointmentconfirmation/appointmentconfirmation.component';
 import { CalendarModule } from 'primeng/calendar';
 import { MatFormFieldModule } from '@angular/material/form-field';
-//assets modules
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 @NgModule({
   declarations: [BaseContentComponent, ErrormessageComponent, PagenotfoundComponent, CovidPreScreeningComponent, OptimitristOpticianSelectionComponent, AppointmentstypesComponent, AppointmentslutsComponent, AppointmentsummaryComponent, OpticianappointmentComponent, AppointmentconfirmationComponent],
   imports: [
@@ -25,7 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     OnlineBookingModuleRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-
+    ProgressSpinnerModule,
     FormsModule, CalendarModule,
     MatFormFieldModule
   ],

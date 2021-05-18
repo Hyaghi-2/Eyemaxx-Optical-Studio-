@@ -4,7 +4,6 @@ export class BookAppointmentBody {
     public appointmentTypeId!: number;
     public storeId!: number;
     public doctorId!: number;
-    public slotId!: number;
     public patientId!: number;
     public appointmentModification!: boolean;
     public oldappointmentId!: number;
@@ -12,7 +11,9 @@ export class BookAppointmentBody {
 
 
     constructor() {
-
+        this.earlyRequest = true;
+        this.earlyRequestComment = true;
+        this.isBookedOnline = true;
     }
 
 }

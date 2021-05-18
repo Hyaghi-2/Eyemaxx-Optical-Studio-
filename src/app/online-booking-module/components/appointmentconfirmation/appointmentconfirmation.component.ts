@@ -16,6 +16,8 @@ import { StepsManagementService } from '../../services/steps-management.service'
   styleUrls: ['./appointmentconfirmation.component.css']
 })
 export class AppointmentconfirmationComponent implements OnInit {
+  emailForm!: FormGroup;
+  emailFormSubmitted: boolean = false;
   //Email from the previous step
   //Users List by previos step email
   UsersList: PatientListResponse = new PatientListResponse();
@@ -26,6 +28,7 @@ export class AppointmentconfirmationComponent implements OnInit {
   SelectUserValidated: boolean = false;
   SelectedUser: Patient = new Patient();
   newPatientFormStatus: string = '';
+
   constructor(private serv: BookingModuleService, private steps: StepsManagementService, private fb: FormBuilder) {
     let s: AppointmentConfirmationData = <AppointmentConfirmationData>this.steps.stepsData.filter(x => x.order == 4)[0];
     if (!s) {
@@ -33,56 +36,56 @@ export class AppointmentconfirmationComponent implements OnInit {
       let index = this.steps.Steps.findIndex(x => x.order == 4);
       this.steps.Steps[index].enabled = true;
       this.steps.Steps[index].validated = false;
-
-      //getting the email from the previos step by steps data
-      let Email: string = 'taim@hotmail.com ';
-      this.serv.getPatientList(Email).subscribe(x => {
-        this.UsersList.Initialize(x);
-        this.UserNotFound = this.UsersList.patientList.length <= 0 ? true : false;
-        this.SelectedUser.id = '-1';
-        this.newPatientForm = this.fb.group({
-          firstName: ['', Validators.required],
-          lastName: ['', Validators.required],
-          streetNumber: ['', Validators.required],
-          unit: ['', Validators.required],
-          streetName: ['', Validators.required],
-          city: ['', Validators.required],
-          province: ['', Validators.required],
-          postalCode: ['', Validators.required],
-          dateOfBirth: ['', Validators.required],
-          cell: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')])],
-          email: [Email, Validators.compose([Validators.required, Validators.email])],
-          medicalCard: ['', Validators.required],
-          medicalCardExp: ['', Validators.required]
-        });
-        this.SelectUserValidated = false;
+      this.emailForm = this.fb.group({
+        userEmail: ['', Validators.compose([Validators.required, Validators.email])],
       });
+      this.newPatientForm = this.fb.group({
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        streetNumber: ['', Validators.required],
+        unit: ['', Validators.required],
+        streetName: ['', Validators.required],
+        city: ['', Validators.required],
+        province: ['', Validators.required],
+        postalCode: ['', Validators.required],
+        dateOfBirth: ['', Validators.required],
+        cell: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')])],
+        email: ['', Validators.compose([Validators.required, Validators.email])],
+        medicalCard: ['', Validators.required],
+        medicalCardExp: ['', Validators.required]
+      });
+      this.SelectedUser.id = '-1';
+      this.SelectUserValidated = false;
+      this.UserNotFound = false;
+
     } else {
       this.steps.currentStep = new Step(4, 'AppointmentConfirmation', false, true, true, 'confirmation');
       let index = this.steps.Steps.findIndex(x => x.order == 4);
       this.steps.Steps[index].enabled = true;
       this.steps.Steps[index].validated = true;
       this.SelectedUser = s.SelectedUser;
-      this.serv.getPatientList(this.SelectedUser.email).subscribe(x => {
-        this.UsersList.Initialize(x);
-        this.UserNotFound = this.UsersList.patientList.length <= 0 ? true : false;
-        this.newPatientForm = this.fb.group({
-          firstName: ['', Validators.required],
-          lastName: ['', Validators.required],
-          streetNumber: ['', Validators.required],
-          unit: ['', Validators.required],
-          streetName: ['', Validators.required],
-          city: ['', Validators.required],
-          province: ['', Validators.required],
-          postalCode: ['', Validators.required],
-          dateOfBirth: ['', Validators.required],
-          cell: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')])],
-          email: [this.SelectedUser.email, Validators.compose([Validators.required, Validators.email])],
-          medicalCard: ['', Validators.required],
-          medicalCardExp: ['', Validators.required]
-        });
-        this.SelectUserValidated = true;
+      this.emailForm = this.fb.group({
+        userEmail: [s.SelectedUser.email, Validators.compose([Validators.required, Validators.email])],
       });
+      this.UsersList = s.UsersList;
+      this.UserNotFound = this.UsersList.patientList.length <= 0 ? true : false;
+      this.newPatientForm = this.fb.group({
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        streetNumber: ['', Validators.required],
+        unit: ['', Validators.required],
+        streetName: ['', Validators.required],
+        city: ['', Validators.required],
+        province: ['', Validators.required],
+        postalCode: ['', Validators.required],
+        dateOfBirth: ['', Validators.required],
+        cell: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')])],
+        email: [this.SelectedUser.email, Validators.compose([Validators.required, Validators.email])],
+        medicalCard: ['', Validators.required],
+        medicalCardExp: ['', Validators.required]
+      });
+      this.SelectUserValidated = true;
+
 
     }
 
@@ -90,6 +93,22 @@ export class AppointmentconfirmationComponent implements OnInit {
 
 
 
+  }
+
+
+  onEmailFormSubmit(event: any) {
+    this.emailFormSubmitted = true;
+    if (this.emailForm.invalid) {
+      event.preventDefault();
+      return;
+    }
+    this.serv.getPatientList(this.emailForm.get('userEmail')?.value).subscribe(x => {
+      this.UsersList.Initialize(x);
+      this.UserNotFound = this.UsersList.patientList.length <= 0 ? true : false;
+    });
+  }
+  get fe() {
+    return this.emailForm.controls;
   }
 
   get f() {
@@ -121,7 +140,7 @@ export class AppointmentconfirmationComponent implements OnInit {
       this.SelectedUser = new Patient();
       this.SelectedUser = this.SelectedUser.Initialize(x);
       this.SelectUserValidated = true;
-      let p: AppointmentConfirmationData = new AppointmentConfirmationData(4, 'AppointmentConfirmation', this.SelectedUser);
+      let p: AppointmentConfirmationData = new AppointmentConfirmationData(4, 'AppointmentConfirmation', this.SelectedUser, this.UsersList);
       this.steps.stepsData.push(p);
       let index = this.steps.Steps.findIndex(x => x.order == this.steps.currentStep.order);
       this.steps.Steps[index].validated = true;

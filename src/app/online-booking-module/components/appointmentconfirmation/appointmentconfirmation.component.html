@@ -53,6 +53,26 @@
             *ngIf="SelectedUser.id!='-1'">Edit
             Current User</button>
     </div>
+
+    <div class="row">
+      <!-- *ngIf="newPatientFormEnabled" -->
+      <form [formGroup]="emailForm" (ngSubmit)="onEmailFormSubmit($event)" >
+        <div class="input-group">
+          <span class="input-group-addon">
+              <i class="material-icons">email</i>
+          </span>
+          <div class="form-group label-floating">
+              <label class="control-label">Email
+                  <small>(required)</small></label>
+              <input name="userEmail" type="text" class="form-control" formControlName="userEmail">
+          </div>
+          <div *ngIf="emailFormSubmitted && f.email.errors">
+              <mat-error *ngIf="fe.email.errors?.required">Email is required</mat-error>
+              <mat-error *ngIf="fe.email.errors?.email">Invalid E-mail format</mat-error>
+          </div>
+      </div>
+      </form>
+    </div>
     <div class="row">
         <form [formGroup]="newPatientForm" (ngSubmit)="onNewPatientFormSubmit($event)" *ngIf="newPatientFormEnabled">
             <div class="col-md-12" id="optician-contact-form">

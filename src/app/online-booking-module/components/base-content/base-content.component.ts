@@ -60,6 +60,7 @@ export class BaseContentComponent implements OnInit {
       });
     }
   }
+  
 
   popUpNavigation(route: string) {
     if (route == 'home') {

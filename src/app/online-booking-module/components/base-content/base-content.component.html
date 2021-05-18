@@ -83,7 +83,8 @@
                                 <button type='button' class='btn btn-next btn-fill btn-danger btn-wd liDisabled'
                                     (click)="navigate(currentStepStatus().order+1)"
                                     [class.liDisabled]="!currentStepStatus().validated">Next</button>
-                                <button type='button' class='btn btn-finish btn-fill btn-danger btn-wd'>Finish</button>
+                                <button type='button' class='btn btn-finish btn-fill btn-danger btn-wd'
+                                    [class.liDisabled]="currentStepStatus().order==5" (click)="BookAppointment()">Finish</button>
                             </div>
                             <div class="pull-left" *ngIf="currentStepStatus().order != 1">
                                 <button type='button' class='btn btn-previous btn-fill btn-default btn-wd'

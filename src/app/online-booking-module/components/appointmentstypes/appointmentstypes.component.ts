@@ -122,7 +122,6 @@ export class AppointmentstypesComponent implements OnInit {
       this.ExamErrorMessage = false;
       this.StaffErrorMessage = false;
       this.SelectedExam = this.DoctorStoreTypeData.AppointmentTypes.filter(x => x.id == this.SelectedExamId)[0];
-      console.log(this.SelectedExam);
 
       this.isOptomitrist = this.SelectedExam.name.split(':')[0] != 'Optical' ? true : false;
       if (!this.isOptomitrist) {

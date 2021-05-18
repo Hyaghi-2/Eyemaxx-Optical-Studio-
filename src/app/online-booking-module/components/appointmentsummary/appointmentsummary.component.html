@@ -4,27 +4,39 @@
         <h4 class="info-text">Thank you for booking an appointment with Eyemaxx, you
             will receive a SMS confirmation shortly</h4>
         <div class="col-md-4 text-left">
-            <p><strong>First Name: </strong>Carlo</p>
-            <p><strong>Last Name: </strong>Dummar</p>
-            <p><strong>Street Number: </strong>237</p>
-            <p><strong>Unit Number: </strong>K2P 1L6</p>
-            <p><strong>Street Name: </strong>Elgin St</p>
-            <p><strong>City: </strong>Montreal</p>
+            <p><strong>First Name: </strong>{{appointmentConfirmationData.SelectedUser.firstName}}</p>
+            <p><strong>Last Name: </strong>{{appointmentConfirmationData.SelectedUser.lastName}}</p>
+            <p><strong>Street Number: </strong>{{appointmentConfirmationData.SelectedUser.streetNumber}}</p>
+            <p><strong>Unit Number: </strong>{{appointmentConfirmationData.SelectedUser.unit}}</p>
+            <p><strong>Street Name: </strong>{{appointmentConfirmationData.SelectedUser.streetName}}</p>
+            <p><strong>City: </strong>{{appointmentConfirmationData.SelectedUser.city}}</p>
         </div>
         <div class="col-md-4 text-left">
-            <p><strong>Province: </strong>Ottawa</p>
-            <p><strong>Postal Code: </strong> 11122</p>
-            <p><strong>Date of Birth: </strong>22/10/1989</p>
-            <p><strong>Cell Phone: </strong>613.216.6076</p>
-            <p><strong>Email: </strong>staff@eyemaxx.ca</p>
-            <p><strong>Health Card & Expiry: </strong>11122233 - 10/2022</p>
+            <p><strong>Province: </strong>{{appointmentConfirmationData.SelectedUser.province}}</p>
+            <p><strong>Postal Code: </strong> {{appointmentConfirmationData.SelectedUser.postalCode}}</p>
+            <p><strong>Date of Birth: </strong>{{appointmentConfirmationData.SelectedUser.dateOfBirth}}</p>
+            <p><strong>Cell Phone: </strong>{{appointmentConfirmationData.SelectedUser.cell}}</p>
+            <p><strong>Email: </strong>{{appointmentConfirmationData.SelectedUser.email}}</p>
+            <p><strong>Health Card & Expiry: </strong>{{appointmentConfirmationData.SelectedUser.medicalCardExp}}</p>
         </div>
         <div class="col-md-4 text-left">
-            <p><strong>Insurance Company: </strong> BA</p>
-            <p><strong>Optometrist: </strong>MIMOSA VO OD</p>
-            <p><strong>Exam Type: </strong>Full Eye Exam: Non-Contact Lens Wearer</p>
-            <p><strong>Appointment Date & Time: </strong>10/05/2021 11:00-11:30</p>
-            <p><strong>Appointment with Optician: </strong>Yes</p>
+            <p><strong>Insurance Company: </strong> {{appointmentConfirmationData.SelectedUser.medicalCard}}</p>
+            <p><strong>Optometrist: </strong>{{appointmentTypeData.isOptomitrist?appointmentTypeData.Staff.firstName +'
+                '+appointmentTypeData.Staff.lastName :appointmentTypeData.ExamType.name }}</p>
+            <p><strong>Exam Type: </strong>{{appointmentTypeData.ExamType.name}}</p>
+            <p><strong>Appointment Date & Time: </strong>{{appointmentSlotData.SelectedDate | date:'mediumDate'}}
+                {{appointmentSlotData.SelectedTimeSlot.start}} - {{appointmentSlotData.SelectedTimeSlot.end}}</p>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6" *ngIf="appointmentTypeData.isOptomitrist">
+            <!-- <div class="checkbox"> -->
+            <label>
+                <input type="checkbox" [(ngModel)]="OpticianAppointment" (change)="onOpticianAppointmentChange()">
+            </label> Yes I would like to book an
+            appointment with an Optician.
+            <!-- </div> -->
         </div>
     </div>
     <div class="row text-center">

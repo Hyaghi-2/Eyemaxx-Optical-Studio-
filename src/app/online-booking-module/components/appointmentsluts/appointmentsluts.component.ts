@@ -38,25 +38,33 @@ export class AppointmentslutsComponent implements OnInit {
       this.steps.currentStep = new Step(3, 'AppointmentsSlots', false, false, false, 'date-time');
       if ((p.isOptomitrist && p.Staff.id == -1) || !p.isOptomitrist) {
         this.serv.getAvailableAppointmentSluts(this.accountsId, this.companyName, p.ExamType.id.toString()).subscribe(x => {
+          console.log(x);
           this.AllAppointments.Initialize(x);
+          console.log(this.AllAppointments);
           this.MinDate = new Date();
           this.MinDate.setDate(this.AllAppointments.AppointmentSlotsList[0].start.getDate() + 2);
           this.MaxDate = new Date();
           this.MaxDate = this.AllAppointments.AppointmentSlotsList[this.AllAppointments.AppointmentSlotsList.length - 1].start;
           this.InitializeAppointmentsSlots();
+          console.log(this.ActiveDistinctAppointments);
           this.InitializeInvalidDates();
+          console.log(this.InvalidDates);
           this.CallendarDisabled = false;
           this.isLoadingSpinnerEnabled = false;
         });
       } else {
         this.serv.getAvailableAppointmentSluts(this.accountsId, this.companyName, p.ExamType.id.toString(), p.Staff.id.toString()).subscribe(x => {
+          console.log(x);
           this.AllAppointments.Initialize(x);
+          console.log(this.AllAppointments);
           this.MinDate = new Date();
           this.MinDate.setDate(this.AllAppointments.AppointmentSlotsList[0].start.getDate() + 2);
           this.MaxDate = new Date();
           this.MaxDate = this.AllAppointments.AppointmentSlotsList[this.AllAppointments.AppointmentSlotsList.length - 1].start;
           this.InitializeAppointmentsSlots();
+          console.log(this.ActiveDistinctAppointments);
           this.InitializeInvalidDates();
+          console.log(this.InvalidDates);
           this.CallendarDisabled = false;
           this.isLoadingSpinnerEnabled = false;
         });
@@ -83,14 +91,14 @@ export class AppointmentslutsComponent implements OnInit {
     this.AllAppointments.AppointmentSlotsList.forEach(s => {
       let t: AppointmentViewModel = this.ActiveDistinctAppointments.filter(x => x.AppointmentDate.toDateString() == s.start.toDateString())[0];
       if (!t) {
-        let slot: SlotViewModel = new SlotViewModel(s.id, s.start.toTimeString(), s.end.toTimeString());
+        let slot: SlotViewModel = new SlotViewModel(s.id, this.formatSlot(s.start.toTimeString()), this.formatSlot(s.end.toTimeString()));
         let a: AppointmentViewModel = new AppointmentViewModel();
         a.AppointmentDate = s.start;
         a.Slots.push(slot);
         this.ActiveDistinctAppointments.push(a);
       } else {
         let index: number = this.ActiveDistinctAppointments.findIndex(x => x.AppointmentDate == t.AppointmentDate);
-        let slot: SlotViewModel = new SlotViewModel(s.id, s.start.toTimeString(), s.end.toTimeString());
+        let slot: SlotViewModel = new SlotViewModel(s.id, this.formatSlot(s.start.toTimeString()), this.formatSlot(s.end.toTimeString()));
         this.ActiveDistinctAppointments[index].Slots.push(slot);
       }
     });

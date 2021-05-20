@@ -14,8 +14,8 @@ import { StepsManagementService } from '../../services/steps-management.service'
   styleUrls: ['./appointmentsluts.component.css']
 })
 export class AppointmentslutsComponent implements OnInit {
-  accountsId: string = '1922';
-  companyName: string = 'Eyemaxx Optical Studio';
+  accountsId: string = '2040';
+  companyName: string = 'Test EyeMaxx';
   AllAppointments: AppointmentSlotsResponse = new AppointmentSlotsResponse();
   MinDate!: Date;
   MaxDate!: Date;
@@ -33,6 +33,7 @@ export class AppointmentslutsComponent implements OnInit {
     this.isLoadingSpinnerEnabled = true;
     let s: AppointmentSlotData = <AppointmentSlotData>this.steps.stepsData.filter(x => x.order == 3)[0];
     let p: AppointmentTypeData = <AppointmentTypeData>this.steps.stepsData.filter(x => x.order == 2)[0];
+    console.log(p);
 
     if (!s) {
       this.steps.currentStep = new Step(3, 'AppointmentsSlots', false, false, false, 'date-time');

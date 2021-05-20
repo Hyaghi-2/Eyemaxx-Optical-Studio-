@@ -69,7 +69,7 @@ export class BookingModuleService implements HttpInterceptor {
       let loginReponse: LoginResponse = new LoginResponse();
       const options = {
         headers: new HttpHeaders({
-          'Accept': 'application/json',
+          'Accept': 'application/json,*/*',
           'Content-Type': 'application/json',
           'Authorization': 'Basic ' + btoa('carlo:1234')
         }),
@@ -79,7 +79,7 @@ export class BookingModuleService implements HttpInterceptor {
         request = request.clone({
           setHeaders: {
             'Content-Type': 'application/json',
-            'accept': 'application/json',
+            'Accept': 'application/json,*/*',
             'token': loginReponse.getToken
           }
         });
@@ -186,9 +186,14 @@ export class BookingModuleService implements HttpInterceptor {
 
 
   //book new appointment
-  bookNewAppointment(body: BookAppointmentBody): Observable<FailedAppointmentResponse | SuccessfullAppointmentResponse> {
-    return this.http.post<FailedAppointmentResponse | SuccessfullAppointmentResponse>('/Appointment', body);
+  bookNewAppointment(body: any): Observable<any> {
+    return this.http.post<any>(this.Url + '/Appointment', JSON.stringify(body));
   }
+
+  // bookNewAppointment(body: BookAppointmentBody) {
+  //   console.log(JSON.stringify(body));
+  //   return this.http.post(this.Url + '/Appointment', JSON.stringify(body));
+  // }
 
   //get specific patient appointments
   getPatientAppointments(id: number) {

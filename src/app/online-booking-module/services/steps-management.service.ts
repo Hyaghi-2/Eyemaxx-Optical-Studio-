@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { DoctorStoreTypeResponse } from '../models/get-stores-types-doctors/doctor-store-type-response';
 import { Step } from '../models/Step/step';
 import { DataParent } from '../models/Steps-Data/data-parent';
 
@@ -10,6 +11,8 @@ export class StepsManagementService {
   public Steps: Step[] = [];
   public currentStep!: Step;
   public stepsData: DataParent[] = [];
+  public ExamTypesPreFetch: DoctorStoreTypeResponse = new DoctorStoreTypeResponse();
+
   constructor() {
     this.Steps.push(new Step(1, 'COVID19preScr', false, true, false, 'covid19'));
     this.Steps.push(new Step(2, 'ExamType', false, false, false, 'appointment-type'));
@@ -30,7 +33,6 @@ export class StepsManagementService {
     while (this.stepsData.length >= id) {
       this.stepsData.pop();
     }
-
   }
 
 

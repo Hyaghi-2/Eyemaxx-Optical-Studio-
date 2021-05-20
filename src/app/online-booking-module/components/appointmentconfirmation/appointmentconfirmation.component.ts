@@ -16,13 +16,13 @@ import { StepsManagementService } from '../../services/steps-management.service'
   styleUrls: ['./appointmentconfirmation.component.css']
 })
 export class AppointmentconfirmationComponent implements OnInit {
-  emailForm!: FormGroup;
+  emailForm: FormGroup;
   emailFormSubmitted: boolean = false;
   //Email from the previous step
   //Users List by previos step email
   UsersList: PatientListResponse = new PatientListResponse();
   UserNotFound!: boolean;
-  newPatientForm!: FormGroup;
+  newPatientForm: FormGroup;
   newPatientFormEnabled: boolean = false;
   newPatientFormSubmitted: boolean = false;
   SelectUserValidated: boolean = false;
@@ -85,14 +85,7 @@ export class AppointmentconfirmationComponent implements OnInit {
         medicalCardExp: ['', Validators.required]
       });
       this.SelectUserValidated = true;
-
-
     }
-
-
-
-
-
   }
 
 
@@ -103,7 +96,11 @@ export class AppointmentconfirmationComponent implements OnInit {
       return;
     }
     this.serv.getPatientList(this.emailForm.get('userEmail')?.value).subscribe(x => {
+      console.log(x);
+
       this.UsersList.Initialize(x);
+      console.log(this.UsersList);
+
       this.UserNotFound = this.UsersList.patientList.length <= 0 ? true : false;
     });
   }
@@ -170,6 +167,8 @@ export class AppointmentconfirmationComponent implements OnInit {
     this.newPatientFormStatus = 'add';
     this.newPatientFormEnabled = true;
   }
+
+
   EditCurrentUser() {
     this.newPatientFormSubmitted = true;
     if (this.newPatientForm.invalid) {

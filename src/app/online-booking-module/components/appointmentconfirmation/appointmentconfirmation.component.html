@@ -5,6 +5,25 @@
         <div class="col-sm-4">
         </div>
         <div class="col-sm-4">
+            <form [formGroup]="emailForm" (ngSubmit)="onEmailFormSubmit($event)">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">email</i>
+                    </span>
+                    <div class="form-group label-floating">
+                        <label class="control-label">Email
+                            <small>(required)</small></label>
+                        <input name="userEmail" type="text" class="form-control" formControlName="userEmail">
+                    </div>
+                    <div *ngIf="emailFormSubmitted && f.email.errors">
+                        <mat-error *ngIf="fe.userEmail.errors?.required">Email is required</mat-error>
+                        <mat-error *ngIf="fe.userEmail.errors?.email">Invalid E-mail format</mat-error>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-secondary" style="text-align: center;">submit</button>
+            </form>
+        </div>
+        <div class="col-sm-4">
             <mat-error *ngIf="UserNotFound">The selected entered email does not exists, try to create new account.
             </mat-error>
         </div>
@@ -54,25 +73,7 @@
             Current User</button>
     </div>
 
-    <div class="row">
-      <!-- *ngIf="newPatientFormEnabled" -->
-      <form [formGroup]="emailForm" (ngSubmit)="onEmailFormSubmit($event)" >
-        <div class="input-group">
-          <span class="input-group-addon">
-              <i class="material-icons">email</i>
-          </span>
-          <div class="form-group label-floating">
-              <label class="control-label">Email
-                  <small>(required)</small></label>
-              <input name="userEmail" type="text" class="form-control" formControlName="userEmail">
-          </div>
-          <div *ngIf="emailFormSubmitted && f.email.errors">
-              <mat-error *ngIf="fe.email.errors?.required">Email is required</mat-error>
-              <mat-error *ngIf="fe.email.errors?.email">Invalid E-mail format</mat-error>
-          </div>
-      </div>
-      </form>
-    </div>
+
     <div class="row">
         <form [formGroup]="newPatientForm" (ngSubmit)="onNewPatientFormSubmit($event)" *ngIf="newPatientFormEnabled">
             <div class="col-md-12" id="optician-contact-form">

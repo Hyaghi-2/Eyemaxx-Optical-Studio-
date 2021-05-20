@@ -26,12 +26,17 @@ export class AppointmentsummaryComponent implements OnInit {
     this.appointmentConfirmationData = <AppointmentConfirmationData>this.steps.stepsData.filter(x => x.order == 4)[0];
     let s: AppointmentSummaryData = <AppointmentSummaryData>this.steps.stepsData.filter(x => x.order == 5)[0];
     this.OpticianAppointment = s ? s.OpticianAppointment : false;
+    let p: AppointmentSummaryData = new AppointmentSummaryData(5, 'Summary', this.OpticianAppointment);
+    this.steps.stepsData.push(p);
+    this.steps.currentStep.validated = true;
+    let index = this.steps.Steps.findIndex(x => x.order == 5);
+    this.steps.Steps[index].validated = true;
   }
 
   ngOnInit(): void {
 
   }
-
+  //optician checkbox change:
   onOpticianAppointmentChange() {
     this.steps.clearSteps(5);
     let p: AppointmentSummaryData = new AppointmentSummaryData(5, 'Summary', this.OpticianAppointment);

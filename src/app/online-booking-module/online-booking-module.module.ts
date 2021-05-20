@@ -17,6 +17,8 @@ import { CalendarModule } from 'primeng/calendar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { ToastModule } from 'primeng/toast';
+import { DialogModule } from 'primeng/dialog';
 @NgModule({
   declarations: [BaseContentComponent, ErrormessageComponent, PagenotfoundComponent, CovidPreScreeningComponent, OptimitristOpticianSelectionComponent, AppointmentstypesComponent, AppointmentslutsComponent, AppointmentsummaryComponent, OpticianappointmentComponent, AppointmentconfirmationComponent],
   imports: [
@@ -26,7 +28,9 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     ReactiveFormsModule,
     ProgressSpinnerModule,
     FormsModule, CalendarModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    ToastModule, DialogModule
+
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

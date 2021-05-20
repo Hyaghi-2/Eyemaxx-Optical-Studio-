@@ -84,7 +84,7 @@
                                     (click)="navigate(currentStepStatus().order+1)"
                                     [class.liDisabled]="!currentStepStatus().validated">Next</button>
                                 <button type='button' class='btn btn-finish btn-fill btn-danger btn-wd'
-                                    [class.liDisabled]="currentStepStatus().order==5" (click)="BookAppointment()">Finish</button>
+                                    (click)="BookAppointment()">Confirm and Book</button>
                             </div>
                             <div class="pull-left" *ngIf="currentStepStatus().order != 1">
                                 <button type='button' class='btn btn-previous btn-fill btn-default btn-wd'
@@ -110,3 +110,24 @@
         <img src="../../../../assets/img/footer.PNG" width="75%">
     </div>
 </div>
+
+
+<!-- <p-confirmDialog [style]="{width: '50vw'}" key="positionDialog" [position]="'top'" [baseZIndex]="10000">
+</p-confirmDialog> -->
+
+<p-toast></p-toast>
+<p-dialog header="Godfather I" [(visible)]="showBookAppointmentPopUp" [modal]="true" [style]="{width: '50vw'}"
+    [maximizable]="true" [baseZIndex]="10000" [draggable]="false" [resizable]="false" [position]="'top'"
+    [closable]="false">
+    <!-- <i class="pi pi-check-circle" style="font-size: 2rem;float: left;"></i> -->
+    <h6 [ngStyle]="{'color': bookingSuccess!==true?'red':'black'}">
+        <i class="{{popIconType}}" style="font-size: 2rem;float: left;"></i> &nbsp;&nbsp; {{popUpMessage}}
+    </h6>
+    <ng-template pTemplate="footer">
+        <p-button type="button" icon="pi pi-check" (click)="popUpNavigation('appointment')"
+            label="Book another appointment" class="p-button-raised"></p-button>
+        <button pButton pRipple type="button" icon="pi pi-home" (click)="popUpNavigation('home')" label="Go to home"
+            class="p-button-help">
+        </button>
+    </ng-template>
+</p-dialog>

@@ -21,8 +21,8 @@ export class AppointmentstypesComponent implements OnInit {
   SelectedStaff: Doctor = new Doctor();
   SelectedExamId: number = 0;
   DoctorStoreTypeData: DoctorStoreTypeResponse = new DoctorStoreTypeResponse();
-  accountsId: number = 1922;
-  companyName: string = 'Eyemaxx Optical Studio';
+  accountsId: number = 2040;
+  companyName: string = 'Test Eyemaxx';
   ExamSelectionValidated!: boolean;
   StaffSelectionValidated!: boolean;
   isOptomitrist: boolean = false;
@@ -39,9 +39,17 @@ export class AppointmentstypesComponent implements OnInit {
       this.SelectedExam = new AppointmentType();
       this.SelectedStaff = new Doctor();
       this.SelectedStaff.id = -1;
-      this.serv.getStoresTypesDoctors(this.accountsId, this.companyName).subscribe(t => {
-        this.DoctorStoreTypeData.Initialize(t);
-      });
+      console.log(this.steps.ExamTypesPreFetch.AppointmentTypes.length);
+
+      if (this.steps.ExamTypesPreFetch.AppointmentTypes.length > 0) {
+        this.DoctorStoreTypeData = this.steps.ExamTypesPreFetch;
+      }
+      else {
+        this.serv.getStoresTypesDoctors(this.accountsId, this.companyName).subscribe(t => {
+          this.DoctorStoreTypeData.Initialize(t);
+        });
+      }
+
     }
     else {
       this.serv.getStoresTypesDoctors(this.accountsId, this.companyName).subscribe(t => {

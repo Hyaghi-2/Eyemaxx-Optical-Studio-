@@ -16,11 +16,11 @@ const routes: Routes = [
   {
     path: 'appointment', component: BaseContentComponent,
     children: [
-      { path: 'covid19', component: CovidPreScreeningComponent },
-      { path: 'appointment-type', component: AppointmentstypesComponent },
-      { path: 'date-time', component: AppointmentslutsComponent },
-      { path: 'confirmation', component: AppointmentconfirmationComponent },
-      { path: 'summary', component: AppointmentsummaryComponent }
+      { path: 'covid19', component: CovidPreScreeningComponent, canActivate: [AuthGuard] },
+      { path: 'appointment-type', component: AppointmentstypesComponent, canActivate: [AuthGuard] },
+      { path: 'date-time', component: AppointmentslutsComponent, canActivate: [AuthGuard] },
+      { path: 'confirmation', component: AppointmentconfirmationComponent, canActivate: [AuthGuard] },
+      { path: 'summary', component: AppointmentsummaryComponent, canActivate: [AuthGuard] }
     ]
   },
   { path: 'error', component: ErrormessageComponent },

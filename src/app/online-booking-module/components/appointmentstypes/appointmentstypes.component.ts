@@ -39,8 +39,8 @@ export class AppointmentstypesComponent implements OnInit {
       this.SelectedExam = new AppointmentType();
       this.SelectedStaff = new Doctor();
       this.SelectedStaff.id = -1;
-      console.log(this.steps.ExamTypesPreFetch.AppointmentTypes.length);
-
+      //console.log(this.steps.ExamTypesPreFetch.AppointmentTypes.length);
+      //check if the exam types loaded in the base component
       if (this.steps.ExamTypesPreFetch.AppointmentTypes.length > 0) {
         this.DoctorStoreTypeData = this.steps.ExamTypesPreFetch;
       }
@@ -52,23 +52,22 @@ export class AppointmentstypesComponent implements OnInit {
 
     }
     else {
-      this.serv.getStoresTypesDoctors(this.accountsId, this.companyName).subscribe(t => {
-        this.DoctorStoreTypeData.Initialize(t);
-        this.steps.currentStep = new Step(2, 'ExamType', false, true, true, 'appointment-type');
-        this.ExamSelectionValidated = true;
+      this.DoctorStoreTypeData = s.DoctorStoreTypeData;
+      this.steps.currentStep = new Step(2, 'ExamType', false, true, true, 'appointment-type');
+      this.ExamSelectionValidated = true;
+      this.StaffSelectionValidated = true;
+      this.SelectedExamId = s.ExamType.id;
+      this.SelectedExam = s.ExamType;
+      this.SelectedStaff = s.Staff;
+      this.isOptomitrist = s.isOptomitrist;
+      if (!this.isOptomitrist) {
+        this.Staffs = [];
         this.StaffSelectionValidated = true;
-        this.SelectedExamId = s.ExamType.id;
-        this.SelectedExam = s.ExamType;
-        this.SelectedStaff = s.Staff;
-        this.isOptomitrist = s.isOptomitrist;
-        if (!this.isOptomitrist) {
-          this.Staffs = [];
-          this.StaffSelectionValidated = true;
-        }
-        else {
-          this.Staffs = this.DoctorStoreTypeData.Doctors.filter(x => x.designation == 'OD');
-        }
-      });
+      }
+      else {
+        this.Staffs = this.DoctorStoreTypeData.Doctors.filter(x => x.designation == 'OD');
+      }
+
     }
   }
 
@@ -96,12 +95,13 @@ export class AppointmentstypesComponent implements OnInit {
             if (AllAppointments.AppointmentSlotsList.length > 0) {
               this.StaffErrorMessage = false;
               this.ExamErrorMessage = false;
+              let p: AppointmentTypeData = new AppointmentTypeData(2, 'ExamType', this.SelectedExam, true, this.DoctorStoreTypeData, this.SelectedStaff);
+              this.steps.stepsData.push(p);
+              this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = true;
               this.steps.currentStep.validated = true;
               let index = this.steps.Steps.findIndex(x => x.order == this.steps.currentStep.order);
               this.steps.Steps[index].validated = true;
-              let p: AppointmentTypeData = new AppointmentTypeData(2, 'ExamType', this.SelectedExam, true, this.SelectedStaff);
-              this.steps.stepsData.push(p);
-              this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = this.steps.currentStep.validated;
+
             }
             else {
               this.StaffErrorMessage = true;
@@ -113,7 +113,7 @@ export class AppointmentstypesComponent implements OnInit {
         this.steps.currentStep.validated = true;
         let index = this.steps.Steps.findIndex(x => x.order == this.steps.currentStep.order);
         this.steps.Steps[index].validated = true;
-        let p: AppointmentTypeData = new AppointmentTypeData(2, 'ExamType', this.SelectedExam, true, this.SelectedStaff);
+        let p: AppointmentTypeData = new AppointmentTypeData(2, 'ExamType', this.SelectedExam, true, this.DoctorStoreTypeData, this.SelectedStaff);
         this.steps.stepsData.push(p);
         this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = this.steps.currentStep.validated;
       }
@@ -126,6 +126,8 @@ export class AppointmentstypesComponent implements OnInit {
 
   SelectExam() {
     this.steps.clearSteps(2);
+    this.SelectedExam = new AppointmentType();
+    this.SelectedStaff = new Doctor();
     if (this.SelectedExamId != -2) {
       this.ExamErrorMessage = false;
       this.StaffErrorMessage = false;
@@ -136,12 +138,13 @@ export class AppointmentstypesComponent implements OnInit {
         this.Staffs = [];
         this.StaffSelectionValidated = true;
         this.ExamSelectionValidated = true;
+        let p: AppointmentTypeData = new AppointmentTypeData(2, 'ExamType', this.SelectedExam, false, this.DoctorStoreTypeData);
+        this.steps.stepsData.push(p);
+        this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = true
         this.steps.currentStep.validated = true;
         let index = this.steps.Steps.findIndex(x => x.order == this.steps.currentStep.order);
         this.steps.Steps[index].validated = true;
-        let p: AppointmentTypeData = new AppointmentTypeData(2, 'ExamType', this.SelectedExam, false);
-        this.steps.stepsData.push(p);
-        this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = this.steps.currentStep.validated;
+
       }
       else {
         this.ExamSelectionValidated = true;

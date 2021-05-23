@@ -33,57 +33,60 @@ export class AppointmentslutsComponent implements OnInit {
     this.isLoadingSpinnerEnabled = true;
     let s: AppointmentSlotData = <AppointmentSlotData>this.steps.stepsData.filter(x => x.order == 3)[0];
     let p: AppointmentTypeData = <AppointmentTypeData>this.steps.stepsData.filter(x => x.order == 2)[0];
-    console.log(p);
+    // console.log(p);
+    // console.log(s);
 
     if (!s) {
       this.steps.currentStep = new Step(3, 'AppointmentsSlots', false, false, false, 'date-time');
       if ((p.isOptomitrist && p.Staff.id == -1) || !p.isOptomitrist) {
         this.serv.getAvailableAppointmentSluts(this.accountsId, this.companyName, p.ExamType.id.toString()).subscribe(x => {
-          console.log(x);
+         /// console.log(x);
           this.AllAppointments.Initialize(x);
-          console.log(this.AllAppointments);
+          // console.log(this.AllAppointments);
           this.MinDate = new Date();
           this.MinDate.setDate(this.AllAppointments.AppointmentSlotsList[0].start.getDate() + 2);
           this.MaxDate = new Date();
           this.MaxDate = this.AllAppointments.AppointmentSlotsList[this.AllAppointments.AppointmentSlotsList.length - 1].start;
           this.InitializeAppointmentsSlots();
-          console.log(this.ActiveDistinctAppointments);
+          // console.log(this.ActiveDistinctAppointments);
           this.InitializeInvalidDates();
-          console.log(this.InvalidDates);
+          // console.log(this.InvalidDates);
           this.CallendarDisabled = false;
           this.isLoadingSpinnerEnabled = false;
         });
       } else {
         this.serv.getAvailableAppointmentSluts(this.accountsId, this.companyName, p.ExamType.id.toString(), p.Staff.id.toString()).subscribe(x => {
-          console.log(x);
+          // console.log(x);
           this.AllAppointments.Initialize(x);
-          console.log(this.AllAppointments);
+          // console.log(this.AllAppointments);
           this.MinDate = new Date();
           this.MinDate.setDate(this.AllAppointments.AppointmentSlotsList[0].start.getDate() + 2);
           this.MaxDate = new Date();
           this.MaxDate = this.AllAppointments.AppointmentSlotsList[this.AllAppointments.AppointmentSlotsList.length - 1].start;
           this.InitializeAppointmentsSlots();
-          console.log(this.ActiveDistinctAppointments);
+          // console.log(this.ActiveDistinctAppointments);
           this.InitializeInvalidDates();
-          console.log(this.InvalidDates);
+          // console.log(this.InvalidDates);
           this.CallendarDisabled = false;
           this.isLoadingSpinnerEnabled = false;
         });
       }
     }
     else {
-      this.MinDate = s.MinDate;
-      this.MaxDate = s.MaxDate;
-      this.SelectedDate = s.SelectedDate;
-      this.ActiveDistinctAppointments = s.ActiveDistinctAppointments;
-      this.InvalidDates = s.InvalidAppointments;
-      this.CallendarDisabled = s.CallendarDisabled;
+      setTimeout(() => {
+        this.MinDate = s.MinDate;
+        this.MaxDate = s.MaxDate;
+        this.SelectedDate = s.SelectedDate;
+        this.ActiveDistinctAppointments = s.ActiveDistinctAppointments;
+        this.InvalidDates = s.InvalidAppointments;
+        this.CallendarDisabled = s.CallendarDisabled;
+        this.isLoadingSpinnerEnabled = false;
+      }, 2000);
+
     }
   }
 
   ngOnInit(): void {
-
-
   }
 
 
@@ -131,7 +134,7 @@ export class AppointmentslutsComponent implements OnInit {
   }
 
   onCallendarSelect() {
-    console.log(this.SelectedDate);
+    // console.log(this.SelectedDate);
 
     this.DateSelectedValidated = true;
     this.steps.clearSteps(3);

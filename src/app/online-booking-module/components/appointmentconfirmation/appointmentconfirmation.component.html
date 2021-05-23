@@ -42,7 +42,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-10 col-sm-offset-1">
+        <div style="text-align: center;" *ngIf="isLoadingSpinnerEnabled">
+            <p-progressSpinner></p-progressSpinner>
+        </div>
+        <div class="col-sm-10 col-sm-offset-1" *ngIf="!isLoadingSpinnerEnabled">
             <div class="col-sm-4" *ngFor="let p of UsersList.patientList" (click)="SelectUser(p)">
                 <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="{{p.firstName}} {{p.lastName}}"
                     [class.active]="SelectedUser.id === p.id">

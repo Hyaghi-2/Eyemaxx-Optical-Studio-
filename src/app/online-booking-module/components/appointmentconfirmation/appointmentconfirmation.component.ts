@@ -28,6 +28,7 @@ export class AppointmentconfirmationComponent implements OnInit {
   SelectUserValidated: boolean = false;
   SelectedUser: Patient = new Patient();
   newPatientFormStatus: string = '';
+  isLoadingSpinnerEnabled!: boolean;
 
   constructor(private serv: BookingModuleService, private steps: StepsManagementService, private fb: FormBuilder) {
     let s: AppointmentConfirmationData = <AppointmentConfirmationData>this.steps.stepsData.filter(x => x.order == 4)[0];
@@ -95,12 +96,10 @@ export class AppointmentconfirmationComponent implements OnInit {
       event.preventDefault();
       return;
     }
+    this.isLoadingSpinnerEnabled = true;
     this.serv.getPatientList(this.emailForm.get('userEmail')?.value).subscribe(x => {
-      console.log(x);
-
+      this.isLoadingSpinnerEnabled = false;
       this.UsersList.Initialize(x);
-      console.log(this.UsersList);
-
       this.UserNotFound = this.UsersList.patientList.length <= 0 ? true : false;
     });
   }

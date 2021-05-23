@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { StepsManagementService } from '../services/steps-management.service';
 
@@ -10,19 +10,19 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    console.log(this.steps.Steps.filter(x => x.route == route.url[0].path)[0]);
-    // console.log(route.url[0].path);
-    // console.log(this.steps.currentStep.route);
 
-    return true;
-    // if (this.steps.currentStep.validated == true) {
-    //   return true;
-    // }
-    // else {
-    //   return false;
-    // }
+    console.log(route.url[0].path);
+    let url: string = route.url[0].path;
+    if (url === this.steps.Steps.filter(x => x.order == 1)[0].route) {
+      return true;
+    }
+    let nextStepEnabled: boolean = this.steps.Steps.filter(x => x.route == url)[0].enabled;
+    if (nextStepEnabled) {
+      return true;
+    }
+    return this.router.navigate(['appointment/' + this.steps.currentStep.route]);
   }
 
-  constructor(private steps: StepsManagementService) {
+  constructor(private steps: StepsManagementService, private router: Router) {
   }
 }

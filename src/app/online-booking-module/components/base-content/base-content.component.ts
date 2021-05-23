@@ -72,14 +72,14 @@ export class BaseContentComponent implements OnInit {
       if (appointmentTypeData.isOptomitrist) {
         body.doctorId = appointmentTypeData.Staff.id.toString();
       }
-      console.log(body);
+      // console.log(body);
 
       if (appointmentSummaryData.OpticianAppointment) {
         //call email api
       }
       this.serv.bookNewAppointment(body).subscribe(x => {
-        console.log(x);
-        console.log(x instanceof FailedAppointmentResponse);
+        // console.log(x);
+        // console.log(x instanceof FailedAppointmentResponse);
 
         if (!x.hasOwnProperty('smsversion')) {
           this.popUpMessage = 'You have already booked an appointment';

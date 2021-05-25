@@ -1,7 +1,7 @@
 <div class="tab-pane" id="date-time">
     <div class="row">
         <h4 class="info-text">Choose the appointment date and time</h4>
-        <h4 class="info-text">Select Date</h4>
+        <h4 class="info-text" *ngIf="!isLoadingSpinnerEnabled">Select Date</h4>
         <div style="text-align: center;" *ngIf="isLoadingSpinnerEnabled">
             <p-progressSpinner></p-progressSpinner>
         </div>
@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <div class="row text-center">
+    <div class="row text-center" *ngIf="ActiveSlots.length>0">
         <h4 class="info-text">Select time slot</h4>
         <div class="col-sm-2" *ngFor="let slot of ActiveSlots" (click)="onSlotSelect(slot)">
             <a class="btn btn-next btn-fill btn-danger btn-wd">{{formatSlot(slot.start)}} -

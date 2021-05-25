@@ -11,6 +11,8 @@ import { BookingModuleService } from '../../services/booking-module-service.serv
 import { StepsManagementService } from '../../services/steps-management.service';
 import { MessageService } from 'primeng/api';
 import { PrimeNGConfig } from 'primeng/api';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Patient } from '../../models/create-patient/patient';
 
 
 
@@ -32,15 +34,47 @@ export class BaseContentComponent implements OnInit {
     private router: Router, private route: ActivatedRoute,
     private serv: BookingModuleService,
     private messageService: MessageService,
-    private primengConfig: PrimeNGConfig) { }
+    private primengConfig: PrimeNGConfig,
+    private http: HttpClient) { }
 
 
   ngOnInit(): void {
-
+    // var pp = {
+    //   'firstName': 'hamza',
+    //   'lastName': 'yaghi',
+    //   'streetNumber': '234',
+    //   'city': 'damas',
+    //   'province': 'damas2',
+    //   'postalCode': 'no-post',
+    //   'dateOfBirth': '2-5-2020',
+    //   'cell': '+963937777645',
+    //   'email': 'h.yaghi@itsnerd.com',
+    //   'medicalCardExp': '2-8-2021',
+    //   'medicalCard': 'KIB'
+    // };
+    // let p: Patient = new Patient();
+    // p = Object.assign(pp);
+    // this.sendEmail(p).subscribe(x => {
+    //   console.log(x);
+    // });
     this.primengConfig.ripple = true;
     this.serv.getStoresTypesDoctors(this.accountsId, this.companyName).subscribe(t => {
       this.steps.ExamTypesPreFetch.Initialize(t);
     });
+  }
+
+  sendEmail(patient: Patient) {
+    const options = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Authorization, X-Request-With',
+        'Access-Control-Allow-Credentials': 'true',
+        'Accept': '*/*',
+        'Content-Type': 'application/json'
+      }),
+    };
+    return this.http.post('http://appointment-eyemaxx.ca/api/contact1.php', JSON.stringify(patient), options);
   }
 
   stepsEnabled(_order: number) {
@@ -76,6 +110,9 @@ export class BaseContentComponent implements OnInit {
 
       if (appointmentSummaryData.OpticianAppointment) {
         //call email api
+        this.sendEmail(appointmentConfirmationData.SelectedUser).subscribe(x => {
+          console.log(x);
+        });
       }
       this.serv.bookNewAppointment(body).subscribe(x => {
         // console.log(x);

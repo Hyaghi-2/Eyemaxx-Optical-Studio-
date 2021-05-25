@@ -99,6 +99,7 @@ export class AppointmentconfirmationComponent implements OnInit {
     this.isLoadingSpinnerEnabled = true;
     this.serv.getPatientList(this.emailForm.get('userEmail')?.value).subscribe(x => {
       this.isLoadingSpinnerEnabled = false;
+      this.UsersList = new PatientListResponse();
       this.UsersList.Initialize(x);
       this.UserNotFound = this.UsersList.patientList.length <= 0 ? true : false;
     });
@@ -136,6 +137,7 @@ export class AppointmentconfirmationComponent implements OnInit {
       this.SelectedUser = new Patient();
       this.SelectedUser = this.SelectedUser.Initialize(x);
       this.SelectUserValidated = true;
+      this.steps.currentStep.validated = true;
       let p: AppointmentConfirmationData = new AppointmentConfirmationData(4, 'AppointmentConfirmation', this.SelectedUser, this.UsersList);
       this.steps.stepsData.push(p);
       let index = this.steps.Steps.findIndex(x => x.order == this.steps.currentStep.order);

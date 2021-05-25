@@ -1,0 +1,10 @@
+{
+  "/api": {
+    "target": "http://appointment-eyemaxx.ca/api/contact1.php",
+    "secure": false,
+    "changeOrigin": false,
+    "pathRewrite": {
+      "^/api": ""
+    }
+  }
+}

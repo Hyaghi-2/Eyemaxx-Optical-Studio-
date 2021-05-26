@@ -1,8 +1,16 @@
 <div class="tab-pane" id="summary">
     <div class="row text-center">
         <h4 class="info-text">Appointment Confirmation Summary</h4>
-        <h4 class="info-text">Thank you for booking an appointment with Eyemaxx, you
-            will receive a SMS confirmation shortly</h4>
+        <div class="row">
+            <div class="col-md-6 " *ngIf="appointmentTypeData.isOptomitrist">
+                <!-- <div class="checkbox"> -->
+                <label>
+                    <input type="checkbox" [(ngModel)]="OpticianAppointment" (change)="onOpticianAppointmentChange()">
+                </label>
+                <h4>Yes, I would like to book an appointment with an Optician.</h4>
+                <!-- </div> -->
+            </div>
+        </div>
         <div class="col-md-4 text-left">
             <p><strong>First Name: </strong>{{appointmentConfirmationData.SelectedUser.firstName}}</p>
             <p><strong>Last Name: </strong>{{appointmentConfirmationData.SelectedUser.lastName}}</p>
@@ -29,16 +37,7 @@
 
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6 " *ngIf="appointmentTypeData.isOptomitrist">
-            <!-- <div class="checkbox"> -->
-            <label>
-                <input type="checkbox" [(ngModel)]="OpticianAppointment" (change)="onOpticianAppointmentChange()">
-            </label> Yes I would like to book an
-            appointment with an Optician.
-            <!-- </div> -->
-        </div>
-    </div>
+
     <div class="row text-center">
         <h4 class="info-text">An Eyemaxx representative will contact you shortly to
             confirm you appointment with an Optician</h4>

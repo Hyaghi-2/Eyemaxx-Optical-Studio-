@@ -121,15 +121,15 @@ export class BaseContentComponent implements OnInit {
         // console.log(x instanceof FailedAppointmentResponse);
 
         if (!x.hasOwnProperty('smsversion')) {
-          this.popUpMessage = ' You have already booked an appointment';
-          this.popUpToastMessage = ' You have already booked an appointment';
+          this.popUpMessage = ' Sorry you already booked an appointment';
+          this.popUpToastMessage = ' Sorry you already booked an appointment';
           this.popIconType = 'pi pi-info-circle';
           this.showBookAppointmentPopUp = true;
           this.messageService.add({ severity: 'error', summary: 'Failed', detail: this.popUpToastMessage });
         }
         else {
           this.bookingSuccess = true;
-          this.popUpMessage = ' Your appoitment successfully booked !';
+          this.popUpMessage = ' Thank you for booking an appointment with Eyemaxx, you will receive a SMS confirmation shortly. An Eyemaxx representative will contact you shortly to confirm your appointment with an Optician.';
           this.popUpToastMessage = ' Your appoitment successfully booked !';
           this.popIconType = 'pi pi-check-circle';
           this.showBookAppointmentPopUp = true;

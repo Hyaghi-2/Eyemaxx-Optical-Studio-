@@ -2,10 +2,14 @@
     <div class="row">
         <h4 class="info-text">Confirmation</h4>
         <h4 class="info-text">Please enter your email to confirm your appointment</h4>
+        <h4 *ngIf="UserNotFound" class="info-text" style="color: red;">This entered email address does not exist in our
+            database,
+            please create new</h4>
+
         <div class="col-sm-4">
         </div>
-        <div class="col-sm-4">
-            <form [formGroup]="emailForm" (ngSubmit)="onEmailFormSubmit($event)">
+        <form [formGroup]="emailForm" (ngSubmit)="onEmailFormSubmit($event)">
+            <div class="col-sm-4 text-center">
                 <div class="input-group">
                     <span class="input-group-addon">
                         <i class="material-icons">email</i>
@@ -21,11 +25,10 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-secondary" style="text-align: center;">submit</button>
-            </form>
-        </div>
+            </div>
+        </form>
         <div class="col-sm-4">
-            <mat-error *ngIf="UserNotFound">The selected entered email does not exists, try to create new account.
-            </mat-error>
+
         </div>
         <!-- <div class="col-sm-6">
             <div class="input-group">
@@ -38,8 +41,6 @@
                 </div>
             </div>
         </div> -->
-        <div class="col-sm-4">
-        </div>
     </div>
     <div class="row">
         <div style="text-align: center;" *ngIf="isLoadingSpinnerEnabled">
@@ -82,7 +83,7 @@
     <div class="row">
         <button type="button" (click)="ShowPatientFormToEdit()" class="btn btn-secondary"
             *ngIf="SelectedUser.id!='-1'">Edit
-            Current User</button>
+            Selected User</button>
     </div>
 
 
@@ -98,7 +99,8 @@
                         <div class="form-group label-floating">
                             <label class="control-label">First Name
                                 <small>(required)</small></label>
-                            <input name="firstname" type="text" class="form-control" formControlName="firstName">
+                            <input name="firstname" type="text" class="form-control" formControlName="firstName"
+                                tabindex="0">
                         </div>
                         <div *ngIf="newPatientFormSubmitted && f.firstName.errors">
                             <mat-error *ngIf="f.firstName.errors?.required">First Name is required</mat-error>
@@ -112,7 +114,8 @@
                         <div class="form-group label-floating">
                             <label class="control-label">Province
                                 <small>(required)</small></label>
-                            <input name="province" type="text" class="form-control" formControlName="province">
+                            <input name="province" type="text" class="form-control" formControlName="province"
+                                tabindex="3">
                         </div>
                         <div *ngIf="newPatientFormSubmitted && f.province.errors">
                             <mat-error *ngIf="f.province.errors?.required">Province is required</mat-error>
@@ -126,7 +129,7 @@
                         <div class="form-group label-floating">
                             <label class="control-label">Unit Number
                                 <small>(required)</small></label>
-                            <input name="unit" type="text" class="form-control" formControlName="unit">
+                            <input name="unit" type="text" class="form-control" formControlName="unit" tabindex="6">
                         </div>
                         <div *ngIf="newPatientFormSubmitted && f.unit.errors">
                             <mat-error *ngIf="f.unit.errors?.required">Unit Number is required</mat-error>
@@ -139,7 +142,7 @@
                         <div class="form-group label-floating">
                             <label class="control-label">Cell Phone
                                 <small>(required)</small></label>
-                            <input name="cell" type="text" class="form-control" formControlName="cell">
+                            <input name="cell" type="text" class="form-control" formControlName="cell" tabindex="8">
                         </div>
                         <div *ngIf="newPatientFormSubmitted && f.cell.errors">
                             <mat-error *ngIf="f.cell.errors?.required">Cell Phone is required</mat-error>
@@ -154,7 +157,7 @@
                             <label class="control-label">Health Card & Expiry<small>(if
                                     applicable for glasses shopping)</small></label>
                             <input name="medicalCardExp" type="text" class="form-control"
-                                formControlName="medicalCardExp">
+                                formControlName="medicalCardExp" tabindex="11">
                         </div>
                         <div *ngIf="newPatientFormSubmitted && f.medicalCardExp.errors">
                             <mat-error *ngIf="f.medicalCardExp.errors?.required">Health Card & Expiry is required
@@ -172,27 +175,28 @@
                         <div class="form-group label-floating">
                             <label class="control-label">Last Name
                                 <small>(required)</small></label>
-                            <input name="lastName" type="text" class="form-control" formControlName="lastName">
+                            <input name="lastName" type="text" class="form-control" formControlName="lastName"
+                                tabindex="1">
                         </div>
                         <div *ngIf="newPatientFormSubmitted && f.lastName.errors">
                             <mat-error *ngIf="f.lastName.errors?.required">Last Name is required</mat-error>
                         </div>
                     </div>
 
+                    <!--street num-->
                     <div class="input-group">
                         <span class="input-group-addon">
-                            <i class="material-icons">edit_road</i>
+                            <i class="material-icons">looks_one</i>
                         </span>
                         <div class="form-group label-floating">
-                            <label class="control-label">Street Name
+                            <label class="control-label">Street Number
                                 <small>(required)</small></label>
-                            <input name="streetName" type="text" class="form-control" formControlName="streetName">
+                            <input name="streetNumber" type="text" class="form-control" formControlName="streetNumber" tabindex="4">
                         </div>
-                        <div *ngIf="newPatientFormSubmitted && f.streetName.errors">
-                            <mat-error *ngIf="f.streetName.errors?.required">Street Name is required</mat-error>
+                        <div *ngIf="newPatientFormSubmitted && f.streetNumber.errors">
+                            <mat-error *ngIf="f.streetNumber.errors?.required">Street Number is required</mat-error>
                         </div>
                     </div>
-
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">plus_one</i>
@@ -200,7 +204,7 @@
                         <div class="form-group label-floating">
                             <label class="control-label">Postal Code
                                 <small>(required)</small></label>
-                            <input name="postalCode" type="text" class="form-control" formControlName="postalCode">
+                            <input name="postalCode" type="text" class="form-control" formControlName="postalCode" tabindex="7">
                         </div>
                         <div *ngIf="newPatientFormSubmitted && f.postalCode.errors">
                             <mat-error *ngIf="f.postalCode.errors?.required">Postal Code is required</mat-error>
@@ -213,7 +217,7 @@
                         <div class="form-group label-floating">
                             <label class="control-label">Date of Birth
                                 <small>(required)</small></label>
-                            <input name="dateOfBirth" type="date" class="form-control" formControlName="dateOfBirth">
+                            <input name="dateOfBirth" type="date" class="form-control" formControlName="dateOfBirth" tabindex="9">
                         </div>
                         <div *ngIf="newPatientFormSubmitted && f.dateOfBirth.errors">
                             <mat-error *ngIf="f.dateOfBirth.errors?.required">Date of Birth is required</mat-error>
@@ -230,26 +234,26 @@
                         <div class="form-group label-floating">
                             <label class="control-label">City
                                 <small>(required)</small></label>
-                            <input name="city" type="text" class="form-control" formControlName="city">
+                            <input name="city" type="text" class="form-control" formControlName="city" tabindex="2">
                         </div>
                         <div *ngIf="newPatientFormSubmitted && f.city.errors">
                             <mat-error *ngIf="f.city.errors?.required">City is required</mat-error>
                         </div>
                     </div>
-
                     <div class="input-group">
                         <span class="input-group-addon">
-                            <i class="material-icons">looks_one</i>
+                            <i class="material-icons">edit_road</i>
                         </span>
                         <div class="form-group label-floating">
-                            <label class="control-label">Street Number
+                            <label class="control-label">Street Name
                                 <small>(required)</small></label>
-                            <input name="streetNumber" type="text" class="form-control" formControlName="streetNumber">
+                            <input name="streetName" type="text" class="form-control" formControlName="streetName" tabindex="5">
                         </div>
-                        <div *ngIf="newPatientFormSubmitted && f.streetNumber.errors">
-                            <mat-error *ngIf="f.streetNumber.errors?.required">Street Number is required</mat-error>
+                        <div *ngIf="newPatientFormSubmitted && f.streetName.errors">
+                            <mat-error *ngIf="f.streetName.errors?.required">Street Name is required</mat-error>
                         </div>
                     </div>
+
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">email</i>
@@ -271,7 +275,7 @@
                         <div class="form-group label-floating">
                             <label class="control-label">Insurance Company <small>(if
                                     applicable for glasses shopping)</small></label>
-                            <input name="medicalCard" type="text" class="form-control" formControlName="medicalCard">
+                            <input name="medicalCard" type="text" class="form-control" formControlName="medicalCard" tabindex="10">
                         </div>
                         <div *ngIf="newPatientFormSubmitted && f.medicalCard.errors">
                             <mat-error *ngIf="f.medicalCard.errors?.required">Insurance Company is required</mat-error>

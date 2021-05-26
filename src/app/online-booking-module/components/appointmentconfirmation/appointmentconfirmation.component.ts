@@ -167,6 +167,7 @@ export class AppointmentconfirmationComponent implements OnInit {
       medicalCard: ['', Validators.required],
       medicalCardExp: ['', Validators.required]
     });
+    this.UserNotFound = false;
     this.newPatientFormSubmitted = false;
     this.newPatientFormStatus = 'add';
     this.newPatientFormEnabled = true;

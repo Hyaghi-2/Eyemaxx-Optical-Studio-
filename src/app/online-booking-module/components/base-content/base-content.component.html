@@ -155,8 +155,8 @@
             <!--      Wizard container        -->
             <div class="wizard-container">
                 <div class="card wizard-card" data-color="red" id="wizard">
-                    <div class="wizard-header">
-                        <h3 class="wizard-title">
+                    <div class="wizard-header" style="background-image: url('assets/img/cover.jpg')">
+                        <h3 class=" wizard-title" style="color:#79a0df">
                             Book an Appointment with Eyemaxx Optical Studio
                         </h3>
                         <h5>Please follow the steps to book an appointment</h5>
@@ -237,14 +237,115 @@
     <!-- row -->
     <!--  big container -->
 
-    <!-- <div class="footer">
-            <div class="container text-center" style="color:#000">
-                Footer
-            </div>
-        </div> -->
-    <div class="row text-center">
-        <img src="../../../../assets/img/footer.PNG" width="75%">
+    <div class="footer">
+        <div class="container text-center">
+            <footer id="footer" class="bg6 p-t-45 p-b-43 p-l-45 p-r-45">
+                <div class="footer__columns flex-w p-b-90">
+                    <div class="w-size6 p-t-30 p-l-15 p-r-15 respon3">
+                        <h4 class="s-text12 p-b-30">
+                            GET IN TOUCH
+                        </h4>
+                        <div>
+                            <p class="s-text7 w-size27">
+                                <img style="width:200px; margin-bottom:20px;"
+                                    src="../../../../assets/img/saved_resource">
+                                <br>
+                                <strong style="font-size:16px; font-family:'poppins-black'; font-weight:800">GET IN
+                                    TOUCH</strong><br>
+                                <a style="color:#333;" href="mailto:staff@eyemaxx.ca?subject=Questions"
+                                    title="">staff@eyemaxx.ca</a> <br>
+                                Tel: 613.216.6076
+                            </p>
+                            <div class="footer__social-icons flex-m p-t-30">
+
+
+
+                                <a href="https://www.facebook.com/eyemaxx613/"
+                                    class="fs-18 color1 p-r-20 footer-social-button fa fa-facebook"
+                                    title="Eyemaxx Optical Studio on Facebook">
+                                </a>
+
+
+                                <a data-toggle="tooltip" class="fs-18 color1 p-r-20 footer-social-button fa fa-twitter"
+                                    data-placement="bottom" href="https://twitter.com/eyemaxx613" title=""
+                                    data-original-title="Eyemaxx Optical Studio on Twitter">
+                                </a>
+
+
+
+
+                                <a data-toggle="tooltip"
+                                    class="fs-18 color1 p-r-20 footer-social-button fa fa-instagram"
+                                    data-placement="bottom" href="https://www.instagram.com/eyemaxx613/" title=""
+                                    data-original-title="Eyemaxx Optical Studio on Instagram">
+                                </a>
+
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
+                        <h4 class="s-text12 p-b-30">Quick Links</h4>
+                        <ul>
+
+                            <li class="p-b-9"><a href="https://www.eyemaxx.ca/" class="s-text7">HOME</a></li>
+
+                            <li class="p-b-9"><a href="https://www.eyemaxx.ca/pages/hours" class="s-text7">HOURS</a>
+                            </li>
+
+                            <li class="p-b-9"><a href="https://www.eyemaxx.ca/pages/frames" class="s-text7">FRAMES</a>
+                            </li>
+
+                            <li class="p-b-9"><a href="https://www.eyemaxx.ca/pages/lenses-brands"
+                                    class="s-text7">LENSES</a></li>
+
+                            <li class="p-b-9"><a href="https://www.eyemaxx.ca/pages/contact-lenses-and-fitting"
+                                    class="s-text7">CONTACTS</a></li>
+
+                            <li class="p-b-9"><a href="https://www.eyemaxx.ca/blogs/ive-been-framed"
+                                    class="s-text7">BLOG</a></li>
+
+                            <li class="p-b-9"><a href="https://www.eyemaxx.ca/pages/contact-us" class="s-text7">CONTACT
+                                    US</a></li>
+
+                            <li class="p-b-9"><a href="https://www.eyemaxx.ca/pages/book-an-eye-exam"
+                                    class="s-text7">BOOK AN EYE EXAM</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
+                        <h4 class="s-text12 p-b-30"></h4>
+                        <ul>
+
+                        </ul>
+                    </div>
+                    <div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
+                        <h4 class="s-text12 p-b-30"></h4>
+                        <ul>
+
+                        </ul>
+                    </div>
+                    <div class="w-size8 p-t-30 p-l-15 p-r-15 respon3">
+
+
+
+
+                    </div>
+                </div>
+                <div class="t-center p-l-15 p-r-15">
+                    <div class="t-center s-text7 p-t-20">
+                        Copyright ©️ 2020 All rights reserved.
+                        Template by <a href="https://colorlib.com/">Colorlib</a>
+                    </div>
+                </div>
+            </footer>
+        </div>
     </div>
+
 </div>
 
 
@@ -252,9 +353,8 @@
 </p-confirmDialog> -->
 
 <p-toast></p-toast>
-<p-dialog header="Godfather I" [(visible)]="showBookAppointmentPopUp" [modal]="true" [style]="{width: '50vw'}"
-    [maximizable]="true" [baseZIndex]="10000" [draggable]="false" [resizable]="false" [position]="'top'"
-    [closable]="false">
+<p-dialog header="" [(visible)]="showBookAppointmentPopUp" [modal]="true" [style]="{width: '50vw'}" [maximizable]="true"
+    [baseZIndex]="10000" [draggable]="false" [resizable]="false" [position]="'top'" [closable]="false">
     <!-- <i class="pi pi-check-circle" style="font-size: 2rem;float: left;"></i> -->
     <h6 [ngStyle]="{'color': bookingSuccess!==true?'red':'black'}">
         <i class="{{popIconType}}" style="font-size: 2rem;float: left;"></i> &nbsp;&nbsp; {{popUpMessage}}

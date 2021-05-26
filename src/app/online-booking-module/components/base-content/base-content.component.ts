@@ -30,6 +30,7 @@ export class BaseContentComponent implements OnInit {
   popUpToastMessage: string = '';
   popIconType: string = '';
   bookingSuccess: boolean = false;
+  bookAppointmentSpinnerEnabled: boolean = false;
   constructor(private steps: StepsManagementService,
     private router: Router, private route: ActivatedRoute,
     private serv: BookingModuleService,
@@ -92,6 +93,7 @@ export class BaseContentComponent implements OnInit {
   }
 
   BookAppointment() {
+    this.bookAppointmentSpinnerEnabled = true;
     if (this.currentStepStatus().order == 5) {
       let appointmentTypeData: AppointmentTypeData = <AppointmentTypeData>this.steps.stepsData.filter(x => x.order == 2)[0];
       let appointmentSlotData: AppointmentSlotData = <AppointmentSlotData>this.steps.stepsData.filter(x => x.order == 3)[0];
@@ -110,29 +112,31 @@ export class BaseContentComponent implements OnInit {
 
       if (appointmentSummaryData.OpticianAppointment) {
         //call email api
-        this.sendEmail(appointmentConfirmationData.SelectedUser).subscribe(x => {
-          console.log(x);
-        });
+        // this.sendEmail(appointmentConfirmationData.SelectedUser).subscribe(x => {
+        //   console.log(x);
+        // });
       }
       this.serv.bookNewAppointment(body).subscribe(x => {
         // console.log(x);
         // console.log(x instanceof FailedAppointmentResponse);
 
         if (!x.hasOwnProperty('smsversion')) {
-          this.popUpMessage = 'You have already booked an appointment';
-          this.popUpToastMessage = 'You have already booked an appointment';
+          this.popUpMessage = ' You have already booked an appointment';
+          this.popUpToastMessage = ' You have already booked an appointment';
           this.popIconType = 'pi pi-info-circle';
           this.showBookAppointmentPopUp = true;
           this.messageService.add({ severity: 'error', summary: 'Failed', detail: this.popUpToastMessage });
         }
         else {
           this.bookingSuccess = true;
-          this.popUpMessage = 'Your appoitment successfully booked !';
-          this.popUpToastMessage = 'Your appoitment successfully booked !';
+          this.popUpMessage = ' Your appoitment successfully booked !';
+          this.popUpToastMessage = ' Your appoitment successfully booked !';
           this.popIconType = 'pi pi-check-circle';
           this.showBookAppointmentPopUp = true;
           this.messageService.add({ severity: 'success', summary: 'Succeed', detail: this.popUpToastMessage });
         }
+        this.bookAppointmentSpinnerEnabled = false;
+
       });
     }
   }
@@ -143,11 +147,11 @@ export class BaseContentComponent implements OnInit {
       window.location.href = "https://www.eyemaxx.ca";
     }
     else {
-      this.steps.clearSteps(0);
-      this.router.navigate(['appointment/covid19']);
+      this.steps.clearSteps(1);
+      this.router.navigate(['covid19'], { relativeTo: this.route });
     }
     this.showBookAppointmentPopUp = false;
   }
 
 }
-/*select*from!groupby@*/
+

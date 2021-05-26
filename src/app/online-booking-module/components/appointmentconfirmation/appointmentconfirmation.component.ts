@@ -29,6 +29,7 @@ export class AppointmentconfirmationComponent implements OnInit {
   SelectedUser: Patient = new Patient();
   newPatientFormStatus: string = '';
   isLoadingSpinnerEnabled!: boolean;
+  isUserSelectSpinnerEnabled: boolean = false;
 
   constructor(private serv: BookingModuleService, private steps: StepsManagementService, private fb: FormBuilder) {
     let s: AppointmentConfirmationData = <AppointmentConfirmationData>this.steps.stepsData.filter(x => x.order == 4)[0];
@@ -130,12 +131,14 @@ export class AppointmentconfirmationComponent implements OnInit {
   }
 
   SelectUser(p: SinglePatient) {
+    this.isUserSelectSpinnerEnabled = true;
     this.newPatientFormEnabled = false;
     this.newPatientFormSubmitted = false;
     this.steps.clearSteps(4);
     this.serv.getPatientById(p.id).subscribe(x => {
       this.SelectedUser = new Patient();
       this.SelectedUser = this.SelectedUser.Initialize(x);
+      this.isUserSelectSpinnerEnabled = false;
       this.SelectUserValidated = true;
       this.steps.currentStep.validated = true;
       let p: AppointmentConfirmationData = new AppointmentConfirmationData(4, 'AppointmentConfirmation', this.SelectedUser, this.UsersList);

@@ -267,3 +267,8 @@
         </button>
     </ng-template>
 </p-dialog>
+
+<div class="progress-spinner" *ngIf="bookAppointmentSpinnerEnabled">
+    <p-progressSpinner [style]="{width: '150px', height: '150px'}" styleClass="custom-spinner" strokeWidth="5"
+        fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+</div>

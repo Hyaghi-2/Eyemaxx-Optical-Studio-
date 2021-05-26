@@ -28,6 +28,7 @@ export class AppointmentstypesComponent implements OnInit {
   isOptomitrist: boolean = false;
   StaffErrorMessage: boolean = false;
   ExamErrorMessage: boolean = false;
+  isOptomitristSpinnerEnabled: boolean = false;
   constructor(private serv: BookingModuleService, private steps: StepsManagementService) {
     //checking if the user visit this step before
     let s: AppointmentTypeData = <AppointmentTypeData>this.steps.stepsData.filter(x => x.order == 2)[0];
@@ -77,6 +78,7 @@ export class AppointmentstypesComponent implements OnInit {
   }
 
   SelectStaff(id: number) {
+    this.isOptomitristSpinnerEnabled = true;
     this.steps.clearSteps(2);
     this.StaffSelectionValidated = true;
     if (id > 0) {
@@ -93,6 +95,7 @@ export class AppointmentstypesComponent implements OnInit {
           .subscribe(x => {
             AllAppointments.Initialize(x);
             if (AllAppointments.AppointmentSlotsList.length > 0) {
+              this.isOptomitristSpinnerEnabled = false;
               this.StaffErrorMessage = false;
               this.ExamErrorMessage = false;
               let p: AppointmentTypeData = new AppointmentTypeData(2, 'ExamType', this.SelectedExam, true, this.DoctorStoreTypeData, this.SelectedStaff);

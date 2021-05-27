@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 @NgModule({
   declarations: [BaseContentComponent, ErrormessageComponent, PagenotfoundComponent, CovidPreScreeningComponent, OptimitristOpticianSelectionComponent, AppointmentstypesComponent, AppointmentslutsComponent, AppointmentsummaryComponent, OpticianappointmentComponent, AppointmentconfirmationComponent],
   imports: [
@@ -29,7 +30,8 @@ import { DialogModule } from 'primeng/dialog';
     ProgressSpinnerModule,
     FormsModule, CalendarModule,
     MatFormFieldModule,
-    ToastModule, DialogModule
+    ToastModule, DialogModule, MatCheckboxModule
+
 
   ],
   providers: [{

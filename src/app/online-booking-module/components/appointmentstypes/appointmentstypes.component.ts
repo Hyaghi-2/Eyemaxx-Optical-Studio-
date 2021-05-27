@@ -81,6 +81,8 @@ export class AppointmentstypesComponent implements OnInit {
     this.isOptomitristSpinnerEnabled = true;
     this.steps.clearSteps(2);
     this.StaffSelectionValidated = true;
+    this.StaffErrorMessage = false;
+
     if (id > 0) {
       this.SelectedStaff = this.Staffs.filter(x => x.id == id)[0];
     }
@@ -108,6 +110,8 @@ export class AppointmentstypesComponent implements OnInit {
             }
             else {
               this.StaffErrorMessage = true;
+              this.isOptomitristSpinnerEnabled = false;
+
             }
           });
       } else {

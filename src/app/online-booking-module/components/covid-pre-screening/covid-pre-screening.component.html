@@ -13,41 +13,70 @@
         <div class="col-sm-10">
             <form [formGroup]="CovidPreScrForm">
                 <div class="col-sm-12 ">
-                    <div class="checkbox">
+                    <mat-checkbox class="example-margin" formControlName="firstOption" [color]="'primary'">
+                        I do not
+                        have fever, cough,
+                        shortness of
+                        breath, cold or
+                        flu-like symptoms, or any
+                        other sudden changes to my health. In the last 14 days, I have not
+                        been in contact with someone who has.
+                    </mat-checkbox>
+                    <!-- <div class="checkbox">
                         <label>
                             <input type="checkbox" name="covid1" formControlName="firstOption">
                         </label> I do not have fever, cough, shortness of breath, cold or
                         flu-like symptoms, or any
                         other sudden changes to my health. In the last 14 days, I have not
                         been in contact with someone who has.
-                    </div>
+                    </div> -->
                 </div>
                 <div class="col-sm-12 ">
+                    <mat-checkbox class="example-margin" formControlName="secondOption" [color]="'primary'">In the last
+                        14 days, I have not
+                        travelled outside of Canada
+                        or been in contact with
+                        someone who has.</mat-checkbox>
+
+                    <!--                         
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" name="covid2" formControlName="secondOption">
                         </label> In the last 14 days, I have not travelled outside of Canada
                         or been in contact with
                         someone who has.
-                    </div>
+                    </div> -->
                 </div>
                 <div class="col-sm-12 ">
-                    <div class="checkbox">
+                    <mat-checkbox class="example-margin" formControlName="thirdOption" [color]="'primary'">I do not have
+                        a confirmed case
+                        of COVID-19 or had close
+                        contact with a confirmed case
+                        of COVID-19 without wearing appropriate PPE.</mat-checkbox>
+
+                    <!-- <div class="checkbox">
                         <label>
                             <input type="checkbox" name="covid3" formControlName="thirdOption">
                         </label> I do not have a confirmed case of COVID-19 or had close
                         contact with a confirmed case
                         of COVID-19 without wearing appropriate PPE.
-                    </div>
+                    </div> -->
                 </div>
                 <div class="col-sm-12 ">
-                    <div class="checkbox">
+                    <mat-checkbox class="example-margin" formControlName="fourthOption" [color]="'primary'">I am not
+                        experiencing symptoms
+                        such as: redness, itching, swelling, pain, discharge,
+                        blurred
+                        vision, vision loss, floaters, flashers</mat-checkbox>
+
+
+                    <!-- <div class="checkbox">
                         <label>
                             <input type="checkbox" name="covid4" formControlName="fourthOption">
                         </label>I am not experiencing symptoms such as: redness, itching, swelling, pain, discharge,
                         blurred
                         vision, vision loss, floaters, flashers
-                    </div>
+                    </div> -->
                 </div>
                 <!-- <div>
                     You Must Choose Option or Call Our Store.

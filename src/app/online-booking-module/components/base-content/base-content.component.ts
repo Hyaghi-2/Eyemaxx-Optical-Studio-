@@ -54,6 +54,18 @@ export class BaseContentComponent implements OnInit {
     //   'medicalCard': 'KIB'
     // };
     // let p: Patient = new Patient();
+    // p.firstName = 'hamza';
+    // p.lastName = 'yaghi';
+    // p.streetName = '234';
+    // p.city = 'damas';
+    // p.province = 'damas2';
+    // p.postalCode = 'no-post';
+    // p.dateOfBirth = '2-5-2020';
+    // p.cell = '+963937777645';
+    // p.email = 'email';
+    // p.medicalCardExp = '2-8-2021';
+    // p.medicalCard = 'KIB';
+
     // p = Object.assign(pp);
     // this.sendEmail(p).subscribe(x => {
     //   console.log(x);
@@ -151,6 +163,17 @@ export class BaseContentComponent implements OnInit {
       this.router.navigate(['covid19'], { relativeTo: this.route });
     }
     this.showBookAppointmentPopUp = false;
+  }
+
+  onActivate(event: any) {
+    let scrollToTop = window.setInterval(() => {
+      let pos = window.pageYOffset;
+      if (pos > 0) {
+        window.scrollTo(0, pos - 20); // how far to scroll on each step
+      } else {
+        window.clearInterval(scrollToTop);
+      }
+    }, 16);
   }
 
 }

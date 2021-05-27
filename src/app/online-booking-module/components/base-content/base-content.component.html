@@ -187,7 +187,7 @@
                     </div>
 
                     <div class="tab-content">
-                        <router-outlet></router-outlet>
+                        <router-outlet (activate)="onActivate($event)"></router-outlet>
                     </div>
                     <!-- <div class="wizard-footer" *ngIf="currentStepStatus().validated">
                             <div class="pull-right">
@@ -238,7 +238,6 @@
     <!--  big container -->
 
     <div class="footer">
-        <div class="container text-center">
             <footer id="footer" class="bg6 p-t-45 p-b-43 p-l-45 p-r-45">
                 <div class="footer__columns flex-w p-b-90">
                     <div class="w-size6 p-t-30 p-l-15 p-r-15 respon3">
@@ -343,7 +342,6 @@
                     </div>
                 </div>
             </footer>
-        </div>
     </div>
 
 </div>
@@ -356,9 +354,9 @@
 <p-dialog header="" [(visible)]="showBookAppointmentPopUp" [modal]="true" [style]="{width: '50vw'}" [maximizable]="true"
     [baseZIndex]="10000" [draggable]="false" [resizable]="false" [position]="'top'" [closable]="false">
     <!-- <i class="pi pi-check-circle" style="font-size: 2rem;float: left;"></i> -->
-    <h6 [ngStyle]="{'color': bookingSuccess!==true?'red':'black'}">
+    <p [ngStyle]="{'color': bookingSuccess!==true?'red':'black'}">
         <i class="{{popIconType}}" style="font-size: 2rem;float: left;"></i> &nbsp;&nbsp; {{popUpMessage}}
-    </h6>
+    </p>
     <ng-template pTemplate="footer">
         <p-button type="button" icon="pi pi-check" (click)="popUpNavigation('appointment')"
             label="Book another appointment" class="p-button-raised"></p-button>

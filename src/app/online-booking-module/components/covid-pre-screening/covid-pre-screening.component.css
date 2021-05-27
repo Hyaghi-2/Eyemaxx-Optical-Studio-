@@ -1,0 +1,10 @@
+:host::ng-deep.mat-checkbox-layout {
+    white-space: normal !important;
+    color: #000000DE;
+}
+
+:host::ng-deep.mat-checkbox-inner-container {
+    margin-top: 4px;
+    width: 20px;
+    height: 20px;
+}

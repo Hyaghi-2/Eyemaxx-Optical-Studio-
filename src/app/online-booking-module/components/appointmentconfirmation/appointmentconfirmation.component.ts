@@ -9,7 +9,8 @@ import { AppointmentConfirmationData } from '../../models/Steps-Data/appointment
 import { UpdateBody } from '../../models/update-patient-profile/update-body';
 import { BookingModuleService } from '../../services/booking-module-service.service';
 import { StepsManagementService } from '../../services/steps-management.service';
-
+import { MessageService } from 'primeng/api';
+import { PrimeNGConfig } from 'primeng/api';
 @Component({
   selector: 'app-appointmentconfirmation',
   templateUrl: './appointmentconfirmation.component.html',
@@ -31,7 +32,9 @@ export class AppointmentconfirmationComponent implements OnInit {
   isLoadingSpinnerEnabled!: boolean;
   isUserSelectSpinnerEnabled: boolean = false;
 
-  constructor(private serv: BookingModuleService, private steps: StepsManagementService, private fb: FormBuilder) {
+  constructor(private serv: BookingModuleService, private steps: StepsManagementService, private fb: FormBuilder,
+    private messageService: MessageService,
+    private primengConfig: PrimeNGConfig,) {
     let s: AppointmentConfirmationData = <AppointmentConfirmationData>this.steps.stepsData.filter(x => x.order == 4)[0];
     if (!s) {
       this.steps.currentStep = new Step(4, 'AppointmentConfirmation', false, true, false, 'confirmation');
@@ -114,10 +117,12 @@ export class AppointmentconfirmationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.primengConfig.ripple = true;
 
   }
 
   onNewPatientFormSubmit(event: any) {
+
     if (this.newPatientFormStatus == 'edit') {
       this.EditCurrentUser();
     }
@@ -179,16 +184,27 @@ export class AppointmentconfirmationComponent implements OnInit {
     if (this.newPatientForm.invalid) {
       return;
     }
+    this.isLoadingSpinnerEnabled = true;
     let body: UpdateBody = new UpdateBody();
+    console.log(this.newPatientForm.value);
+
     body = Object.assign(this.newPatientForm.value);
+    console.log(this.SelectedUser);
+
+    body.id = +this.SelectedUser.id.split('-')[1];
     this.serv.updatePatientProfile(body).subscribe(x => {
+      console.log(x);
+
       let p: Patient = new Patient();
       p = p.Initialize(x);
       this.serv.getPatientList(p.email).subscribe(t => {
         this.UsersList.patientList = [];
         this.UsersList.Initialize(t);
+        this.isLoadingSpinnerEnabled = false;
+        this.newPatientFormEnabled = false;
+        this.messageService.add({ severity: 'success', summary: 'Succeed', detail: 'User Successfully Updated !' });
       });
-    })
+    });
 
   }
 
@@ -197,6 +213,7 @@ export class AppointmentconfirmationComponent implements OnInit {
     if (this.newPatientForm.invalid) {
       return;
     }
+    this.isLoadingSpinnerEnabled = true;
     let body: CreatePatientBody = new CreatePatientBody();
     body = Object.assign(this.newPatientForm.value);
     this.serv.createPatient(body).subscribe(x => {
@@ -205,12 +222,16 @@ export class AppointmentconfirmationComponent implements OnInit {
       this.serv.getPatientList(p.email).subscribe(t => {
         this.UsersList.patientList = [];
         this.UsersList.Initialize(t);
+        this.isLoadingSpinnerEnabled = false;
+        this.newPatientFormEnabled = false;
+        this.messageService.add({ severity: 'success', summary: 'Succeed', detail: 'A new user has been added !' });
       });
     });
   }
 
   ShowPatientFormToEdit() {
     this.newPatientFormStatus = 'edit';
+    this.isUserSelectSpinnerEnabled = true;
     this.serv.getPatientById(this.SelectedUser.id).subscribe(x => {
       let p: Patient = new Patient();
       p = p.Initialize(x);
@@ -232,6 +253,8 @@ export class AppointmentconfirmationComponent implements OnInit {
       });
       this.newPatientFormSubmitted = false;
       this.newPatientFormEnabled = true;
+      this.isUserSelectSpinnerEnabled = false;
+
     });
   }
 }

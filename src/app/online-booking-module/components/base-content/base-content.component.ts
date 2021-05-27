@@ -160,7 +160,7 @@ export class BaseContentComponent implements OnInit {
     }
     else {
       this.steps.clearSteps(1);
-      this.router.navigate(['covid19'], { relativeTo: this.route });
+      window.location.reload();
     }
     this.showBookAppointmentPopUp = false;
   }

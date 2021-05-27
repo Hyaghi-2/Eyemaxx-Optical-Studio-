@@ -1,1 +1,11 @@
- 
+ .clickedButton {
+     background-color: #79a0df;
+     color: #fff;
+ }
+
+ .defaultButton {
+     background-color: #fff;
+     color: #79a0df;
+     border-style: solid;
+     border-color: #79a0df;
+ }

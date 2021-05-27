@@ -20,22 +20,26 @@
         <div class="col-sm-3">
         </div>
     </div>
+
     <div class="row">
         <div class="row text-center" *ngIf="ActiveSlots.length>0">
             <h4 class="info-text">Select time slot</h4>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
 
             </div>
-            <div class="col-sm-3" *ngFor="let slot of ActiveSlots" (click)="onSlotSelect(slot)">
-                <a class="btn btn-next btn-fill btn-danger btn-wd">{{formatSlot(slot.start)}} -
-                    {{formatSlot(slot.end)}} </a>
-            </div>
-            <div class="col-sm-3">
+            <div class="col-sm-8">
+                <div class="col-sm-3 offset-sm-2" *ngFor="let slot of ActiveSlots" (click)="onSlotSelect(slot)">
+                    <a class="btn btn-next btn-fill btn-danger btn-wd"
+                        [class.clickedButton]="slot.id == SelectedSlot.id"
+                        [class.defaultButton]="slot.id != SelectedSlot.id">{{formatSlot(slot.start)}}
+                        -
+                        {{formatSlot(slot.end)}} </a>
+                </div>
+                <div class="col-sm-2">
+
+                </div>
 
             </div>
-
         </div>
     </div>
-
-    
 </div>

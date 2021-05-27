@@ -20,12 +20,12 @@ export class AppointmentslutsComponent implements OnInit {
   MinDate!: Date;
   MaxDate!: Date;
   SelectedDate!: Date;
-  SelectedSlot!: SlotViewModel;
+  SelectedSlot: SlotViewModel = new SlotViewModel(-1, 'x', 'x');
   ActiveDistinctAppointments: AppointmentViewModel[] = [];
   InvalidDates: Date[] = [];
   ActiveSlots: SlotViewModel[] = [];
-  DateSelectedValidated!: boolean;
-  SlutSelectedValidated!: boolean;
+  DateSelectedValidated: boolean = false;
+  SlutSelectedValidated: boolean = false;
   CallendarDisabled!: boolean;
   isLoadingSpinnerEnabled!: boolean;
   constructor(private serv: BookingModuleService, private steps: StepsManagementService) {
@@ -37,10 +37,10 @@ export class AppointmentslutsComponent implements OnInit {
     // console.log(s);
 
     if (!s) {
-      this.steps.currentStep = new Step(3, 'AppointmentsSlots', false, false, false, 'date-time');
+      this.steps.currentStep = new Step(3, 'AppointmentsSlots', false, true, false, 'date-time');
       if ((p.isOptomitrist && p.Staff.id == -1) || !p.isOptomitrist) {
         this.serv.getAvailableAppointmentSluts(this.accountsId, this.companyName, p.ExamType.id.toString()).subscribe(x => {
-         /// console.log(x);
+          /// console.log(x);
           this.AllAppointments.Initialize(x);
           // console.log(this.AllAppointments);
           this.MinDate = new Date();
@@ -74,6 +74,7 @@ export class AppointmentslutsComponent implements OnInit {
     }
     else {
       setTimeout(() => {
+        this.steps.currentStep = new Step(3, 'AppointmentsSlots', false, true, false, 'date-time');
         this.MinDate = s.MinDate;
         this.MaxDate = s.MaxDate;
         this.SelectedDate = s.SelectedDate;
@@ -81,6 +82,8 @@ export class AppointmentslutsComponent implements OnInit {
         this.InvalidDates = s.InvalidAppointments;
         this.CallendarDisabled = s.CallendarDisabled;
         this.isLoadingSpinnerEnabled = false;
+        this.SelectedSlot = s.SelectedTimeSlot;
+        this.ActiveSlots = s.ActiveSlots;
       }, 2000);
 
     }
@@ -151,14 +154,19 @@ export class AppointmentslutsComponent implements OnInit {
   }
 
   onSlotSelect(slot: SlotViewModel) {
+
+
     this.SlutSelectedValidated = true;
     this.steps.clearSteps(3);
     this.SelectedSlot = new SlotViewModel(slot.id, slot.start, slot.end);
     if (this.SlutSelectedValidated && this.DateSelectedValidated) {
       this.steps.currentStep.validated = true;
-      let s: AppointmentSlotData = new AppointmentSlotData(3, 'AppointmentsSlots', this.CallendarDisabled, this.SelectedDate, this.MinDate, this.MaxDate, this.ActiveDistinctAppointments, this.InvalidDates, this.SelectedSlot);
+      let s: AppointmentSlotData = new AppointmentSlotData(3, 'AppointmentsSlots', this.CallendarDisabled, this.SelectedDate, this.MinDate, this.MaxDate, this.ActiveDistinctAppointments, this.InvalidDates, this.SelectedSlot, this.ActiveSlots);
       this.steps.stepsData.push(s);
       this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = this.steps.currentStep.validated;
+      console.log(slot.id == this.SelectedSlot.id);
+
+
     }
   }
 }

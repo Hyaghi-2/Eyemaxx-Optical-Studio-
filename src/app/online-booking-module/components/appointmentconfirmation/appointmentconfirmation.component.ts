@@ -31,6 +31,7 @@ export class AppointmentconfirmationComponent implements OnInit {
   newPatientFormStatus: string = '';
   isLoadingSpinnerEnabled!: boolean;
   isUserSelectSpinnerEnabled: boolean = false;
+  addNewUserEnabled: boolean = false;
 
   constructor(private serv: BookingModuleService, private steps: StepsManagementService, private fb: FormBuilder,
     private messageService: MessageService,
@@ -96,6 +97,7 @@ export class AppointmentconfirmationComponent implements OnInit {
 
   onEmailFormSubmit(event: any) {
     this.emailFormSubmitted = true;
+    this.addNewUserEnabled = true;
     if (this.emailForm.invalid) {
       event.preventDefault();
       return;

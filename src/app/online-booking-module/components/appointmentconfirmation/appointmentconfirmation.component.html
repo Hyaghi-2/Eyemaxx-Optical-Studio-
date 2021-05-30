@@ -59,7 +59,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-4" (click)="showPatientFormToAdd()">
+            <div class="col-sm-4" (click)="showPatientFormToAdd()" *ngIf="addNewUserEnabled">
                 <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="New User">
                     <input type="radio" name="job" value="Code">
                     <div class="icon">

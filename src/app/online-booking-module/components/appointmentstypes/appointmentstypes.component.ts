@@ -96,6 +96,9 @@ export class AppointmentstypesComponent implements OnInit {
         this.serv.getAvailableAppointmentSluts(this.accountsId.toString(), this.companyName, this.SelectedExam.id.toString(), this.SelectedStaff.id.toString())
           .subscribe(x => {
             AllAppointments.Initialize(x);
+            let MinDate: Date = new Date();
+            MinDate.setDate(AllAppointments.AppointmentSlotsList[0].start.getDate() + 2);
+            AllAppointments.AppointmentSlotsList = AllAppointments.AppointmentSlotsList.filter(x => x.start >= MinDate);
             if (AllAppointments.AppointmentSlotsList.length > 0) {
               this.isOptomitristSpinnerEnabled = false;
               this.StaffErrorMessage = false;
@@ -169,5 +172,7 @@ export class AppointmentstypesComponent implements OnInit {
     }
 
   }
+
+
 
 }

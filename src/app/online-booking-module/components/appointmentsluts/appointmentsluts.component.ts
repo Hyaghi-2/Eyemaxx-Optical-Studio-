@@ -40,7 +40,7 @@ export class AppointmentslutsComponent implements OnInit {
       this.steps.currentStep = new Step(3, 'AppointmentsSlots', false, true, false, 'date-time');
       if ((p.isOptomitrist && p.Staff.id == -1) || !p.isOptomitrist) {
         this.serv.getAvailableAppointmentSluts(this.accountsId, this.companyName, p.ExamType.id.toString()).subscribe(x => {
-          /// console.log(x);
+           console.log(x);
           this.AllAppointments.Initialize(x);
           // console.log(this.AllAppointments);
           this.MinDate = new Date();
@@ -56,7 +56,7 @@ export class AppointmentslutsComponent implements OnInit {
         });
       } else {
         this.serv.getAvailableAppointmentSluts(this.accountsId, this.companyName, p.ExamType.id.toString(), p.Staff.id.toString()).subscribe(x => {
-          // console.log(x);
+          console.log(x);
           this.AllAppointments.Initialize(x);
           // console.log(this.AllAppointments);
           this.MinDate = new Date();

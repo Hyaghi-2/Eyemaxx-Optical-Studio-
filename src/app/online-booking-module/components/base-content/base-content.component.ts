@@ -31,6 +31,8 @@ export class BaseContentComponent implements OnInit {
   popIconType: string = '';
   bookingSuccess: boolean = false;
   bookAppointmentSpinnerEnabled: boolean = false;
+  windowWidth: number = 0;
+
   constructor(private steps: StepsManagementService,
     private router: Router, private route: ActivatedRoute,
     private serv: BookingModuleService,
@@ -40,6 +42,7 @@ export class BaseContentComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.steps.WindowScale = window.innerWidth;
     // var pp = {
     //   'firstName': 'hamza',
     //   'lastName': 'yaghi',
@@ -166,14 +169,18 @@ export class BaseContentComponent implements OnInit {
   }
 
   onActivate(event: any) {
-    let scrollToTop = window.setInterval(() => {
-      let pos = window.pageYOffset;
-      if (pos > 0) {
-        window.scrollTo(0, pos - 10); // how far to scroll on each step
-      } else {
-        window.clearInterval(scrollToTop);
-      }
-    }, 16);
+    window.scrollTo({
+      top: 100,
+      behavior: 'smooth'
+    });
+    // let scrollToTop = window.setInterval(() => {
+    //   let pos = window.pageYOffset;
+    //   if (pos > 0) {
+    //     window.scrollTo(0, pos-2); // how far to scroll on each step
+    //   } else {
+    //     window.clearInterval(scrollToTop);
+    //   }
+    // }, 20);
   }
 
 }

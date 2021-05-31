@@ -28,9 +28,13 @@ export class AppointmentslutsComponent implements OnInit {
   SlutSelectedValidated: boolean = false;
   CallendarDisabled!: boolean;
   isLoadingSpinnerEnabled!: boolean;
+  ViewedMonths: number = 0;
   constructor(private serv: BookingModuleService, private steps: StepsManagementService) {
     this.CallendarDisabled = true;
     this.isLoadingSpinnerEnabled = true;
+    this.MinDate = new Date();
+    this.MaxDate = new Date();
+    this.ViewedMonths = this.steps.WindowScale > 500 ? 2 : 1;
     let s: AppointmentSlotData = <AppointmentSlotData>this.steps.stepsData.filter(x => x.order == 3)[0];
     let p: AppointmentTypeData = <AppointmentTypeData>this.steps.stepsData.filter(x => x.order == 2)[0];
     // console.log(p);
@@ -40,17 +44,31 @@ export class AppointmentslutsComponent implements OnInit {
       this.steps.currentStep = new Step(3, 'AppointmentsSlots', false, true, false, 'date-time');
       if ((p.isOptomitrist && p.Staff.id == -1) || !p.isOptomitrist) {
         this.serv.getAvailableAppointmentSluts(this.accountsId, this.companyName, p.ExamType.id.toString()).subscribe(x => {
-           console.log(x);
+          console.log(x);
           this.AllAppointments.Initialize(x);
           // console.log(this.AllAppointments);
-          this.MinDate = new Date();
-          this.MinDate.setDate(this.AllAppointments.AppointmentSlotsList[0].start.getDate() + 2);
-          this.MaxDate = new Date();
-          this.MaxDate = this.AllAppointments.AppointmentSlotsList[this.AllAppointments.AppointmentSlotsList.length - 1].start;
+
+          //console.log(this.AllAppointments.AppointmentSlotsList[0].start);
+
+          //console.log(this.AllAppointments.AppointmentSlotsList[0].start.getDate());
+
+          // this.MinDate.setDate(this.AllAppointments.AppointmentSlotsList[0].start.getDate() + 2);
+          // this.MaxDate = this.AllAppointments.AppointmentSlotsList[this.AllAppointments.AppointmentSlotsList.length - 1].start;
+
+
           this.InitializeAppointmentsSlots();
+          console.log(this.ActiveDistinctAppointments);
+          this.MinDate = this.ActiveDistinctAppointments[0].AppointmentDate;
+          this.MaxDate = this.ActiveDistinctAppointments[this.ActiveDistinctAppointments.length - 1].AppointmentDate;
+          console.log(this.MinDate);
+          console.log(this.MaxDate);
+          // this.MinDate.setDate(this.ActiveDistinctAppointments[0].AppointmentDate.getDate());
+          // this.MaxDate.setDate(this.ActiveDistinctAppointments[this.ActiveDistinctAppointments.length - 1].AppointmentDate.getDate());
           // console.log(this.ActiveDistinctAppointments);
           this.InitializeInvalidDates();
-          // console.log(this.InvalidDates);
+          console.log(this.InvalidDates);
+
+          // // console.log(this.InvalidDates);
           this.CallendarDisabled = false;
           this.isLoadingSpinnerEnabled = false;
         });
@@ -59,14 +77,25 @@ export class AppointmentslutsComponent implements OnInit {
           console.log(x);
           this.AllAppointments.Initialize(x);
           // console.log(this.AllAppointments);
-          this.MinDate = new Date();
-          this.MinDate.setDate(this.AllAppointments.AppointmentSlotsList[0].start.getDate() + 2);
-          this.MaxDate = new Date();
-          this.MaxDate = this.AllAppointments.AppointmentSlotsList[this.AllAppointments.AppointmentSlotsList.length - 1].start;
+          // console.log(this.AllAppointments.AppointmentSlotsList[0].start);
+
+          // this.MinDate.setDate(this.AllAppointments.AppointmentSlotsList[0].start.getDate() + 2);
+          // this.MaxDate = this.AllAppointments.AppointmentSlotsList[this.AllAppointments.AppointmentSlotsList.length - 1].start;
+          // console.log(this.AllAppointments.AppointmentSlotsList[0].start.getDate() + 2);
+
+
           this.InitializeAppointmentsSlots();
+          console.log(this.ActiveDistinctAppointments);
+          this.MinDate = this.ActiveDistinctAppointments[0].AppointmentDate;
+          this.MaxDate = this.ActiveDistinctAppointments[this.ActiveDistinctAppointments.length - 1].AppointmentDate;
+          console.log(this.MinDate);
+          console.log(this.MaxDate);
+
+          // this.MinDate.setDate(this.ActiveDistinctAppointments[0].AppointmentDate.getDate());
+          // this.MaxDate.setDate(this.ActiveDistinctAppointments[this.ActiveDistinctAppointments.length - 1].AppointmentDate.getDate());
           // console.log(this.ActiveDistinctAppointments);
           this.InitializeInvalidDates();
-          // console.log(this.InvalidDates);
+          console.log(this.InvalidDates);
           this.CallendarDisabled = false;
           this.isLoadingSpinnerEnabled = false;
         });

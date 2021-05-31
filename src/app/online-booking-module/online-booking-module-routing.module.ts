@@ -13,6 +13,8 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/appointment/covid19', pathMatch: 'full' },
+
   {
     path: 'appointment', component: BaseContentComponent,
     children: [
@@ -24,7 +26,7 @@ const routes: Routes = [
     ]
   },
   { path: 'error', component: ErrormessageComponent },
-  { path: '**', component: PagenotfoundComponent }
+  { path: '**', component: PagenotfoundComponent },
 ];
 
 @NgModule({

@@ -96,25 +96,30 @@ export class AppointmentstypesComponent implements OnInit {
         this.serv.getAvailableAppointmentSluts(this.accountsId.toString(), this.companyName, this.SelectedExam.id.toString(), this.SelectedStaff.id.toString())
           .subscribe(x => {
             AllAppointments.Initialize(x);
-            let MinDate: Date = new Date();
-            MinDate.setDate(AllAppointments.AppointmentSlotsList[0].start.getDate() + 2);
-            AllAppointments.AppointmentSlotsList = AllAppointments.AppointmentSlotsList.filter(x => x.start >= MinDate);
+
             if (AllAppointments.AppointmentSlotsList.length > 0) {
-              this.isOptomitristSpinnerEnabled = false;
-              this.StaffErrorMessage = false;
-              this.ExamErrorMessage = false;
-              let p: AppointmentTypeData = new AppointmentTypeData(2, 'ExamType', this.SelectedExam, true, this.DoctorStoreTypeData, this.SelectedStaff);
-              this.steps.stepsData.push(p);
-              this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = true;
-              this.steps.currentStep.validated = true;
-              let index = this.steps.Steps.findIndex(x => x.order == this.steps.currentStep.order);
-              this.steps.Steps[index].validated = true;
+              let MinDate: Date = new Date();
+              MinDate.setDate(AllAppointments.AppointmentSlotsList[0].start.getDate() + 2);
+              AllAppointments.AppointmentSlotsList = AllAppointments.AppointmentSlotsList.filter(x => x.start >= MinDate);
+              if (AllAppointments.AppointmentSlotsList.length > 0) {
+                this.isOptomitristSpinnerEnabled = false;
+                this.StaffErrorMessage = false;
+                this.ExamErrorMessage = false;
+                let p: AppointmentTypeData = new AppointmentTypeData(2, 'ExamType', this.SelectedExam, true, this.DoctorStoreTypeData, this.SelectedStaff);
+                this.steps.stepsData.push(p);
+                this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = true;
+                this.steps.currentStep.validated = true;
+                let index = this.steps.Steps.findIndex(x => x.order == this.steps.currentStep.order);
+                this.steps.Steps[index].validated = true;
+              } else {
+                this.isOptomitristSpinnerEnabled = false;
+                this.StaffErrorMessage = true;
+              }
 
             }
             else {
-              this.StaffErrorMessage = true;
               this.isOptomitristSpinnerEnabled = false;
-
+              this.StaffErrorMessage = true;
             }
           });
       } else {
@@ -126,6 +131,8 @@ export class AppointmentstypesComponent implements OnInit {
         let p: AppointmentTypeData = new AppointmentTypeData(2, 'ExamType', this.SelectedExam, true, this.DoctorStoreTypeData, this.SelectedStaff);
         this.steps.stepsData.push(p);
         this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = this.steps.currentStep.validated;
+        this.isOptomitristSpinnerEnabled = false;
+
       }
 
 
@@ -145,18 +152,48 @@ export class AppointmentstypesComponent implements OnInit {
 
       this.isOptomitrist = this.SelectedExam.name.split(':')[0] != 'Optical' ? true : false;
       if (!this.isOptomitrist) {
-        this.Staffs = [];
-        this.StaffSelectionValidated = true;
-        this.ExamSelectionValidated = true;
-        let p: AppointmentTypeData = new AppointmentTypeData(2, 'ExamType', this.SelectedExam, false, this.DoctorStoreTypeData);
-        this.steps.stepsData.push(p);
-        this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = true
-        this.steps.currentStep.validated = true;
-        let index = this.steps.Steps.findIndex(x => x.order == this.steps.currentStep.order);
-        this.steps.Steps[index].validated = true;
+        this.isOptomitristSpinnerEnabled = true;
+        let AllAppointments: AppointmentSlotsResponse = new AppointmentSlotsResponse();
+        this.serv.getAvailableAppointmentSluts(this.accountsId.toString(), this.companyName,
+          this.SelectedExam.id.toString()).subscribe(x => {
+            AllAppointments.Initialize(x);
+            console.log(x);
+
+            if (AllAppointments.AppointmentSlotsList.length > 0) {
+              console.log(161);
+
+              let MinDate: Date = new Date();
+              MinDate.setDate(AllAppointments.AppointmentSlotsList[0]?.start.getDate() + 2);
+              AllAppointments.AppointmentSlotsList = AllAppointments.AppointmentSlotsList.filter(x => x.start >= MinDate);
+              if (AllAppointments.AppointmentSlotsList.length > 0) {
+                console.log(167);
+                this.Staffs = [];
+                this.StaffSelectionValidated = true;
+                this.ExamSelectionValidated = true;
+                let p: AppointmentTypeData = new AppointmentTypeData(2, 'ExamType', this.SelectedExam, false, this.DoctorStoreTypeData);
+                this.steps.stepsData.push(p);
+                this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = true
+                this.steps.currentStep.validated = true;
+                let index = this.steps.Steps.findIndex(x => x.order == this.steps.currentStep.order);
+                this.steps.Steps[index].validated = true;
+              }
+              else {
+                console.log(180);
+                this.isOptomitristSpinnerEnabled = false;
+                this.StaffErrorMessage = true;
+              }
+            }
+            else {
+              console.log(185);
+              this.isOptomitristSpinnerEnabled = false;
+              this.StaffErrorMessage = true;
+            }
+          });
+
 
       }
       else {
+        console.log(194);
         this.ExamSelectionValidated = true;
         this.Staffs = this.DoctorStoreTypeData.Doctors.filter(x => x.designation == 'OD');
       }
@@ -170,6 +207,7 @@ export class AppointmentstypesComponent implements OnInit {
       this.isOptomitrist = false;
 
     }
+    
 
   }
 

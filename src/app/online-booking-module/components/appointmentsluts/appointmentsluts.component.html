@@ -13,7 +13,7 @@
         </div> -->
         <div class="col-sm-5" *ngIf="!isLoadingSpinnerEnabled">
 
-            <p-calendar [(ngModel)]="SelectedDate" [inline]="true" [showWeek]="true" [numberOfMonths]="2"
+            <p-calendar [(ngModel)]="SelectedDate" [inline]="true" [showWeek]="true" [numberOfMonths]="ViewedMonths"
                 (onSelect)="onCallendarSelect()" [minDate]="MinDate" [maxDate]="MaxDate" [disabledDates]="InvalidDates">
             </p-calendar>
         </div>
@@ -28,7 +28,7 @@
 
             </div>
             <div class="col-sm-8">
-                <div class="col-sm-3 offset-sm-2" *ngFor="let slot of ActiveSlots" (click)="onSlotSelect(slot)">
+                <div class="col-sm-4 offset-sm-2" *ngFor="let slot of ActiveSlots" (click)="onSlotSelect(slot)">
                     <a class="btn btn-next btn-fill btn-danger btn-wd"
                         [class.clickedButton]="slot.id == SelectedSlot.id"
                         [class.defaultButton]="slot.id != SelectedSlot.id">{{formatSlot(slot.start)}}

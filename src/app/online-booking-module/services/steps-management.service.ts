@@ -12,6 +12,7 @@ export class StepsManagementService {
   public currentStep!: Step;
   public stepsData: DataParent[] = [];
   public ExamTypesPreFetch: DoctorStoreTypeResponse = new DoctorStoreTypeResponse();
+  public WindowScale: number = 0;
 
   constructor() {
     this.Steps.push(new Step(1, 'COVID19preScr', false, true, false, 'covid19'));

@@ -142,6 +142,8 @@ export class AppointmentstypesComponent implements OnInit {
   }
 
   SelectExam() {
+    console.log(this.SelectedExamId);
+
     this.steps.clearSteps(2);
     this.SelectedExam = new AppointmentType();
     this.SelectedStaff = new Doctor();
@@ -207,7 +209,7 @@ export class AppointmentstypesComponent implements OnInit {
       this.isOptomitrist = false;
 
     }
-    
+
 
   }
 

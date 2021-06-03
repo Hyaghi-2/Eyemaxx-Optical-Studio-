@@ -59,7 +59,7 @@ export class AppointmentslutsComponent implements OnInit {
           this.InitializeAppointmentsSlots();
           //Delete the first 4 appointments from today
           console.log(this.ActiveDistinctAppointments);
-          
+
           let today: Date = new Date();
           today.setHours(0, 0, 0, 0);
           let lastAppoitment: Date = new Date();
@@ -92,6 +92,8 @@ export class AppointmentslutsComponent implements OnInit {
           console.log(x);
           this.AllAppointments.Initialize(x);
           this.InitializeAppointmentsSlots();
+          console.log(this.ActiveDistinctAppointments);
+
           let today: Date = new Date();
           today.setHours(0, 0, 0, 0);
           let lastAppoitment: Date = new Date();
@@ -106,7 +108,7 @@ export class AppointmentslutsComponent implements OnInit {
           }
           this.MinDate = this.ActiveDistinctAppointments[0].AppointmentDate;
           let index: number = this.ActiveDistinctAppointments.findIndex(x => x.AppointmentDate.toDateString() == lastAppoitment.toDateString());
-          if (index) {
+          if (index>-1) {
             this.MaxDate = this.ActiveDistinctAppointments[index].AppointmentDate;
           }
           else {

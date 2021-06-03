@@ -91,6 +91,7 @@ export class AppointmentconfirmationComponent implements OnInit {
         medicalCardExp: ['', Validators.required]
       });
       this.SelectUserValidated = true;
+      this.addNewUserEnabled = true;
     }
   }
 

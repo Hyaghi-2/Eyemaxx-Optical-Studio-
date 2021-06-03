@@ -20,7 +20,7 @@
                             <small>(required)</small></label>
                         <input name="userEmail" type="text" class="form-control" formControlName="userEmail">
                     </div>
-                    <div *ngIf="emailFormSubmitted && f.email?.errors">
+                    <div *ngIf="emailFormSubmitted && fe.userEmail?.errors" class="text-center">
                         <mat-error *ngIf="fe.userEmail.errors?.required">Email is required</mat-error>
                         <mat-error *ngIf="fe.userEmail.errors?.email">Invalid E-mail format</mat-error>
                     </div>
@@ -164,7 +164,7 @@
                             <mat-error *ngIf="f.dateOfBirth.errors?.required">Date of Birth is required</mat-error>
                         </div>
                     </div>
-                    
+
                 </div>
 
                 <!-- col2 -->
@@ -290,7 +290,7 @@
                         </div>
                     </div>
 
-                    
+
                 </div>
 
                 <div class="col-sm-12">

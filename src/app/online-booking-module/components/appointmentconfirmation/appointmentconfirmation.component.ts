@@ -97,8 +97,9 @@ export class AppointmentconfirmationComponent implements OnInit {
 
   onEmailFormSubmit(event: any) {
     this.emailFormSubmitted = true;
+    console.log(this.emailFormSubmitted);
+
     if (this.emailForm.invalid) {
-      event.preventDefault();
       return;
     }
     this.addNewUserEnabled = true;

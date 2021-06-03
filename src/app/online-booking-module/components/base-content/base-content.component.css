@@ -20,7 +20,6 @@
     color: #ffffff;
     background: #79a0df;
     border: 1px solid #79a0df;
-    padding: 0.5rem 1rem;
     font-size: 1rem;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
     border-radius: 3px;
@@ -30,8 +29,21 @@
     color: #ffffff;
     background: #999999;
     border: 1px solid #999999;
-    padding: 0.5rem 1rem;
     font-size: 1rem;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
     border-radius: 3px;
+}
+
+@media only screen and (max-width: 500px) {
+    button.p-button-secondary.homebutton.p-button.p-component.ng-star-inserted {
+        margin-top: 8%;
+        margin-right: 6%;
+    }
+    button.p-button-secondary.homebutton.p-button.p-component.ng-star-inserted[_ngcontent-llh-c97] {
+        margin-top: 8%;
+        margin-right: 8%;
+    }
+    button.p-button-raised.bookbutton.p-button.p-component.ng-star-inserted {
+        margin-right: 8%;
+    }
 }

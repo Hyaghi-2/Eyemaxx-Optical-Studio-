@@ -27,11 +27,11 @@
     <div class="row">
         <div class="row text-center" *ngIf="ActiveSlots.length>0">
             <h4 class="info-text">Select time slot</h4>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
 
             </div>
-            <div class="col-sm-8">
-                <div class="col-sm-2" *ngFor="let slot of ActiveSlots" (click)="onSlotSelect(slot)">
+            <div class="col-sm-6">
+                <div class="col-sm-3" *ngFor="let slot of ActiveSlots" (click)="onSlotSelect(slot)">
                     <a style="padding: 10px 12px!important;min-width: 100px!important;"
                         class="btn btn-next btn-fill btn-danger btn-wd"
                         [class.clickedButton]="slot.id == SelectedSlot.id"
@@ -39,7 +39,7 @@
                         -
                         {{formatSlot(slot.end)}} </a>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
 
                 </div>
 

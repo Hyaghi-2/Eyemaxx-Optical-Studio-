@@ -97,11 +97,11 @@ export class AppointmentconfirmationComponent implements OnInit {
 
   onEmailFormSubmit(event: any) {
     this.emailFormSubmitted = true;
-    this.addNewUserEnabled = true;
     if (this.emailForm.invalid) {
       event.preventDefault();
       return;
     }
+    this.addNewUserEnabled = true;
     this.isLoadingSpinnerEnabled = true;
     this.typedEmail = this.emailForm.get('userEmail')?.value;
     this.serv.getPatientList(this.emailForm.get('userEmail')?.value).subscribe(x => {

@@ -180,7 +180,7 @@ export class BaseContentComponent implements OnInit {
 
   onActivate(event: any) {
     window.scrollTo({
-      top: 100,
+      top: 200,
       behavior: 'smooth'
     });
     // let scrollToTop = window.setInterval(() => {

@@ -6,79 +6,148 @@
         <div class="row">
             <div class="col-sm-3">
             </div>
-            <div class="col-sm-6">
-                <div class="container">
-                    <div class="form-group label-floating">
-                        <label class="control-label">Please Select Exam Type</label>
+            <div class="col-sm-6 text-center">
 
-                        <select class="form-control" [(ngModel)]="SelectedExamId" (change)="SelectExam()">
-                            <option value="0" selected disabled>Please select appointment type:</option>
-                            <option *ngFor="let type of DoctorStoreTypeData.AppointmentTypes" value="{{type.id}}">{{
-                                type.name }}
-                            </option>
+                <label class="control-label">Exam Type</label><br>
+                <mat-form-field appearance="fill" style="width: 80%; margin-left: 4%;margin-right:4%;">
+                    <mat-label>Click here to select the exam type</mat-label>
+                    <mat-select [(ngModel)]="SelectedExamId" (selectionChange)="SelectExam()">
+                        <mat-option *ngFor="let type of DoctorStoreTypeData.AppointmentTypes" value="{{type.id}}">{{
+                            type.name }}
+                        </mat-option>
 
-                            <option value='-2'>
-                                Contact Lens Fitting: Multifocal or Monovision
-                            </option>
-                            <option value='-2'>
-                                Contact Lens Fitting: Single Vision
-                            </option>
-                            <option value='-2'>
-                                Contact Lens Teach: Multifocal or Monovision
-                            </option>
-                            <option value='-2'>
-                                Contact Lens Teach: Single Vision
-                            </option>
-                            <option value='-2'>
-                                Forms
-                            </option>
-                            <option value='-2'>
-                                Laser Post-op
-                            </option>
-                            <option value='-2'>
-                                NIHB (Non-Insured Health Benefits)
-                            </option>
-                            <option value='-2'>
-                                No Charge CL Follow Up
-                            </option>
-                            <option value='-2'>
-                                No Charge Rx Check
-                            </option>
-                            <option value='-2'>
-                                Partial Eye Exam
-                            </option>
-                            <option value='-2'>
-                                Retinal Images
-                            </option>
-                            <option value='-2'>
-                                Visual Field
-                            </option>
-                            <option value='-2'>
-                                OHIP: Partial (V408A)
-                            </option>
-                            <option value='-2'>
-                                OHIP: Visual Fields (V410A)
-                            </option>
-                            <option value='-2'>
-                                OHIP: ODSP (V450A)
-                            </option>
-                            <option value='-2'>
-                                OHIP: Ontario Works (V451A)
-                            </option>
-                            <option value='-2'>
-                                Optical: Sales Rep
-                            </option>
-                            <option value='-2'>
-                                Optical: Troubleshooting
-                            </option>
-                        </select>
-                        <div *ngIf="ExamErrorMessage">
-                            <mat-error>This type of exam can not be booked online,
-                                Please select another type or call our
-                                store to book an appointment.</mat-error>
-                        </div>
-                    </div>
+                        <mat-option value="-2">
+                            Contact Lens Fitting: Multifocal or Monovision
+                        </mat-option>
+                        <mat-option value="-2">
+                            Contact Lens Fitting: Single Vision
+                        </mat-option>
+                        <mat-option value="-2">
+                            Contact Lens Teach: Multifocal or Monovision
+                        </mat-option>
+                        <mat-option value="-2">
+                            Contact Lens Teach: Single Vision
+                        </mat-option>
+                        <mat-option value="-2">
+                            Forms
+                        </mat-option>
+                        <mat-option value="-2">
+                            Laser Post-op
+                        </mat-option>
+                        <mat-option value="-2">
+                            NIHB (Non-Insured Health Benefits)
+                        </mat-option>
+                        <mat-option value="-2">
+                            No Charge CL Follow Up
+                        </mat-option>
+                        <mat-option value="-2">
+                            No Charge Rx Check
+                        </mat-option>
+                        <mat-option value="-2">
+                            Partial Eye Exam
+                        </mat-option>
+                        <mat-option value="-2">
+                            Retinal Images
+                        </mat-option>
+                        <mat-option value="-2">
+                            Visual Field
+                        </mat-option>
+                        <mat-option value="-2">
+                            OHIP: Partial (V408A)
+                        </mat-option>
+                        <mat-option value="-2">
+                            OHIP: Visual Fields (V410A)
+                        </mat-option>
+                        <mat-option value="-2">
+                            OHIP: ODSP (V450A)
+                        </mat-option>
+                        <mat-option value="-2">
+                            OHIP: Ontario Works (V451A)
+                        </mat-option>
+                        <mat-option value="-2">
+                            Optical: Sales Rep
+                        </mat-option>
+                        <mat-option value="-2">
+                            Optical: Troubleshooting
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div *ngIf="ExamErrorMessage">
+                    <mat-error>This type of exam can not be booked online,
+                        Please select another type or call our
+                        store to book an appointment.</mat-error>
                 </div>
+                <!-- <div class="form-group label-floating" style="margin-left: 4%; margin-right: 4%;">
+                    <label class="control-label">Exam Type</label>
+
+                    <select class="form-control" [(ngModel)]="SelectedExamId" (change)="SelectExam()">
+                        <option value="0" selected disabled>Click here to select the exam type</option>
+                        <option *ngFor="let type of DoctorStoreTypeData.AppointmentTypes" value="{{type.id}}">{{
+                            type.name }}
+                        </option>
+
+                        <option value="-2">
+                            Contact Lens Fitting: Multifocal or Monovision
+                        </option>
+                        <option value="-2">
+                            Contact Lens Fitting: Single Vision
+                        </option>
+                        <option value="-2">
+                            Contact Lens Teach: Multifocal or Monovision
+                        </option>
+                        <option value="-2">
+                            Contact Lens Teach: Single Vision
+                        </option>
+                        <option value="-2">
+                            Forms
+                        </option>
+                        <option value="-2">
+                            Laser Post-op
+                        </option>
+                        <option value="-2">
+                            NIHB (Non-Insured Health Benefits)
+                        </option>
+                        <option value="-2">
+                            No Charge CL Follow Up
+                        </option>
+                        <option value="-2">
+                            No Charge Rx Check
+                        </option>
+                        <option value="-2">
+                            Partial Eye Exam
+                        </option>
+                        <option value="-2">
+                            Retinal Images
+                        </option>
+                        <option value="-2">
+                            Visual Field
+                        </option>
+                        <option value="-2">
+                            OHIP: Partial (V408A)
+                        </option>
+                        <option value="-2">
+                            OHIP: Visual Fields (V410A)
+                        </option>
+                        <option value="-2">
+                            OHIP: ODSP (V450A)
+                        </option>
+                        <option value="-2">
+                            OHIP: Ontario Works (V451A)
+                        </option>
+                        <option value="-2">
+                            Optical: Sales Rep
+                        </option>
+                        <option value="-2">
+                            Optical: Troubleshooting
+                        </option>
+                    </select>
+                    <div *ngIf="ExamErrorMessage">
+                        <mat-error>This type of exam can not be booked online,
+                            Please select another type or call our
+                            store to book an appointment.</mat-error>
+                    </div>
+
+                </div> -->
 
             </div>
             <div class="col-sm-3">
@@ -114,8 +183,8 @@
             <li>OHIP: Ontario Works (V451A)</li>
         </div> -->
         <h4 class="info-text" *ngIf="isOptomitrist">Please select an Optometrist / Any Optometrist</h4>
-        <h4 *ngIf="StaffErrorMessage" class="info-text" style="color: red;">The selected staff doesnt have any
-            available appointments.</h4>
+        <h4 *ngIf="StaffErrorMessage" class="info-text" style="color: red;">The selected staff doesnt have any available
+            appointments, please select another one</h4>
         <div class="col-sm-10 col-sm-offset-1" *ngIf="isOptomitrist">
             <div class="col-sm-1">
             </div>

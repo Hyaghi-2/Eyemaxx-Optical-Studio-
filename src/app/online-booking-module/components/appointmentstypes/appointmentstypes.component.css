@@ -1,0 +1,4 @@
+::ng-deep body .mat-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-form-field-flex {
+    cursor: pointer;
+    background-color: white;
+}

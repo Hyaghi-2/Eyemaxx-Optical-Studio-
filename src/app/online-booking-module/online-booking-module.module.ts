@@ -21,6 +21,8 @@ import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DropdownModule } from 'primeng/dropdown';
+import { MatSelectModule } from '@angular/material/select';
+
 @NgModule({
   declarations: [BaseContentComponent, ErrormessageComponent, PagenotfoundComponent, CovidPreScreeningComponent, OptimitristOpticianSelectionComponent, AppointmentstypesComponent, AppointmentslutsComponent, AppointmentsummaryComponent, OpticianappointmentComponent, AppointmentconfirmationComponent],
   imports: [
@@ -32,7 +34,7 @@ import { DropdownModule } from 'primeng/dropdown';
     FormsModule, CalendarModule,
     MatFormFieldModule,
     ToastModule, DialogModule, MatCheckboxModule,
-    DropdownModule,
+    DropdownModule, MatSelectModule
 
 
   ],

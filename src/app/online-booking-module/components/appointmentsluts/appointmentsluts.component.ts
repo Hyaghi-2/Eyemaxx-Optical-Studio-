@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { AppointmentSlotsResponse } from '../../models/get-appointments-slots/appointment-slots-response';
 import { Step } from '../../models/Step/step';
 import { AppointmentSlotData } from '../../models/Steps-Data/appointment-slot-data';
@@ -14,61 +14,76 @@ import { StepsManagementService } from '../../services/steps-management.service'
   styleUrls: ['./appointmentsluts.component.css']
 })
 export class AppointmentslutsComponent implements OnInit {
+  //api credentials 
   accountsId: string = '2040';
   companyName: string = 'Test EyeMaxx';
+  //appointment slots api reponse 
   AllAppointments: AppointmentSlotsResponse = new AppointmentSlotsResponse();
+  //Min and Max date for the callendar 
   MinDate!: Date;
   MaxDate!: Date;
+  //selected date and time slot
   SelectedDate!: Date;
   SelectedSlot: SlotViewModel = new SlotViewModel(-1, 'x', 'x');
+  //distinct appointments
   ActiveDistinctAppointments: AppointmentViewModel[] = [];
   InvalidDates: Date[] = [];
+  //active time slots
   ActiveSlots: SlotViewModel[] = [];
+  //validate selection event 
   DateSelectedValidated: boolean = false;
   SlutSelectedValidated: boolean = false;
+  //callendar disable and spinners status 
   CallendarDisabled!: boolean;
   isLoadingSpinnerEnabled!: boolean;
   ViewedMonths: number = 0;
   constructor(private serv: BookingModuleService, private steps: StepsManagementService) {
+    //variable to calculate the differance between two dates
+    const oneDay = 24 * 60 * 60 * 1000;
+
     this.CallendarDisabled = true;
     this.isLoadingSpinnerEnabled = true;
-    this.MinDate = new Date();
-    this.MaxDate = new Date();
-    this.ViewedMonths = this.steps.WindowScale > 500 ? 2 : 1;
+    this.ViewedMonths = window.innerWidth > 500 ? 2 : 1;
     let s: AppointmentSlotData = <AppointmentSlotData>this.steps.stepsData.filter(x => x.order == 3)[0];
     let p: AppointmentTypeData = <AppointmentTypeData>this.steps.stepsData.filter(x => x.order == 2)[0];
-    // console.log(p);
-    // console.log(s);
 
     if (!s) {
       this.steps.currentStep = new Step(3, 'AppointmentsSlots', false, true, false, 'date-time');
+
       if ((p.isOptomitrist && p.Staff.id == -1) || !p.isOptomitrist) {
         this.serv.getAvailableAppointmentSluts(this.accountsId, this.companyName, p.ExamType.id.toString()).subscribe(x => {
-          console.log(x);
+
+          //initialize the reponse 
           this.AllAppointments.Initialize(x);
-          // console.log(this.AllAppointments);
-
-          //console.log(this.AllAppointments.AppointmentSlotsList[0].start);
-
-          //console.log(this.AllAppointments.AppointmentSlotsList[0].start.getDate());
-
-          // this.MinDate.setDate(this.AllAppointments.AppointmentSlotsList[0].start.getDate() + 2);
-          // this.MaxDate = this.AllAppointments.AppointmentSlotsList[this.AllAppointments.AppointmentSlotsList.length - 1].start;
-
-
+          //initialize the time slots 
           this.InitializeAppointmentsSlots();
+          //Delete the first 4 appointments from today
           console.log(this.ActiveDistinctAppointments);
-          this.MinDate = this.ActiveDistinctAppointments[0].AppointmentDate;
-          this.MaxDate = this.ActiveDistinctAppointments[this.ActiveDistinctAppointments.length - 1].AppointmentDate;
-          console.log(this.MinDate);
-          console.log(this.MaxDate);
-          // this.MinDate.setDate(this.ActiveDistinctAppointments[0].AppointmentDate.getDate());
-          // this.MaxDate.setDate(this.ActiveDistinctAppointments[this.ActiveDistinctAppointments.length - 1].AppointmentDate.getDate());
-          // console.log(this.ActiveDistinctAppointments);
-          this.InitializeInvalidDates();
-          console.log(this.InvalidDates);
+          
+          let today: Date = new Date();
+          today.setHours(0, 0, 0, 0);
+          let lastAppoitment: Date = new Date();
+          lastAppoitment.setDate(lastAppoitment.getDate() + 30);
+          lastAppoitment.setHours(0, 0, 0, 0);
+          let firstAppointment: Date = this.ActiveDistinctAppointments[0].AppointmentDate;
+          firstAppointment.setHours(0, 0, 0, 0);
 
-          // // console.log(this.InvalidDates);
+          if (today.toDateString() == firstAppointment.toDateString()) {
+            this.ActiveDistinctAppointments[0].Slots.splice(1, 4);
+
+          }
+          this.MinDate = this.ActiveDistinctAppointments[0].AppointmentDate;
+          let index: number = this.ActiveDistinctAppointments.findIndex(x => x.AppointmentDate.toDateString() == lastAppoitment.toDateString());
+
+
+          if (index > -1) {
+            this.MaxDate = this.ActiveDistinctAppointments[index].AppointmentDate;
+          }
+          else {
+            this.MaxDate = this.ActiveDistinctAppointments[this.ActiveDistinctAppointments.length - 1].AppointmentDate;
+          }
+          this.InitializeInvalidDates();
+          this.SelectedDate = this.MinDate;
           this.CallendarDisabled = false;
           this.isLoadingSpinnerEnabled = false;
         });
@@ -76,26 +91,29 @@ export class AppointmentslutsComponent implements OnInit {
         this.serv.getAvailableAppointmentSluts(this.accountsId, this.companyName, p.ExamType.id.toString(), p.Staff.id.toString()).subscribe(x => {
           console.log(x);
           this.AllAppointments.Initialize(x);
-          // console.log(this.AllAppointments);
-          // console.log(this.AllAppointments.AppointmentSlotsList[0].start);
-
-          // this.MinDate.setDate(this.AllAppointments.AppointmentSlotsList[0].start.getDate() + 2);
-          // this.MaxDate = this.AllAppointments.AppointmentSlotsList[this.AllAppointments.AppointmentSlotsList.length - 1].start;
-          // console.log(this.AllAppointments.AppointmentSlotsList[0].start.getDate() + 2);
-
-
           this.InitializeAppointmentsSlots();
-          console.log(this.ActiveDistinctAppointments);
-          this.MinDate = this.ActiveDistinctAppointments[0].AppointmentDate;
-          this.MaxDate = this.ActiveDistinctAppointments[this.ActiveDistinctAppointments.length - 1].AppointmentDate;
-          console.log(this.MinDate);
-          console.log(this.MaxDate);
+          let today: Date = new Date();
+          today.setHours(0, 0, 0, 0);
+          let lastAppoitment: Date = new Date();
+          lastAppoitment.setDate(lastAppoitment.getDate() + 30);
+          lastAppoitment.setHours(0, 0, 0, 0);
+          let firstAppointment: Date = this.ActiveDistinctAppointments[0].AppointmentDate;
+          firstAppointment.setHours(0, 0, 0, 0);
 
-          // this.MinDate.setDate(this.ActiveDistinctAppointments[0].AppointmentDate.getDate());
-          // this.MaxDate.setDate(this.ActiveDistinctAppointments[this.ActiveDistinctAppointments.length - 1].AppointmentDate.getDate());
-          // console.log(this.ActiveDistinctAppointments);
+          if (today.toDateString() == firstAppointment.toDateString()) {
+            this.ActiveDistinctAppointments[0].Slots.splice(1, 4);
+
+          }
+          this.MinDate = this.ActiveDistinctAppointments[0].AppointmentDate;
+          let index: number = this.ActiveDistinctAppointments.findIndex(x => x.AppointmentDate.toDateString() == lastAppoitment.toDateString());
+          if (index) {
+            this.MaxDate = this.ActiveDistinctAppointments[index].AppointmentDate;
+          }
+          else {
+            this.MaxDate = this.ActiveDistinctAppointments[this.ActiveDistinctAppointments.length - 1].AppointmentDate;
+          }
+          this.SelectedDate = this.MinDate;
           this.InitializeInvalidDates();
-          console.log(this.InvalidDates);
           this.CallendarDisabled = false;
           this.isLoadingSpinnerEnabled = false;
         });
@@ -120,6 +138,7 @@ export class AppointmentslutsComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
 
 
 

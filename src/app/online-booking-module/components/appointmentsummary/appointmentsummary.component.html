@@ -9,7 +9,7 @@
             <div class="col-md-6" *ngIf="appointmentTypeData.isOptomitrist">
                 <mat-checkbox [(ngModel)]="OpticianAppointment" (change)="onOpticianAppointmentChange()"
                     [color]="'primary'">
-                    <h4>Yes, I would like to book an appointment with an Optician.</h4>
+                    <h4>Yes, I would like an appointment to shop for glasses.</h4>
                 </mat-checkbox>
             </div>
             <div class="col-md-3">
@@ -35,8 +35,9 @@
         </div>
         <div class="col-md-4 text-left">
             <p><strong>Insurance Company: </strong> {{appointmentConfirmationData.SelectedUser.medicalCard}}</p>
-            <p><strong>Optometrist: </strong>{{appointmentTypeData.isOptomitrist?appointmentTypeData.Staff.firstName +'
-                '+appointmentTypeData.Staff.lastName :appointmentTypeData.ExamType.name }}</p>
+            <p><strong>Optometrist: </strong>{{ this.appointmentTypeData.isOptomitrist ?
+                this.appointmentTypeData.Staff.id > -1 ? appointmentTypeData.Staff.firstName + '
+                '+appointmentTypeData.Staff.lastName:'Any Optometrist':appointmentTypeData.ExamType.name }}</p>
             <p><strong>Exam Type: </strong>{{appointmentTypeData.ExamType.name}}</p>
             <p><strong>Appointment Date & Time: </strong>{{appointmentSlotData.SelectedDate | date:'mediumDate'}}
                 {{appointmentSlotData.SelectedTimeSlot.start}} - {{appointmentSlotData.SelectedTimeSlot.end}}</p>

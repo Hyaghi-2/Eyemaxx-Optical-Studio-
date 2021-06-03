@@ -32,7 +32,7 @@ export class AppointmentconfirmationComponent implements OnInit {
   isLoadingSpinnerEnabled!: boolean;
   isUserSelectSpinnerEnabled: boolean = false;
   addNewUserEnabled: boolean = false;
-
+  typedEmail: string = '';
   constructor(private serv: BookingModuleService, private steps: StepsManagementService, private fb: FormBuilder,
     private messageService: MessageService,
     private primengConfig: PrimeNGConfig,) {
@@ -56,7 +56,7 @@ export class AppointmentconfirmationComponent implements OnInit {
         postalCode: ['', Validators.required],
         dateOfBirth: ['', Validators.required],
         cell: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')])],
-        email: ['', Validators.compose([Validators.required, Validators.email])],
+        email: ['',],
         medicalCard: ['', Validators.required],
         medicalCardExp: ['', Validators.required]
       });
@@ -86,7 +86,7 @@ export class AppointmentconfirmationComponent implements OnInit {
         postalCode: ['', Validators.required],
         dateOfBirth: ['', Validators.required],
         cell: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')])],
-        email: [this.SelectedUser.email, Validators.compose([Validators.required, Validators.email])],
+        email: [this.SelectedUser.email,],
         medicalCard: ['', Validators.required],
         medicalCardExp: ['', Validators.required]
       });
@@ -103,6 +103,7 @@ export class AppointmentconfirmationComponent implements OnInit {
       return;
     }
     this.isLoadingSpinnerEnabled = true;
+    this.typedEmail = this.emailForm.get('userEmail')?.value;
     this.serv.getPatientList(this.emailForm.get('userEmail')?.value).subscribe(x => {
       this.isLoadingSpinnerEnabled = false;
       this.UsersList = new PatientListResponse();
@@ -163,16 +164,16 @@ export class AppointmentconfirmationComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       streetNumber: ['', Validators.required],
-      unit: ['', Validators.required],
+      unit: ['',],
       streetName: ['', Validators.required],
       city: ['', Validators.required],
       province: ['', Validators.required],
       postalCode: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
       cell: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')])],
-      email: ['', Validators.compose([Validators.required, Validators.email])],
-      medicalCard: ['', Validators.required],
-      medicalCardExp: ['', Validators.required]
+      email: ['',],
+      medicalCard: ['',],
+      medicalCardExp: ['',]
     });
     this.UserNotFound = false;
     this.newPatientFormSubmitted = false;
@@ -191,6 +192,7 @@ export class AppointmentconfirmationComponent implements OnInit {
     console.log(this.newPatientForm.value);
 
     body = Object.assign(this.newPatientForm.value);
+    body.email = this.typedEmail;
     console.log(this.SelectedUser);
 
     body.id = +this.SelectedUser.id.split('-')[1];
@@ -218,6 +220,7 @@ export class AppointmentconfirmationComponent implements OnInit {
     this.isLoadingSpinnerEnabled = true;
     let body: CreatePatientBody = new CreatePatientBody();
     body = Object.assign(this.newPatientForm.value);
+    body.email = this.typedEmail;
     this.serv.createPatient(body).subscribe(x => {
       let p: Patient = new Patient();
       p = p.Initialize(x);
@@ -242,16 +245,16 @@ export class AppointmentconfirmationComponent implements OnInit {
         firstName: [p.firstName, Validators.required],
         lastName: [p.lastName, Validators.required],
         streetNumber: [p.streetNumber, Validators.required],
-        unit: [p.unit, Validators.required],
+        unit: [p.unit,],
         streetName: [p.streetName, Validators.required],
         city: [p.city, Validators.required],
         province: [p.province, Validators.required],
         postalCode: [p.postalCode, Validators.required],
         dateOfBirth: [d.toISOString().substring(0, 10), Validators.required],
         cell: [p.cell, Validators.compose([Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')])],
-        email: [p.email, Validators.compose([Validators.required, Validators.email])],
-        medicalCard: [p.medicalCard, Validators.required],
-        medicalCardExp: [p.medicalCardExp, Validators.required]
+        email: [p.email,],
+        medicalCard: [p.medicalCard,],
+        medicalCardExp: [p.medicalCardExp,]
       });
       this.newPatientFormSubmitted = false;
       this.newPatientFormEnabled = true;

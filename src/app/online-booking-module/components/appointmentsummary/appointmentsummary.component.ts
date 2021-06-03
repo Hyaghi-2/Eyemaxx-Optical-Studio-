@@ -31,6 +31,8 @@ export class AppointmentsummaryComponent implements OnInit {
     this.steps.currentStep.validated = true;
     let index = this.steps.Steps.findIndex(x => x.order == 5);
     this.steps.Steps[index].validated = true;
+   
+  
   }
 
   ngOnInit(): void {

@@ -13,6 +13,8 @@ import { MessageService } from 'primeng/api';
 import { PrimeNGConfig } from 'primeng/api';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Patient } from '../../models/create-patient/patient';
+import { Emaildata } from '../../models/email-api-data/emaildata';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -20,7 +22,7 @@ import { Patient } from '../../models/create-patient/patient';
   selector: 'app-base-content',
   templateUrl: './base-content.component.html',
   styleUrls: ['./base-content.component.css'],
-  providers: [MessageService]
+  providers: [MessageService, DatePipe]
 })
 export class BaseContentComponent implements OnInit {
   showBookAppointmentPopUp: boolean = false;
@@ -38,48 +40,24 @@ export class BaseContentComponent implements OnInit {
     private serv: BookingModuleService,
     private messageService: MessageService,
     private primengConfig: PrimeNGConfig,
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private dp: DatePipe) { }
 
 
   ngOnInit(): void {
-    this.steps.WindowScale = window.innerWidth;
-    // var pp = {
-    //   'firstName': 'hamza',
-    //   'lastName': 'yaghi',
-    //   'streetNumber': '234',
-    //   'city': 'damas',
-    //   'province': 'damas2',
-    //   'postalCode': 'no-post',
-    //   'dateOfBirth': '2-5-2020',
-    //   'cell': '+963937777645',
-    //   'email': 'h.yaghi@itsnerd.com',
-    //   'medicalCardExp': '2-8-2021',
-    //   'medicalCard': 'KIB'
-    // };
-    // let p: Patient = new Patient();
-    // p.firstName = 'hamza';
-    // p.lastName = 'yaghi';
-    // p.streetName = '234';
-    // p.city = 'damas';
-    // p.province = 'damas2';
-    // p.postalCode = 'no-post';
-    // p.dateOfBirth = '2-5-2020';
-    // p.cell = '+963937777645';
-    // p.email = 'email';
-    // p.medicalCardExp = '2-8-2021';
-    // p.medicalCard = 'KIB';
-
-    // p = Object.assign(pp);
-    // this.sendEmail(p).subscribe(x => {
-    //   console.log(x);
-    // });
+    if (!localStorage.getItem('reload')) {
+      localStorage.setItem('reload', 'no reload')
+      location.reload()
+    } else {
+      localStorage.removeItem('reload')
+    }
     this.primengConfig.ripple = true;
     this.serv.getStoresTypesDoctors(this.accountsId, this.companyName).subscribe(t => {
       this.steps.ExamTypesPreFetch.Initialize(t);
     });
   }
 
-  sendEmail(patient: Patient) {
+  sendEmail(data: Emaildata) {
     const options = {
       headers: new HttpHeaders({
         'Access-Control-Allow-Origin': '*',
@@ -90,7 +68,7 @@ export class BaseContentComponent implements OnInit {
         'Content-Type': 'application/json'
       }),
     };
-    return this.http.post('http://appointment-eyemaxx.ca/api/contact1.php', JSON.stringify(patient), options);
+    return this.http.post('http://appointment-eyemaxx.ca/api/contact1.php', JSON.stringify(data), options);
   }
 
   stepsEnabled(_order: number) {
@@ -119,15 +97,47 @@ export class BaseContentComponent implements OnInit {
       body.appointmentTypeId = appointmentTypeData.ExamType.id;
       body.storeId = 1;
       body.slotId = appointmentSlotData.SelectedTimeSlot.id;
-      body.patientId = +appointmentConfirmationData.SelectedUser.id.split('-')[1]
+      body.patientId = +appointmentConfirmationData.SelectedUser.id.split('-')[1];
       if (appointmentTypeData.isOptomitrist) {
         body.doctorId = appointmentTypeData.Staff.id.toString();
       }
       // console.log(body);
 
       if (appointmentSummaryData.OpticianAppointment) {
+        //filling email data 
+        //filling patient data 
+        let data: Emaildata = new Emaildata();
+        data.firstName = appointmentConfirmationData.SelectedUser.firstName;
+        data.lastName = appointmentConfirmationData.SelectedUser.lastName;
+        data.streetName = appointmentConfirmationData.SelectedUser.streetNumber;
+        data.city = appointmentConfirmationData.SelectedUser.city;
+        data.province = appointmentConfirmationData.SelectedUser.province;
+        data.postalCode = appointmentConfirmationData.SelectedUser.postalCode;
+        data.dateOfBirth = appointmentConfirmationData.SelectedUser.dateOfBirth;
+        data.cell = appointmentConfirmationData.SelectedUser.cell;
+        data.email = appointmentConfirmationData.SelectedUser.email;
+        data.medicalCardExp = appointmentConfirmationData.SelectedUser.medicalCardExp;
+        data.medicalCard = appointmentConfirmationData.SelectedUser.medicalCard;
+        //filling appointment data
+        let appointmentDate: any = this.dp.transform(appointmentSlotData.SelectedDate, 'yyyy-MM-dd');
+        appointmentDate += ' ' + appointmentSlotData.SelectedTimeSlot.start + '-' + appointmentSlotData.SelectedTimeSlot.end;
+        data.appointmentDate = appointmentDate;
+        if (appointmentTypeData.isOptomitrist) {
+
+          data.appointmentType = appointmentTypeData.ExamType.name;
+          if (appointmentTypeData.Staff.id > -1) {
+            data.optimtrist = appointmentTypeData.Staff.firstName + ' ' + appointmentTypeData.Staff.lastName;
+          } else {
+            data.optimtrist = 'Any Optometrist';
+          }
+        } else {
+          data.optimtrist = appointmentTypeData.ExamType.name;
+          data.appointmentType = appointmentTypeData.ExamType.name;
+        }
+        console.log(data);
+
         //call email api
-        // this.sendEmail(appointmentConfirmationData.SelectedUser).subscribe(x => {
+        // this.sendEmail(data).subscribe(x => {
         //   console.log(x);
         // });
       }

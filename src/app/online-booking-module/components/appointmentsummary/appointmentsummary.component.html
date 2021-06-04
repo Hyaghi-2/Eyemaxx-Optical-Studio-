@@ -17,11 +17,16 @@
             </div>
         </div>
         <br>
-        <div class="container">
-            <div class="col-md-2">
+    </div>
+    <div class="row">
 
-            </div>
-            <div class="col-md-3 text-left">
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-10">
+
+
+            <div class="col-md-4 text-left">
                 <p><strong>First Name: </strong>{{appointmentConfirmationData.SelectedUser.firstName}}</p>
                 <p><strong>Last Name: </strong>{{appointmentConfirmationData.SelectedUser.lastName}}</p>
                 <p><strong>Street Number: </strong>{{appointmentConfirmationData.SelectedUser.streetNumber}}</p>
@@ -29,7 +34,7 @@
                 <p><strong>Street Name: </strong>{{appointmentConfirmationData.SelectedUser.streetName}}</p>
                 <p><strong>City: </strong>{{appointmentConfirmationData.SelectedUser.city}}</p>
             </div>
-            <div class="col-md-3 text-left">
+            <div class="col-md-4 text-left">
                 <p><strong>Province: </strong>{{appointmentConfirmationData.SelectedUser.province}}</p>
                 <p><strong>Postal Code: </strong> {{appointmentConfirmationData.SelectedUser.postalCode}}</p>
                 <p><strong>Date of Birth: </strong>{{appointmentConfirmationData.SelectedUser.dateOfBirth}}</p>
@@ -38,7 +43,7 @@
                 <p><strong>Health Card & Expiry: </strong>{{appointmentConfirmationData.SelectedUser.medicalCardExp}}
                 </p>
             </div>
-            <div class="col-md-3 text-left">
+            <div class="col-md-4 text-left">
                 <p><strong>Insurance Company: </strong> {{appointmentConfirmationData.SelectedUser.medicalCard}}</p>
                 <p><strong>Optometrist: </strong>{{ this.appointmentTypeData.isOptomitrist ?
                     this.appointmentTypeData.Staff.id > -1 ? appointmentTypeData.Staff.firstName + '
@@ -48,11 +53,13 @@
                     {{appointmentSlotData.SelectedTimeSlot.start}} - {{appointmentSlotData.SelectedTimeSlot.end}}</p>
 
             </div>
-            <div class="col-md-2">
-
-            </div>
         </div>
+        <div class="col-md-1">
+
+        </div>
+
     </div>
+
 
 
 </div>

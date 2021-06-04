@@ -103,44 +103,7 @@ export class BaseContentComponent implements OnInit {
       }
       // console.log(body);
 
-      if (appointmentSummaryData.OpticianAppointment) {
-        //filling email data 
-        //filling patient data 
-        let data: Emaildata = new Emaildata();
-        data.firstName = appointmentConfirmationData.SelectedUser.firstName;
-        data.lastName = appointmentConfirmationData.SelectedUser.lastName;
-        data.streetName = appointmentConfirmationData.SelectedUser.streetNumber;
-        data.city = appointmentConfirmationData.SelectedUser.city;
-        data.province = appointmentConfirmationData.SelectedUser.province;
-        data.postalCode = appointmentConfirmationData.SelectedUser.postalCode;
-        data.dateOfBirth = appointmentConfirmationData.SelectedUser.dateOfBirth;
-        data.cell = appointmentConfirmationData.SelectedUser.cell;
-        data.email = appointmentConfirmationData.SelectedUser.email;
-        data.medicalCardExp = appointmentConfirmationData.SelectedUser.medicalCardExp;
-        data.medicalCard = appointmentConfirmationData.SelectedUser.medicalCard;
-        //filling appointment data
-        let appointmentDate: any = this.dp.transform(appointmentSlotData.SelectedDate, 'yyyy-MM-dd');
-        appointmentDate += ' ' + appointmentSlotData.SelectedTimeSlot.start + '-' + appointmentSlotData.SelectedTimeSlot.end;
-        data.appointmentDate = appointmentDate;
-        if (appointmentTypeData.isOptomitrist) {
 
-          data.appointmentType = appointmentTypeData.ExamType.name;
-          if (appointmentTypeData.Staff.id > -1) {
-            data.optimtrist = appointmentTypeData.Staff.firstName + ' ' + appointmentTypeData.Staff.lastName;
-          } else {
-            data.optimtrist = 'Any Optometrist';
-          }
-        } else {
-          data.optimtrist = appointmentTypeData.ExamType.name;
-          data.appointmentType = appointmentTypeData.ExamType.name;
-        }
-        console.log(data);
-
-        //call email api
-        // this.sendEmail(data).subscribe(x => {
-        //   console.log(x);
-        // });
-      }
       this.serv.bookNewAppointment(body).subscribe(x => {
         // console.log(x);
         // console.log(x instanceof FailedAppointmentResponse);
@@ -153,6 +116,44 @@ export class BaseContentComponent implements OnInit {
           this.messageService.add({ severity: 'error', summary: 'Failed', detail: this.popUpToastMessage });
         }
         else {
+          if (appointmentSummaryData.OpticianAppointment) {
+            //filling email data 
+            //filling patient data 
+            let data: Emaildata = new Emaildata();
+            data.firstName = appointmentConfirmationData.SelectedUser.firstName;
+            data.lastName = appointmentConfirmationData.SelectedUser.lastName;
+            data.streetName = appointmentConfirmationData.SelectedUser.streetNumber;
+            data.city = appointmentConfirmationData.SelectedUser.city;
+            data.province = appointmentConfirmationData.SelectedUser.province;
+            data.postalCode = appointmentConfirmationData.SelectedUser.postalCode;
+            data.dateOfBirth = appointmentConfirmationData.SelectedUser.dateOfBirth;
+            data.cell = appointmentConfirmationData.SelectedUser.cell;
+            data.email = appointmentConfirmationData.SelectedUser.email;
+            data.medicalCardExp = appointmentConfirmationData.SelectedUser.medicalCardExp;
+            data.medicalCard = appointmentConfirmationData.SelectedUser.medicalCard;
+            //filling appointment data
+            let appointmentDate: any = this.dp.transform(appointmentSlotData.SelectedDate, 'yyyy-MM-dd');
+            appointmentDate += ' ' + appointmentSlotData.SelectedTimeSlot.start + '-' + appointmentSlotData.SelectedTimeSlot.end;
+            data.appointmentDate = appointmentDate;
+            if (appointmentTypeData.isOptomitrist) {
+
+              data.appointmentType = appointmentTypeData.ExamType.name;
+              if (appointmentTypeData.Staff.id > -1) {
+                data.optimtrist = appointmentTypeData.Staff.firstName + ' ' + appointmentTypeData.Staff.lastName;
+              } else {
+                data.optimtrist = 'Any Optometrist';
+              }
+            } else {
+              data.optimtrist = appointmentTypeData.ExamType.name;
+              data.appointmentType = appointmentTypeData.ExamType.name;
+            }
+            console.log(data);
+
+            // call email api
+            this.sendEmail(data).subscribe(x => {
+              console.log(x);
+            });
+          }
           this.bookingSuccess = true;
           this.popUpMessage = ' Thank you for booking an appointment with Eyemaxx, you will receive a SMS confirmation shortly. An Eyemaxx representative will contact you shortly to confirm your appointment with an Optician.';
           this.popUpToastMessage = ' Your appoitment successfully booked !';

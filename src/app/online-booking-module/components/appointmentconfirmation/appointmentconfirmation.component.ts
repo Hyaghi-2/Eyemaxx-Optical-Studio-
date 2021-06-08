@@ -22,16 +22,27 @@ export class AppointmentconfirmationComponent implements OnInit {
   //Email from the previous step
   //Users List by previos step email
   UsersList: PatientListResponse = new PatientListResponse();
+  //the returned patients array has patients or not 
   UserNotFound!: boolean;
+  //patient form 
   newPatientForm: FormGroup;
+  //show or hide the form 
   newPatientFormEnabled: boolean = false;
+  //form submittion status 
   newPatientFormSubmitted: boolean = false;
+  //if the user select a petient 
   SelectUserValidated: boolean = false;
+  //the selected user info
   SelectedUser: Patient = new Patient();
+  //the user add or edit and existing user status form 
   newPatientFormStatus: string = '';
+  //loading spinner for email submittion
   isLoadingSpinnerEnabled!: boolean;
+  //user selection spinner 
   isUserSelectSpinnerEnabled: boolean = false;
+  //enable add new user button 
   addNewUserEnabled: boolean = false;
+  // the entered email from the user 
   typedEmail: string = '';
   constructor(private serv: BookingModuleService, private steps: StepsManagementService, private fb: FormBuilder,
     private messageService: MessageService,
@@ -49,7 +60,7 @@ export class AppointmentconfirmationComponent implements OnInit {
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
         streetNumber: ['', Validators.required],
-        unit: ['', Validators.required],
+        unit: ['',],
         streetName: ['', Validators.required],
         city: ['', Validators.required],
         province: ['', Validators.required],
@@ -57,8 +68,8 @@ export class AppointmentconfirmationComponent implements OnInit {
         dateOfBirth: ['', Validators.required],
         cell: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')])],
         email: ['',],
-        medicalCard: ['', Validators.required],
-        medicalCardExp: ['', Validators.required]
+        medicalCard: ['',],
+        medicalCardExp: ['',]
       });
       this.SelectedUser.id = '-1';
       this.SelectUserValidated = false;
@@ -79,7 +90,7 @@ export class AppointmentconfirmationComponent implements OnInit {
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
         streetNumber: ['', Validators.required],
-        unit: ['', Validators.required],
+        unit: ['',],
         streetName: ['', Validators.required],
         city: ['', Validators.required],
         province: ['', Validators.required],
@@ -87,8 +98,8 @@ export class AppointmentconfirmationComponent implements OnInit {
         dateOfBirth: ['', Validators.required],
         cell: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')])],
         email: [this.SelectedUser.email,],
-        medicalCard: ['', Validators.required],
-        medicalCardExp: ['', Validators.required]
+        medicalCard: ['',],
+        medicalCardExp: ['',]
       });
       this.SelectUserValidated = true;
       this.addNewUserEnabled = true;

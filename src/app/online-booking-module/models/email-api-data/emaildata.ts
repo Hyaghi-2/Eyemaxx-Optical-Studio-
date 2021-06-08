@@ -3,6 +3,7 @@ export class Emaildata {
     firstName!: string;
     lastName!: string;
     streetName!: string;
+    streetNumber!: string;
     city!: string;
     province!: string;
     postalCode!: string;

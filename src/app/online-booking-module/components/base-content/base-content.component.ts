@@ -26,8 +26,6 @@ import { DatePipe } from '@angular/common';
 })
 export class BaseContentComponent implements OnInit {
   showBookAppointmentPopUp: boolean = false;
-  accountsId: number = 2040;
-  companyName: string = 'Test Eyemaxx';
   popUpMessage: string = '';
   popUpToastMessage: string = '';
   popIconType: string = '';
@@ -52,7 +50,7 @@ export class BaseContentComponent implements OnInit {
       localStorage.removeItem('reload')
     }
     this.primengConfig.ripple = true;
-    this.serv.getStoresTypesDoctors(this.accountsId, this.companyName).subscribe(t => {
+    this.serv.getStoresTypesDoctors(this.serv.accountsId, this.serv.companyName).subscribe(t => {
       this.steps.ExamTypesPreFetch.Initialize(t);
     });
   }
@@ -123,6 +121,7 @@ export class BaseContentComponent implements OnInit {
             data.firstName = appointmentConfirmationData.SelectedUser.firstName;
             data.lastName = appointmentConfirmationData.SelectedUser.lastName;
             data.streetName = appointmentConfirmationData.SelectedUser.streetNumber;
+            data.streetNumber = appointmentConfirmationData.SelectedUser.streetNumber;
             data.city = appointmentConfirmationData.SelectedUser.city;
             data.province = appointmentConfirmationData.SelectedUser.province;
             data.postalCode = appointmentConfirmationData.SelectedUser.postalCode;
@@ -150,9 +149,9 @@ export class BaseContentComponent implements OnInit {
             console.log(data);
 
             // call email api
-            this.sendEmail(data).subscribe(x => {
-              console.log(x);
-            });
+            // this.sendEmail(data).subscribe(x => {
+            //   console.log(x);
+            // });
           }
           this.bookingSuccess = true;
           this.popUpMessage = ' Thank you for booking an appointment with Eyemaxx, you will receive a SMS confirmation shortly. An Eyemaxx representative will contact you shortly to confirm your appointment with an Optician.';

@@ -132,6 +132,10 @@ export class BookingModuleService implements HttpInterceptor {
   }
   //base api url
   private Url: string = environment.ApiUrl;
+
+  //api credentials
+  accountsId: number = 2040;
+  companyName: string = 'Test Eyemaxx';
   //using http client module to make api calls
   constructor(private http: HttpClient, private router: Router) { }
   //login method to generate api key by staff credentials
@@ -171,15 +175,25 @@ export class BookingModuleService implements HttpInterceptor {
   //get available appointments slots based on query strings parameters
   getAvailableAppointmentSluts(accountsId: string, companyName: string,
     appointmentTypeId: string, doctorId?: string) {
-    var params = new HttpParams()
+    let params = new HttpParams()
       .set('accountsId', accountsId)
       .set('companyName', companyName)
       .set('storeId', '1')
       .set('appointmentTypeId', appointmentTypeId)
       .set('storeTimeZone', 'Canada/Eastern')
-      .set('locale', 'en');;
-    if (doctorId) {
-      params.set('doctorId', doctorId);
+      .set('locale', 'en');
+
+
+    if (doctorId != undefined) {
+      console.log(doctorId);
+      params = new HttpParams()
+        .set('accountsId', accountsId)
+        .set('companyName', companyName)
+        .set('storeId', '1')
+        .set('appointmentTypeId', appointmentTypeId)
+        .set('storeTimeZone', 'Canada/Eastern')
+        .set('locale', 'en')
+        .set('doctorId', doctorId);
     }
     return this.http.get(this.Url + '/Appointment/list', { params });
   }

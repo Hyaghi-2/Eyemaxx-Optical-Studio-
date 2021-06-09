@@ -40,6 +40,8 @@ export class AppointmentstypesComponent implements OnInit {
   ExamErrorMessage: boolean = false;
   //staff selection sppinner
   isOptomitristSpinnerEnabled: boolean = false;
+  //material select disable status 
+  isExamTypeSelectDisabled: boolean = false;
   constructor(private serv: BookingModuleService, private steps: StepsManagementService) {
     //checking if the user visit this step before
     let s: AppointmentTypeData = <AppointmentTypeData>this.steps.stepsData.filter(x => x.order == 2)[0];
@@ -90,6 +92,8 @@ export class AppointmentstypesComponent implements OnInit {
   SelectStaff(id: number) {
     //enable the spinner to check the selected doctor slots in background 
     this.isOptomitristSpinnerEnabled = true;
+    //disable material select until the api check is done
+    this.isExamTypeSelectDisabled = true;
     //clear any step info stored before
     this.steps.clearSteps(2);
     //validate the selection 
@@ -128,16 +132,19 @@ export class AppointmentstypesComponent implements OnInit {
               let index = this.steps.Steps.findIndex(x => x.order == this.steps.currentStep.order);
               this.steps.Steps[index].validated = true;
               this.isOptomitristSpinnerEnabled = false;
+              this.isExamTypeSelectDisabled = false;
             }
             else {
               //if the selected doctor doesnt have any slots disable the spinner and show error message 
               this.isOptomitristSpinnerEnabled = false;
               this.StaffErrorMessage = true;
+              this.isExamTypeSelectDisabled = false;
             }
           });
       } else {
         //if the user select any optimitrist validate the current step and enable the next step
         this.StaffErrorMessage = false;
+        this.isExamTypeSelectDisabled = false;
         this.ExamErrorMessage = false;
         this.steps.currentStep.validated = true;
         let index = this.steps.Steps.findIndex(x => x.order == this.steps.currentStep.order);
@@ -159,6 +166,9 @@ export class AppointmentstypesComponent implements OnInit {
   SelectExam() {
     //clear steps data if stored before
     this.steps.clearSteps(2);
+    //disable exam material select until the api check is done 
+    this.isExamTypeSelectDisabled = true;
+
     this.SelectedExam = new AppointmentType();
     this.SelectedStaff = new Doctor();
     console.log(this.SelectedExamId);
@@ -178,12 +188,9 @@ export class AppointmentstypesComponent implements OnInit {
       if (!this.isOptomitrist) {
         //enable the  spinner 
         this.isOptomitristSpinnerEnabled = true;
-
         //call the api to check if the selected type has slots 
         let AllAppointments: AppointmentSlotsResponse = new AppointmentSlotsResponse();
         if (this.SelectedExamId == 55170) {
-          console.log(1);
-
           this.serv.getAvailableAppointmentSluts(this.serv.accountsId.toString(), this.serv.companyName,
             this.SelectedExam.id.toString(), '409').subscribe(x => {
               console.log(x);
@@ -202,17 +209,17 @@ export class AppointmentstypesComponent implements OnInit {
                 let index = this.steps.Steps.findIndex(x => x.order == this.steps.currentStep.order);
                 this.steps.Steps[index].validated = true;
                 this.isOptomitristSpinnerEnabled = false;
-
+                this.isExamTypeSelectDisabled = false;
               }
               else {
                 //if the selected exam doesnt have any slots disable the spinner and show error message
                 this.isOptomitristSpinnerEnabled = false;
                 this.StaffErrorMessage = true;
+                this.isExamTypeSelectDisabled = false;
               }
             });
         }
-        else {
-          console.log(2);
+        else { 
 
           this.serv.getAvailableAppointmentSluts(this.serv.accountsId.toString(), this.serv.companyName,
             this.SelectedExam.id.toString()).subscribe(x => {
@@ -230,12 +237,13 @@ export class AppointmentstypesComponent implements OnInit {
                 let index = this.steps.Steps.findIndex(x => x.order == this.steps.currentStep.order);
                 this.steps.Steps[index].validated = true;
                 this.isOptomitristSpinnerEnabled = false;
-
+                this.isExamTypeSelectDisabled = false;
               }
               else {
                 //if the selected exam doesnt have any slots disable the spinner and show error message
                 this.isOptomitristSpinnerEnabled = false;
                 this.StaffErrorMessage = true;
+                this.isExamTypeSelectDisabled = false;
               }
             });
         }
@@ -245,6 +253,7 @@ export class AppointmentstypesComponent implements OnInit {
       else {
         //validate the exam selection and show the doctors list
         this.ExamSelectionValidated = true;
+        this.isExamTypeSelectDisabled = false;
         this.Staffs = this.DoctorStoreTypeData.Doctors.filter(x => x.designation == 'OD');
       }
     }
@@ -256,6 +265,7 @@ export class AppointmentstypesComponent implements OnInit {
       this.SelectedExamId = -20;
       this.SelectedStaff = new Doctor();
       this.isOptomitrist = false;
+      this.isExamTypeSelectDisabled = false;
     }
   }
 

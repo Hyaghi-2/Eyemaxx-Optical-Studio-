@@ -56,6 +56,8 @@
                         <i class="material-icons">person</i>
                     </div>
                     <h6>{{p.firstName}} {{p.lastName}}</h6>
+                    <button pButton pRipple type="button" icon="pi pi-user-edit" (click)="ShowPatientFormToEdit()"
+                        *ngIf="(SelectedUser.id!='-1')&&(SelectedUser.id === p.id)" class="p-button-rounded p-button-outlined"></button>
                 </div>
             </div>
 

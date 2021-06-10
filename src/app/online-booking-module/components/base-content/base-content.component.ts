@@ -73,7 +73,7 @@ export class BaseContentComponent implements OnInit {
         'Content-Type': 'application/json'
       }),
     };
-    return this.http.post('http://appointment-eyemaxx.ca/api/contact1.php', JSON.stringify(data), options);
+    return this.http.post('https://appointment-eyemaxx.ca/api/contact1.php', JSON.stringify(data), options);
   }
 
   stepsEnabled(_order: number) {

@@ -11,37 +11,17 @@
                 <label class="control-label">Exam Type</label><br>
                 <mat-form-field appearance="fill" style="width: 80%; margin-left: 4%;margin-right:4%;">
                     <mat-label>Click here to select the exam type</mat-label>
-                    <mat-select [(ngModel)]="SelectedExamId" (selectionChange)="SelectExam()" [disabled]="isExamTypeSelectDisabled">
+                    <mat-select [(ngModel)]="SelectedExamId" (selectionChange)="SelectExam()"
+                        [disabled]="isExamTypeSelectDisabled">
                         <mat-option *ngFor="let type of DoctorStoreTypeData.AppointmentTypes" [value]="type.id">{{
                             type.name }}
                         </mat-option>
 
                         <mat-option [value]="-2">
-                            Contact Lens Fitting: Multifocal or Monovision
-                        </mat-option>
-                        <mat-option [value]="-2">
-                            Contact Lens Fitting: Single Vision
-                        </mat-option>
-                        <mat-option [value]="-2">
-                            Contact Lens Teach: Multifocal or Monovision
-                        </mat-option>
-                        <mat-option [value]="-2">
-                            Contact Lens Teach: Single Vision
-                        </mat-option>
-                        <mat-option [value]="-2">
-                            Forms
-                        </mat-option>
-                        <mat-option [value]="-2">
-                            Laser Post-op
-                        </mat-option>
-                        <mat-option [value]="-2">
                             NIHB (Non-Insured Health Benefits)
                         </mat-option>
                         <mat-option [value]="-2">
-                            No Charge CL Follow Up
-                        </mat-option>
-                        <mat-option [value]="-2">
-                            No Charge Rx Check
+                            OHIP: ODSP
                         </mat-option>
                         <mat-option [value]="-2">
                             Partial Eye Exam
@@ -53,22 +33,19 @@
                             Visual Field
                         </mat-option>
                         <mat-option [value]="-2">
-                            OHIP: Partial (V408A)
+                            Contact Lens Fitting: Single Vision
                         </mat-option>
                         <mat-option [value]="-2">
-                            OHIP: Visual Fields (V410A)
+                            Contact Lens Fitting: Multifocal
                         </mat-option>
                         <mat-option [value]="-2">
-                            OHIP: ODSP (V450A)
+                            Contact Lens Teach: Single Vision
                         </mat-option>
                         <mat-option [value]="-2">
-                            OHIP: Ontario Works (V451A)
+                            Contact Lens Teach: Multifocal
                         </mat-option>
                         <mat-option [value]="-2">
-                            Optical: Sales Rep
-                        </mat-option>
-                        <mat-option [value]="-2">
-                            Optical: Troubleshooting
+                            Optical Troubleshooting
                         </mat-option>
                     </mat-select>
                 </mat-form-field>

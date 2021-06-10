@@ -11,8 +11,11 @@ export class DoctorStoreTypeResponse {
         this.Store = data["stores"][0];
         var types = data["appointmentTypes"];
         types.forEach((_element: any) => {
-            let t: AppointmentType = new AppointmentType();
-            t = Object.assign(_element);
+            let t: AppointmentType = new AppointmentType(0, '', false, 0);
+            //t = <AppointmentType>Object.assign(JSON.parse(_element), {});
+            t.id = _element['id'];
+            t.name = _element['name'];
+            t.serviceRenderedByDoctor = _element['serviceRenderedByDoctor'];
             this.AppointmentTypes.push(t);
         });
         var doctors = data["doctors"];

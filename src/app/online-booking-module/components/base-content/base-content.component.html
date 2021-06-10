@@ -282,7 +282,7 @@
                     <h3 class=" wizard-title" style="color:#79a0df">
                         Book an Appointment with Eyemaxx Optical Studio
                     </h3>
-                    <h5>Please follow the steps to book an appointment</h5>
+                    <h5>Please follow the steps to book an appointment for Eye Exams and Optical Services</h5>
                 </div>
                 <div class="wizard-navigation">
                     <ul>
@@ -302,7 +302,7 @@
                                         Appointment)</a></li> -->
                         <li id="step6" [class.liDisabled]="!stepsEnabled(4)" (click)="navigate(4)"><a href="#confirm"
                                 data-toggle="tab">Step 4 :
-                                Confirmation</a></li>
+                                Your Information</a></li>
                         <li id="step7" [class.liDisabled]="!stepsEnabled(5)" (click)="navigate(5)"><a href="#summary"
                                 data-toggle="tab">Step 5 :
                                 Summary</a></li>
@@ -478,7 +478,10 @@
     [draggable]="false" [resizable]="false" [position]="'top'" [closable]="false">
     <!-- <i class="pi pi-check-circle" style="font-size: 2rem;float: left;"></i> -->
     <p [ngStyle]="{'color': bookingSuccess!==true?'red':'black'}">
-        <i class="{{popIconType}}" style="font-size: 2rem;float: left;"></i> &nbsp;&nbsp; {{popUpMessage}}
+        <i class="{{popIconType}}" style="font-size: 2rem;float: left;"></i> &nbsp;&nbsp; {{popUpMessage}}<a
+            href="https://www.eyemaxx.ca/pages/contact-us"
+            *ngIf="bookingSuccess!=true">https://www.eyemaxx.ca/pages/contact-us</a>
+        )
     </p>
     <ng-template pTemplate="footer">
         <button pButton type="button" icon="pi pi-check" (click)="popUpNavigation('appointment')"
@@ -489,6 +492,25 @@
     </ng-template>
 </p-dialog>
 
+<p-dialog header="" [(visible)]="CovidPopUpEnabled" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false" [position]="'top'" [closable]="true">
+    <!-- <i class="pi pi-check-circle" style="font-size: 2rem;float: left;"></i> -->
+    <p style="color: black;margin-left: 2%;">
+        <i class="pi pi-check-circle" style="font-size: 2rem;float: left;"></i> &nbsp;&nbsp; Please note, all visits to
+        Eyemaxx are by appointment only due to COVID-19 Restrictions.
+    </p>
+    <ng-template pTemplate="footer">
+        <!-- <button pButton type="button" icon="pi pi-check" (click)="popUpNavigation('appointment')"
+            label="Book another appointment" class="p-button-raised bookbutton"></button>
+        <button pButton pRipple type="button" icon="pi pi-home" (click)="popUpNavigation('home')" label="Go to home"
+            class="p-button-secondary homebutton">
+        </button> -->
+    </ng-template>
+</p-dialog>
+
 <div class="progress-spinner" *ngIf="bookAppointmentSpinnerEnabled">
     <p-progressSpinner></p-progressSpinner>
 </div>
+
+
+<!-- Please note, all visits to Eyemaxx are by appointment only due to COVID-19 Restrictions -->

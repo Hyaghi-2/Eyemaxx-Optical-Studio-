@@ -18,7 +18,7 @@ export class AppointmentstypesComponent implements OnInit {
   //the viewed staffs to the user 
   Staffs: Doctor[] = [];
   // the selected exam by user 
-  SelectedExam: AppointmentType = new AppointmentType();
+  SelectedExam: AppointmentType = new AppointmentType(-20, '', false, 0);
   // the selected staff if the exam type not optician
   SelectedStaff: Doctor = new Doctor();
   //the selected exam type for the exam material list 
@@ -42,6 +42,8 @@ export class AppointmentstypesComponent implements OnInit {
   isOptomitristSpinnerEnabled: boolean = false;
   //material select disable status 
   isExamTypeSelectDisabled: boolean = false;
+  //opticians appointments types id's
+  OpticianExamsIds: number[] = [54460, 55173, 55172, 55170, 20];//20 for testing ......................
   constructor(private serv: BookingModuleService, private steps: StepsManagementService) {
     //checking if the user visit this step before
     let s: AppointmentTypeData = <AppointmentTypeData>this.steps.stepsData.filter(x => x.order == 2)[0];
@@ -51,16 +53,19 @@ export class AppointmentstypesComponent implements OnInit {
       this.steps.currentStep = new Step(2, 'ExamType', false, true, false, 'appointment-type');
       this.ExamSelectionValidated = false;
       this.StaffSelectionValidated = false;
-      this.SelectedExam = new AppointmentType();
+      this.SelectedExam = new AppointmentType(-20, '', false, 0);
       this.SelectedStaff = new Doctor();
       this.SelectedStaff.id = -1;
       //if the doctors and exam type response to initialized in the first step call the api
       if (this.steps.ExamTypesPreFetch.AppointmentTypes.length > 0) {
         this.DoctorStoreTypeData = this.steps.ExamTypesPreFetch;
+        this.DoctorStoreTypeData.AppointmentTypes = this.steps.ActualExamTypes;
       }
       else {
         this.serv.getStoresTypesDoctors(this.serv.accountsId, this.serv.companyName).subscribe(t => {
           this.DoctorStoreTypeData.Initialize(t);
+          this.steps.InitiailzeExamTypes(this.steps.preDefinedExamTypes, this.DoctorStoreTypeData.AppointmentTypes);
+          this.DoctorStoreTypeData.AppointmentTypes = this.steps.ActualExamTypes;
         });
       }
 
@@ -169,7 +174,7 @@ export class AppointmentstypesComponent implements OnInit {
     //disable exam material select until the api check is done 
     this.isExamTypeSelectDisabled = true;
 
-    this.SelectedExam = new AppointmentType();
+    this.SelectedExam = new AppointmentType(-20, '', false, 0);
     this.SelectedStaff = new Doctor();
     console.log(this.SelectedExamId);
 
@@ -181,7 +186,7 @@ export class AppointmentstypesComponent implements OnInit {
       //set the selected exam from the api reponse data
       this.SelectedExam = this.DoctorStoreTypeData.AppointmentTypes.filter(x => x.id == this.SelectedExamId)[0];
       //check if the exam related to an optician
-      this.isOptomitrist = this.SelectedExam.name.split(':')[0] != 'Optical' ? true : false;
+      this.isOptomitrist = this.OpticianExamsIds.indexOf(this.SelectedExam.id) > -1 ? false : true;
       console.log(this.SelectedExam.name.split(':'));
 
       //if the exam related to an optician
@@ -219,7 +224,7 @@ export class AppointmentstypesComponent implements OnInit {
               }
             });
         }
-        else { 
+        else {
 
           this.serv.getAvailableAppointmentSluts(this.serv.accountsId.toString(), this.serv.companyName,
             this.SelectedExam.id.toString()).subscribe(x => {

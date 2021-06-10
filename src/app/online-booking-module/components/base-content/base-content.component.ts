@@ -15,6 +15,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Patient } from '../../models/create-patient/patient';
 import { Emaildata } from '../../models/email-api-data/emaildata';
 import { DatePipe } from '@angular/common';
+import { AppointmentType } from '../../models/get-stores-types-doctors/appointment-type';
 
 
 
@@ -32,6 +33,7 @@ export class BaseContentComponent implements OnInit {
   bookingSuccess: boolean = false;
   bookAppointmentSpinnerEnabled: boolean = false;
   windowWidth: number = 0;
+  CovidPopUpEnabled: boolean = false;
 
   constructor(private steps: StepsManagementService,
     private router: Router, private route: ActivatedRoute,
@@ -52,7 +54,12 @@ export class BaseContentComponent implements OnInit {
     this.primengConfig.ripple = true;
     this.serv.getStoresTypesDoctors(this.serv.accountsId, this.serv.companyName).subscribe(t => {
       this.steps.ExamTypesPreFetch.Initialize(t);
+      this.steps.InitiailzeExamTypes(this.steps.preDefinedExamTypes, this.steps.ExamTypesPreFetch.AppointmentTypes);
+      console.log(this.steps.ActualExamTypes);
+
     });
+    this.CovidPopUpEnabled = true;
+
   }
 
   sendEmail(data: Emaildata) {
@@ -107,7 +114,8 @@ export class BaseContentComponent implements OnInit {
         // console.log(x instanceof FailedAppointmentResponse);
 
         if (!x.hasOwnProperty('smsversion')) {
-          this.popUpMessage = ' Sorry you already booked an appointment';
+          this.bookingSuccess = false;
+          this.popUpMessage = ' Sorry, this user already has an appointment booked. To book a second appointment, please contact us to book (and then a button that leads them to our contact page ';
           this.popUpToastMessage = ' Sorry you already booked an appointment';
           this.popIconType = 'pi pi-info-circle';
           this.showBookAppointmentPopUp = true;
@@ -154,7 +162,11 @@ export class BaseContentComponent implements OnInit {
             // });
           }
           this.bookingSuccess = true;
-          this.popUpMessage = ' Thank you for booking an appointment with Eyemaxx, you will receive a SMS confirmation shortly. An Eyemaxx representative will contact you shortly to confirm your appointment with an Optician.';
+          if (appointmentSummaryData.OpticianAppointment == true) {
+            this.popUpMessage = ' Thank you! Your eye exam has been booked and you will receive a SMS confirmation shortly. We have received your request to shop for glasses, you will hear from us soon to confirm this appointment.';
+          } else {
+            this.popUpMessage = ' Thank you for booking with Eyemaxx, you will receive a SMS confirmation shortly.';
+          }
           this.popUpToastMessage = ' Your appoitment successfully booked !';
           this.popIconType = 'pi pi-check-circle';
           this.showBookAppointmentPopUp = true;

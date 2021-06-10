@@ -1,6 +1,6 @@
 <div class="tab-pane" id="confirm">
     <div class="row">
-        <h4 class="info-text">Confirmation</h4>
+        <h4 class="info-text">Your Information</h4>
         <h4 class="info-text">Please enter your email to confirm your appointment</h4>
         <h4 *ngIf="UserNotFound" class="info-text" style="color: red;">This entered email address does not exist in our
             database,
@@ -57,7 +57,8 @@
                     </div>
                     <h6>{{p.firstName}} {{p.lastName}}</h6>
                     <button pButton pRipple type="button" icon="pi pi-user-edit" (click)="ShowPatientFormToEdit()"
-                        *ngIf="(SelectedUser.id!='-1')&&(SelectedUser.id === p.id)" class="p-button-rounded p-button-outlined"></button>
+                        *ngIf="(SelectedUser.id!='-1')&&(SelectedUser.id === p.id)"
+                        class="p-button-rounded p-button-outlined"></button>
                 </div>
             </div>
 
@@ -220,8 +221,7 @@
                             <i class="material-icons">business</i>
                         </span>
                         <div class="form-group label-floating">
-                            <label class="control-label">Insurance Company <small>(if
-                                    applicable for glasses shopping)</small></label>
+                            <label class="control-label">Insurance Company<small>(if applicable)</small></label>
                             <input name="medicalCard" type="text" class="form-control" formControlName="medicalCard"
                                 tabindex="12">
                         </div>
@@ -281,8 +281,8 @@
                             <i class="material-icons">business</i>
                         </span>
                         <div class="form-group label-floating">
-                            <label class="control-label">Health Card & Expiry<small>(if
-                                    applicable for glasses shopping)</small></label>
+                            <label class="control-label">Health Card & Expiry<small>(applicable for eye exams
+                                    only)</small></label>
                             <input name="medicalCardExp" type="text" class="form-control"
                                 formControlName="medicalCardExp" tabindex="13">
                         </div>

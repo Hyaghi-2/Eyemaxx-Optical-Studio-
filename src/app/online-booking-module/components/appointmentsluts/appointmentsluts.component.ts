@@ -52,11 +52,15 @@ export class AppointmentslutsComponent implements OnInit {
       if ((p.isOptomitrist && p.Staff.id == -1) || (p.isOpticain && !p.isEdgeDown)) {
         this.serv.getAvailableAppointmentSluts(this.serv.accountsId.toString(), this.serv.companyName, p.ExamType.id.toString()).subscribe(x => {
           console.log(1);
+          console.log(x);
+
 
           //initialize the reponse 
           this.AllAppointments.Initialize(x);
           //initialize the time slots 
           this.InitializeAppointmentsSlots();
+          console.log(this.ActiveDistinctAppointments);
+
           //Delete the first 4 appointments from today
           let today: Date = new Date();
           today.setHours(0, 0, 0, 0);
@@ -94,6 +98,7 @@ export class AppointmentslutsComponent implements OnInit {
           console.log(2);
 
           this.serv.getAvailableAppointmentSluts(this.serv.accountsId.toString(), this.serv.companyName, '55170').subscribe(x => {
+            console.log(2);
             console.log(x);
 
             this.AllAppointments.Initialize(x);
@@ -127,11 +132,17 @@ export class AppointmentslutsComponent implements OnInit {
             this.isLoadingSpinnerEnabled = false;
           });
         } else {
-          console.log(3);
+
 
           this.serv.getAvailableAppointmentSluts(this.serv.accountsId.toString(), this.serv.companyName, p.ExamType.id.toString(), p.Staff.id.toString()).subscribe(x => {
+            console.log(3);
+            console.log(x);
+
+
             this.AllAppointments.Initialize(x);
             this.InitializeAppointmentsSlots();
+            console.log(this.ActiveDistinctAppointments);
+
             let today: Date = new Date();
             today.setHours(0, 0, 0, 0);
             let lastAppoitment: Date = new Date();

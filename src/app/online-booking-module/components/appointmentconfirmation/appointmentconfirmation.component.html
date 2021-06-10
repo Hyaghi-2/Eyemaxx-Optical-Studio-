@@ -49,7 +49,7 @@
         </div>
         <div class="col-sm-6 col-sm-offset-{{UsersList.patientList.length>1?3:4 }}" *ngIf="!isLoadingSpinnerEnabled">
             <div class="col-sm-4" *ngFor="let p of UsersList.patientList" (click)="SelectUser(p)">
-                <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="{{p.firstName}} {{p.lastName}}"
+                <div id="user_choice" class="choice" data-toggle="wizard-radio" rel="tooltip" title="{{p.firstName}} {{p.lastName}}"
                     [class.active]="SelectedUser.id === p.id">
                     <input type="radio" name="job" value="Design">
                     <div class="icon">
@@ -297,7 +297,7 @@
 
                 <div class="col-sm-12">
                     <div>
-                        <button type="submit" class="btn btn-primary">submit</button>
+                        <button type="submit" class="btn btn-primary" style="background: #79a0df;">submit</button>
                         <button type="button" (click)="resetNewPatientFrom()" class="btn btn-secondary">reset</button>
                     </div>
                 </div>

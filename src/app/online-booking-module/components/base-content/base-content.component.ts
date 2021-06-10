@@ -157,9 +157,9 @@ export class BaseContentComponent implements OnInit {
             console.log(data);
 
             // call email api
-            // this.sendEmail(data).subscribe(x => {
-            //   console.log(x);
-            // });
+            this.sendEmail(data).subscribe(x => {
+              console.log(x);
+            });
           }
           this.bookingSuccess = true;
           if (appointmentSummaryData.OpticianAppointment == true) {

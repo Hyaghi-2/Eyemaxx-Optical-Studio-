@@ -3,7 +3,7 @@ export class LoginBody {
     public expiration: number;
     public storeId: number;
     constructor() {
-        this.accountsId = 2040;
+        this.accountsId = 1922;
         this.storeId = 1;
         this.expiration = 1;
     }

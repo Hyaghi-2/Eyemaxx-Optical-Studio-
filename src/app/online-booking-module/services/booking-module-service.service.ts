@@ -134,8 +134,8 @@ export class BookingModuleService implements HttpInterceptor {
   private Url: string = environment.ApiUrl;
 
   //api credentials
-  accountsId: number = 2040;
-  companyName: string = 'Test Eyemaxx';
+  accountsId: number = 1922;
+  companyName: string = 'Eyemaxx Optical Studio';
   //using http client module to make api calls
   constructor(private http: HttpClient, private router: Router) { }
   //login method to generate api key by staff credentials

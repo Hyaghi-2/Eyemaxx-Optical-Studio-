@@ -71,7 +71,10 @@ export class AppointmentslutsComponent implements OnInit {
           firstAppointment.setHours(0, 0, 0, 0);
           //if the first slot is today delete the first 4 slots 
           if (today.toDateString() == firstAppointment.toDateString()) {
-            this.ActiveDistinctAppointments[0].Slots.splice(1, 4);
+            this.ActiveDistinctAppointments[0].Slots.splice(0, 4);
+            if (this.ActiveDistinctAppointments[0].Slots.length <= 0) {
+              this.InvalidDates.push(firstAppointment);
+            }
           }
           // initialize the callendar min date with first slot 
           this.MinDate = this.ActiveDistinctAppointments[0].AppointmentDate;
@@ -97,7 +100,7 @@ export class AppointmentslutsComponent implements OnInit {
         if (p.isEdgeDown && p.isOpticain) {
           console.log(2);
 
-          this.serv.getAvailableAppointmentSluts(this.serv.accountsId.toString(), this.serv.companyName, '55170').subscribe(x => {
+          this.serv.getAvailableAppointmentSluts(this.serv.accountsId.toString(), this.serv.companyName, '55170', '409').subscribe(x => {
             console.log(2);
             console.log(x);
 
@@ -115,7 +118,11 @@ export class AppointmentslutsComponent implements OnInit {
             firstAppointment.setHours(0, 0, 0, 0);
 
             if (today.toDateString() == firstAppointment.toDateString()) {
-              this.ActiveDistinctAppointments[0].Slots.splice(1, 4);
+              this.ActiveDistinctAppointments[0].Slots.splice(0, 4);
+              if (this.ActiveDistinctAppointments[0].Slots.length <= 0) {
+                this.InvalidDates.push(firstAppointment);
+              }
+
 
             }
             this.MinDate = this.ActiveDistinctAppointments[0].AppointmentDate;
@@ -152,7 +159,10 @@ export class AppointmentslutsComponent implements OnInit {
             firstAppointment.setHours(0, 0, 0, 0);
 
             if (today.toDateString() == firstAppointment.toDateString()) {
-              this.ActiveDistinctAppointments[0].Slots.splice(1, 4);
+              this.ActiveDistinctAppointments[0].Slots.splice(0, 4);
+              if (this.ActiveDistinctAppointments[0].Slots.length <= 0) {
+                this.InvalidDates.push(firstAppointment);
+              }
 
             }
             this.MinDate = this.ActiveDistinctAppointments[0].AppointmentDate;

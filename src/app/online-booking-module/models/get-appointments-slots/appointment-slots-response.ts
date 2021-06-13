@@ -2,7 +2,7 @@ import { AppointmentSlot } from "./appointment-slot";
 
 export class AppointmentSlotsResponse {
   public AppointmentSlotsList: AppointmentSlot[] = [];
-
+  public staffId: number = -20;
   Initialize(data: any) {
     let list: any[] = data["appointmentsSlots"];
     for (let i = 0; i < list.length; i++) {

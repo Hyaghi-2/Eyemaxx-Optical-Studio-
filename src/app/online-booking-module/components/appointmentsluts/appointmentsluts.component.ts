@@ -139,8 +139,6 @@ export class AppointmentslutsComponent implements OnInit {
             this.isLoadingSpinnerEnabled = false;
           });
         } else {
-
-
           this.serv.getAvailableAppointmentSluts(this.serv.accountsId.toString(), this.serv.companyName, p.ExamType.id.toString(), p.Staff.id.toString()).subscribe(x => {
             console.log(3);
             console.log(x);

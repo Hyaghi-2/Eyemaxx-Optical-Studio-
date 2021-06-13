@@ -55,7 +55,6 @@ export class BaseContentComponent implements OnInit {
     this.serv.getStoresTypesDoctors(this.serv.accountsId, this.serv.companyName).subscribe(t => {
       this.steps.ExamTypesPreFetch.Initialize(t);
       this.steps.InitiailzeExamTypes(this.steps.preDefinedExamTypes, this.steps.ExamTypesPreFetch.AppointmentTypes);
-      console.log(this.steps.ActualExamTypes);
 
     });
     this.CovidPopUpEnabled = true;

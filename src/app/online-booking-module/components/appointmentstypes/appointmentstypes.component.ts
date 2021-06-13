@@ -59,13 +59,13 @@ export class AppointmentstypesComponent implements OnInit {
       //if the doctors and exam type response to initialized in the first step call the api
       if (this.steps.ExamTypesPreFetch.AppointmentTypes.length > 0) {
         this.DoctorStoreTypeData = this.steps.ExamTypesPreFetch;
-        //    this.DoctorStoreTypeData.AppointmentTypes = this.steps.ActualExamTypes;
+        this.DoctorStoreTypeData.AppointmentTypes = this.steps.ActualExamTypes;
       }
       else {
         this.serv.getStoresTypesDoctors(this.serv.accountsId, this.serv.companyName).subscribe(t => {
           this.DoctorStoreTypeData.Initialize(t);
           this.steps.InitiailzeExamTypes(this.steps.preDefinedExamTypes, this.DoctorStoreTypeData.AppointmentTypes);
-          // this.DoctorStoreTypeData.AppointmentTypes = this.steps.ActualExamTypes;
+          this.DoctorStoreTypeData.AppointmentTypes = this.steps.ActualExamTypes;
         });
       }
 

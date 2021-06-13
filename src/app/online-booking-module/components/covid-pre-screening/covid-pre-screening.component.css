@@ -8,3 +8,17 @@
     width: 15px;
     height: 15px;
 }
+
+a#get_dire {
+  background-color: #FFFFFF;
+  COLOR: #79A0DF;
+  BORDER: SOLID #79A0DF;
+}
+
+
+
+a#get_dire:hover {
+  background-color: #79A0DF;
+  COLOR: #FFFFFF;
+  BORDER: SOLID #79A0DF;
+}

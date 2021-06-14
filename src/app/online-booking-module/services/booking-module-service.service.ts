@@ -188,7 +188,6 @@ export class BookingModuleService implements HttpInterceptor {
 
 
     if (doctorId != undefined) {
-      console.log(doctorId);
       params = new HttpParams()
         .set('accountsId', accountsId)
         .set('companyName', companyName)

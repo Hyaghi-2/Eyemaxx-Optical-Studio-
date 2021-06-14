@@ -144,7 +144,6 @@ export class BaseContentComponent implements OnInit {
             appointmentDate += ' ' + appointmentSlotData.SelectedTimeSlot.start + '-' + appointmentSlotData.SelectedTimeSlot.end;
             data.appointmentDate = appointmentDate;
             data.optimtrist = selectedDoctor.firstName + ' ' + selectedDoctor.lastName;
-            console.log(data);
 
             // call email api
             this.sendEmail(data).subscribe(x => {

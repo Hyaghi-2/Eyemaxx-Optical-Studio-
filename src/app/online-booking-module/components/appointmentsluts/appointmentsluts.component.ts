@@ -74,9 +74,7 @@ export class AppointmentslutsComponent implements OnInit {
                   d.staffId = 9;
                   d.Initialize(w);
                   this.AnyOptomitristApiResponse.push(d);
-                  console.log(this.AnyOptomitristApiResponse);
                   this.InitializeAnyOptomitristSlots();
-                  console.log(this.ActiveDistinctAppointments);
                   //Delete the first 4 appointments from today
                   let today: Date = new Date();
                   today.setHours(0, 0, 0, 0);
@@ -122,23 +120,18 @@ export class AppointmentslutsComponent implements OnInit {
             let b: AppointmentSlotsResponse = new AppointmentSlotsResponse();
             b.staffId = 10;
             b.Initialize(y);
-            console.log(b);
             this.AnyOptomitristApiResponse.push(b);
             this.serv.getAvailableAppointmentSluts(this.serv.accountsId.toString(), this.serv.companyName, p.ExamType.id.toString(), '24').subscribe(z => {
               let c: AppointmentSlotsResponse = new AppointmentSlotsResponse();
               c.staffId = 24;
               c.Initialize(z);
-              console.log(c);
               this.AnyOptomitristApiResponse.push(c);
               this.serv.getAvailableAppointmentSluts(this.serv.accountsId.toString(), this.serv.companyName, p.ExamType.id.toString(), '409').subscribe(w => {
                 let d: AppointmentSlotsResponse = new AppointmentSlotsResponse();
                 d.staffId = 409;
                 d.Initialize(w);
-                console.log(w);
                 this.AnyOptomitristApiResponse.push(d);
-                console.log(this.AnyOptomitristApiResponse);
                 this.InitializeAnyOptomitristSlots();
-                console.log(this.ActiveDistinctAppointments);
                 //Delete the first 4 appointments from today
                 let today: Date = new Date();
                 today.setHours(0, 0, 0, 0);
@@ -183,17 +176,10 @@ export class AppointmentslutsComponent implements OnInit {
       //if the exam type related to specific doctor pass the doctor id to the query string 
       else {
         if (p.isEdgeDown && p.isOpticain) {
-          console.log(2);
-
           this.serv.getAvailableAppointmentSluts(this.serv.accountsId.toString(), this.serv.companyName, '55170', '409').subscribe(x => {
-            console.log(2);
-            console.log(x);
             this.AllAppointments.staffId = p.Staff.id;
             this.AllAppointments.Initialize(x);
             this.InitializeAppointmentsSlots();
-            console.log(this.ActiveDistinctAppointments);
-
-
             let today: Date = new Date();
             today.setHours(0, 0, 0, 0);
             let lastAppoitment: Date = new Date();
@@ -225,14 +211,9 @@ export class AppointmentslutsComponent implements OnInit {
           });
         } else {
           this.serv.getAvailableAppointmentSluts(this.serv.accountsId.toString(), this.serv.companyName, p.ExamType.id.toString(), p.Staff.id.toString()).subscribe(x => {
-            console.log(3);
-            console.log(x);
-
             this.AllAppointments.staffId = p.Staff.id;
             this.AllAppointments.Initialize(x);
             this.InitializeAppointmentsSlots();
-            console.log(this.ActiveDistinctAppointments);
-
             let today: Date = new Date();
             today.setHours(0, 0, 0, 0);
             let lastAppoitment: Date = new Date();
@@ -365,7 +346,6 @@ export class AppointmentslutsComponent implements OnInit {
       let s: AppointmentSlotData = new AppointmentSlotData(3, 'AppointmentsSlots', this.CallendarDisabled, this.SelectedDate, this.MinDate, this.MaxDate, this.ActiveDistinctAppointments, this.InvalidDates, this.SelectedSlot, this.ActiveSlots);
       this.steps.stepsData.push(s);
       this.steps.Steps.filter(x => x.order == this.steps.currentStep.order + 1)[0].enabled = this.steps.currentStep.validated;
-      console.log(this.SelectedSlot);
 
     }
   }

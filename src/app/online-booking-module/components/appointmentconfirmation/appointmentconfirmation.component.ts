@@ -109,7 +109,6 @@ export class AppointmentconfirmationComponent implements OnInit {
 
   onEmailFormSubmit(event: any) {
     this.emailFormSubmitted = true;
-    console.log(this.emailFormSubmitted);
 
     if (this.emailForm.invalid) {
       return;
@@ -202,15 +201,11 @@ export class AppointmentconfirmationComponent implements OnInit {
     }
     this.isLoadingSpinnerEnabled = true;
     let body: UpdateBody = new UpdateBody();
-    console.log(this.newPatientForm.value);
-
     body = Object.assign(this.newPatientForm.value);
     body.email = this.typedEmail;
-    console.log(this.SelectedUser);
 
     body.id = +this.SelectedUser.id.split('-')[1];
     this.serv.updatePatientProfile(body).subscribe(x => {
-      console.log(x);
 
       let p: Patient = new Patient();
       p = p.Initialize(x);

@@ -176,7 +176,6 @@ export class AppointmentstypesComponent implements OnInit {
 
     this.SelectedExam = new AppointmentType(-20, '', false, 0);
     this.SelectedStaff = new Doctor();
-    console.log(this.SelectedExamId);
 
     //if the selected exam can be booked online
     if (this.SelectedExamId != -2) {
@@ -187,8 +186,6 @@ export class AppointmentstypesComponent implements OnInit {
       this.SelectedExam = this.DoctorStoreTypeData.AppointmentTypes.filter(x => x.id == this.SelectedExamId)[0];
       //check if the exam related to an optician
       this.isOptomitrist = this.OpticianExamsIds.indexOf(this.SelectedExam.id) > -1 ? false : true;
-      console.log(this.SelectedExam.name.split(':'));
-
       //if the exam related to an optician
       if (!this.isOptomitrist) {
         //enable the  spinner 

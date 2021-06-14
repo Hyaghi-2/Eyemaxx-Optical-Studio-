@@ -44,7 +44,6 @@ export class AppointmentsummaryComponent implements OnInit {
   }
   //optician checkbox change:
   onOpticianAppointmentChange() {
-    console.log(this.OpticianAppointment);
     this.steps.clearSteps(5);
     let p: AppointmentSummaryData = new AppointmentSummaryData(5, 'Summary', this.OpticianAppointment);
     this.steps.stepsData.push(p);

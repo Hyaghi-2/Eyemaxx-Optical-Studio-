@@ -16,6 +16,7 @@ import { Patient } from '../../models/create-patient/patient';
 import { Emaildata } from '../../models/email-api-data/emaildata';
 import { DatePipe } from '@angular/common';
 import { AppointmentType } from '../../models/get-stores-types-doctors/appointment-type';
+import { Doctor } from '../../models/get-stores-types-doctors/doctor';
 
 
 
@@ -102,9 +103,9 @@ export class BaseContentComponent implements OnInit {
       body.storeId = 1;
       body.slotId = appointmentSlotData.SelectedTimeSlot.id;
       body.patientId = +appointmentConfirmationData.SelectedUser.id.split('-')[1];
-      if (appointmentTypeData.isOptomitrist) {
-        body.doctorId = appointmentTypeData.Staff.id.toString();
-      }
+      body.doctorId = appointmentSlotData.SelectedTimeSlot.doctorId.toString();
+      let selectedDoctor: Doctor = new Doctor();
+      selectedDoctor = appointmentTypeData.DoctorStoreTypeData.Doctors.filter(x => x.id == appointmentSlotData.SelectedTimeSlot.doctorId)[0];
       // console.log(body);
 
 
@@ -137,28 +138,18 @@ export class BaseContentComponent implements OnInit {
             data.email = appointmentConfirmationData.SelectedUser.email;
             data.medicalCardExp = appointmentConfirmationData.SelectedUser.medicalCardExp;
             data.medicalCard = appointmentConfirmationData.SelectedUser.medicalCard;
+            data.appointmentType = appointmentTypeData.ExamType.name;
             //filling appointment data
             let appointmentDate: any = this.dp.transform(appointmentSlotData.SelectedDate, 'yyyy-MM-dd');
             appointmentDate += ' ' + appointmentSlotData.SelectedTimeSlot.start + '-' + appointmentSlotData.SelectedTimeSlot.end;
             data.appointmentDate = appointmentDate;
-            if (appointmentTypeData.isOptomitrist) {
-
-              data.appointmentType = appointmentTypeData.ExamType.name;
-              if (appointmentTypeData.Staff.id > -1) {
-                data.optimtrist = appointmentTypeData.Staff.firstName + ' ' + appointmentTypeData.Staff.lastName;
-              } else {
-                data.optimtrist = 'Any Optometrist';
-              }
-            } else {
-              data.optimtrist = appointmentTypeData.ExamType.name;
-              data.appointmentType = appointmentTypeData.ExamType.name;
-            }
+            data.optimtrist = selectedDoctor.firstName + ' ' + selectedDoctor.lastName;
             console.log(data);
 
             // call email api
-            // this.sendEmail(data).subscribe(x => {
-            //   console.log(x);
-            // });
+            this.sendEmail(data).subscribe(x => {
+              console.log(x);
+            });
           }
           this.bookingSuccess = true;
           if (appointmentSummaryData.OpticianAppointment == true) {

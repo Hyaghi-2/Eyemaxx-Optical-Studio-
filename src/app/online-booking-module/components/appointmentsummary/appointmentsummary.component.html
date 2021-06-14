@@ -45,9 +45,10 @@
             </div>
             <div class="col-md-4 text-left">
                 <p><strong>Insurance Company: </strong> {{appointmentConfirmationData.SelectedUser.medicalCard}}</p>
-                <p><strong>Optometrist: </strong>{{ this.appointmentTypeData.isOptomitrist ?
-                    this.appointmentTypeData.Staff.id > -1 ? appointmentTypeData.Staff.firstName + '
-                    '+appointmentTypeData.Staff.lastName:'Any Optometrist':appointmentTypeData.ExamType.name }}</p>
+                <p><strong>{{appointmentTypeData.isOptomitrist?'Optometrist:':'Optician:'}}
+                    </strong>{{SelectedDoctor.firstName+
+                    '
+                    '+SelectedDoctor.lastName }}</p>
                 <p><strong>Exam Type: </strong>{{appointmentTypeData.ExamType.name}}</p>
                 <p><strong>Appointment Date & Time: </strong>{{appointmentSlotData.SelectedDate | date:'mediumDate'}}
                     {{appointmentSlotData.SelectedTimeSlot.start}} - {{appointmentSlotData.SelectedTimeSlot.end}}</p>

@@ -13,6 +13,7 @@ export class AppointmentSlotsResponse {
       p.start = _start;
       p.end = _end;
       p.id = _id;
+      p.doctorId = this.staffId;
       this.AppointmentSlotsList.push(p);
     }
     return this.AppointmentSlotsList;

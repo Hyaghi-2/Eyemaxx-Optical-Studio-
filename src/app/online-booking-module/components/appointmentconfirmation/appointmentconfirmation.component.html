@@ -31,6 +31,8 @@
     <div class="col-sm-4">
 
     </div>
+
+
     <!-- <div class="col-sm-6">
             <div class="input-group">
                 <span class="input-group-addon">
@@ -43,12 +45,14 @@
             </div>
         </div> -->
   </div>
+  <h5 class="text-center" *ngIf="UsersList.patientList.length>0">Select patient or create a new patient</h5>
   <div class="row">
     <div style="text-align: center;" *ngIf="isLoadingSpinnerEnabled">
       <p-progressSpinner></p-progressSpinner>
     </div>
     <div class="col-sm-6 col-sm-offset-{{UsersList.patientList.length>1?3:4 }}" *ngIf="!isLoadingSpinnerEnabled">
-      <h5 id="patient_sel" *ngIf="UsersList.patientList.length>0">Select patient or create a new patient</h5>
+
+
       <div class="col-sm-4" *ngFor="let p of UsersList.patientList" (click)="SelectUser(p)">
         <div id="user_choice" class="choice" data-toggle="wizard-radio" rel="tooltip"
           title="{{p.firstName}} {{p.lastName}}" [class.active]="SelectedUser.id === p.id">

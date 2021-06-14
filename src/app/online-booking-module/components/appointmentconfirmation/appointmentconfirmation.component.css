@@ -5,3 +5,23 @@ div#user_choice
   min-height: 180px;
 }
 
+.newUserStyle{
+  margin-right: 2%;
+}
+
+h5#patient_sel {
+    color: #FF0000;
+    margin-left: 9%;
+    font-size: 12pt;
+}
+
+
+@media only screen and (max-width: 500px) {
+
+  h5#patient_sel {
+    color: #FF0000;
+    margin-left: 5%;
+    font-size: 12pt;
+}
+
+}

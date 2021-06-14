@@ -474,15 +474,16 @@
 </p-confirmDialog> -->
 
 <p-toast></p-toast>
-<p-dialog class="text-justify" header=" " [(visible)]="showBookAppointmentPopUp" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+<p-dialog class="text-left" header=" " [(visible)]="showBookAppointmentPopUp" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
     [draggable]="false" [resizable]="false" [position]="'top'" [closable]="false">
     <!-- <i class="pi pi-check-circle" style="font-size: 2rem;float: left;"></i> -->
+    <div class="text-left">
     <p [ngStyle]="{'color': bookingSuccess!==true?'red':'black'}">
-        <i class="{{popIconType}}" style="font-size: 2rem;float: left;"></i>{{popUpMessage}}<a
+        <i class="{{popIconType}}" style="font-size: 2rem;float: left;"></i><br>{{popUpMessage}}<a
             href="https://www.eyemaxx.ca/pages/contact-us"
             *ngIf="bookingSuccess!=true">https://www.eyemaxx.ca/pages/contact-us</a>
-        )
     </p>
+  </div>
     <ng-template pTemplate="footer">
         <button pButton type="button" icon="pi pi-check" (click)="popUpNavigation('appointment')"
             label="Book another appointment" class="p-button-raised bookbutton"></button>
@@ -496,7 +497,7 @@
     [draggable]="false" [resizable]="false" [position]="'top'" [closable]="true">
     <!-- <i class="pi pi-check-circle" style="font-size: 2rem;float: left;"></i> -->
     <p style="color: black;margin-left: 2%;">
-        <i class="pi pi-check-circle" style="font-size: 2rem;float: left;"></i> &nbsp;&nbsp; Please note, all visits to
+        <i class="pi pi-check-circle" style="font-size: 2rem;float: left;"></i><br>Please note, all visits to
         Eyemaxx are by appointment only due to COVID-19 Restrictions.
     </p>
     <ng-template pTemplate="footer">

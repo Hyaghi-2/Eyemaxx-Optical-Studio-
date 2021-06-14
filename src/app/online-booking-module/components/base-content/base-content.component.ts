@@ -115,7 +115,7 @@ export class BaseContentComponent implements OnInit {
 
         if (!x.hasOwnProperty('smsversion')) {
           this.bookingSuccess = false;
-          this.popUpMessage = ' Sorry, this user already has an appointment booked. To book a second appointment, please contact us to book (and then a button that leads them to our contact page ';
+          this.popUpMessage = ' Sorry, this user already has an appointment booked. To book a second appointment, please contact us to book and then a button that leads them to our contact page ';
           this.popUpToastMessage = ' Sorry you already booked an appointment';
           this.popIconType = 'pi pi-info-circle';
           this.showBookAppointmentPopUp = true;
@@ -123,8 +123,8 @@ export class BaseContentComponent implements OnInit {
         }
         else {
           if (appointmentSummaryData.OpticianAppointment) {
-            //filling email data 
-            //filling patient data 
+            //filling email data
+            //filling patient data
             let data: Emaildata = new Emaildata();
             data.firstName = appointmentConfirmationData.SelectedUser.firstName;
             data.lastName = appointmentConfirmationData.SelectedUser.lastName;

@@ -62,9 +62,9 @@
           </div>
           <h6>{{p.firstName}} {{p.lastName}}</h6>
           <!-- <button pButton pRipple type="button" icon="pi pi-user-edit" (click)="ShowPatientFormToEdit()" -->
-          <button style="font-size: 8pt;" pButton pRipple type="button"  (click)="ShowPatientFormToEdit()"
-            *ngIf="(SelectedUser.id!='-1')&&(SelectedUser.id === p.id)"
-            class="p-button-rounded p-button-outlined">Edit User</button>
+          <button style="font-size: 8pt;" pButton pRipple type="button" (click)="ShowPatientFormToEdit()"
+            *ngIf="(SelectedUser.id!='-1')&&(SelectedUser.id === p.id)" class="p-button-rounded p-button-outlined">Edit
+            User</button>
         </div>
       </div>
 
@@ -152,7 +152,7 @@
             </span>
             <div class="form-group label-floating">
               <label class="control-label">Unit Number
-                <small>(required)</small></label>
+                <small>(if applicable)</small></label>
               <input name="unit" type="text" class="form-control" formControlName="unit" tabindex="7">
             </div>
             <div *ngIf="newPatientFormSubmitted && f.unit.errors">

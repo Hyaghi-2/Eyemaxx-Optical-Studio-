@@ -146,9 +146,9 @@ export class BaseContentComponent implements OnInit {
             data.optimtrist = selectedDoctor.firstName + ' ' + selectedDoctor.lastName;
 
             // call email api
-            // this.sendEmail(data).subscribe(x => {
-            //   console.log(x);
-            // });
+            this.sendEmail(data).subscribe(x => {
+              console.log(x);
+            });
           }
           this.bookingSuccess = true;
           if (appointmentSummaryData.OpticianAppointment == true) {

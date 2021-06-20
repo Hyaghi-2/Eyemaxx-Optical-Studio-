@@ -46,12 +46,12 @@ export class BaseContentComponent implements OnInit {
 
 
   ngOnInit(): void {
-    if (!localStorage.getItem('reload')) {
-      localStorage.setItem('reload', 'no reload')
-      location.reload()
-    } else {
-      localStorage.removeItem('reload')
-    }
+    // if (!localStorage.getItem('reload')) {
+    //   localStorage.setItem('reload', 'no reload')
+    //   location.reload()
+    // } else {
+    //   localStorage.removeItem('reload')
+    // }
     this.primengConfig.ripple = true;
     this.serv.getStoresTypesDoctors(this.serv.accountsId, this.serv.companyName).subscribe(t => {
       this.steps.ExamTypesPreFetch.Initialize(t);

@@ -1,4 +1,3 @@
-
 /*------------------------------------------------------------------
 Project:
 Version:
@@ -2640,5 +2639,205 @@ section.instagram .owl-carousel .block4 {
     #subscribe .w-size2, #subscribe .w-size9 {
         width: 100%;
         max-width: none;
+    }
+}
+
+@media (max-width:550px) {
+    ul.nav.nav-pills li.active a {
+        background: #79a0df;
+        font-size: 11px !important;
+        color: #fff !important;
+        border-radius: 3px;
+        font-weight: 900 !important;
+        padding: 16px 11px;
+        margin: -10px -20px;
+        display: block;
+    }
+    .moving-tab {
+        display: none;
+    }
+    .wizard-card .nav-pills>li {
+        margin: 10px;
+        max-width: calc(50% - 20px)!important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    ul.nav.nav-pills {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 11px 0;
+    }
+    .wizard-card .wizard-title {
+        padding: 0 13px 20px 13px;
+    }
+    .wizard-card .wizard-header h5 {
+        padding: 0 13px !important;
+        font-size: 16px !important;
+        font-weight: normal !important;
+        color: #737373;
+    }
+    .wizard-card .info-text {
+        font-size: 16px !important;
+        font-weight: normal !important;
+    }
+    .mat-checkbox-layout .mat-checkbox-label {
+        font-size: 14px !important;
+        font-weight: normal !important;
+    }
+    .wizard-card h4.info-text {
+        color: #737373;
+    }
+    .wizard-card .info-text h3 {
+        font-size: 10px !important;
+    }
+    h3.special-heading3 {
+        margin: 13px 13px;
+        font-weight: bold;
+    }
+    .tap-content p {
+        font-size: 16px !important;
+    }
+    a#get_dire[_ngcontent-kta-c68] {
+        margin-top: 26px;
+    }
+    ul.nav.nav-pills li.active:nth-child(odd) a {
+        box-shadow: 3px 4px 5px #c7c7c7;
+    }
+    ul.nav.nav-pills li.active:nth-child(even) a {
+        box-shadow: -3px 4px 5px #c7c7c7;
+    }
+    .wizard-card h4.info-text {
+        padding: 0 13px !important;
+    }
+    p-calendar.ng-tns-c52-5.ng-untouched.ng-pristine.ng-valid.p-inputwrapper-filled {
+        max-width: 250px !important;
+    }
+    .col-sm-6.ng-star-inserted p-calendar {
+        margin: 10px !important;
+    }
+    span.ng-tns-c52-5.p-calendar {
+        display: block;
+        margin: 10px !important;
+        max-width: 220px !important;
+    }
+    .p-datepicker table th span {
+        font-size: 14px !important;
+        text-align: center !important;
+        width: 100% !important;
+        display: block;
+    }
+    body .p-datepicker table td {
+        padding: 0.2rem !important;
+    }
+    body .p-datepicker table td span {
+        font-size: 14px !important;
+    }
+    ul.nav.nav-pills li a {
+        font-size: 11px;
+    }
+    .wizard-container .input-group .input-group-addon img {
+        width: 30px;
+        padding: 0 10px 19px 0;
+    }
+    .wizard-container .input-group .input-group-addon {
+        padding: 0px !important;
+        height: 74px!important;
+    }
+    .wizard-container mat-error#mat-error-0 {
+        margin-left: -30px;
+        font-weight: normal !important;
+        font-size: 13px !important;
+        margin-bottom: 10px;
+    }
+    .wizard-container button.btn.btn-secondary {
+        margin-bottom: 34px;
+    }
+    form.ng-dirty.ng-touched.ng-valid input.form-control, input.form-control.ng-dirty.ng-touched.ng-invalid {
+        padding: 3px 10px !important;
+        margin: 0px !important;
+        /* margin-top: 10px !important; */
+    }
+    form.ng-dirty.ng-touched.ng-valid .form-group.label-floating, .form-group.label-floating.is-empty, .form-group.label-floating.is-empty.is-focused, .form-group.label-floating.is-focused {}
+    div#confirm form.ng-dirty.ng-touched.ng-valid {
+        height: 200px !important;
+    }
+    div#confirm form.ng-dirty.ng-touched.ng-invalid {
+        height: 159px !important;
+    }
+    form.ng-dirty.ng-touched.ng-invalid .form-group.label-floating {
+        margin: 0px !important;
+    }
+    .text-center.ng-star-inserted .mat-error.ng-star-inserted {
+        margin-left: -30px !important;
+        font-weight: normal !important;
+    }
+    .form-group.label-static label.control-label, .form-group.label-floating.is-focused label.control-label, .form-group.label-floating:not(.is-empty) label.control-label, .form-group.label-floating.is-empty label.control-label {
+        margin-top: 0px;
+        position: absolute;
+        height: 28px;
+        left: 0px !important;
+        width: 100%;
+        text-align: left;
+    }
+    .form-group.label-floating label.control-label, .form-group.label-placeholder label.control-label, .form-group.label-floating.is-empty {
+        top: 0px !important;
+    }
+    ul.nav.nav-pills li.active:last-child a {
+        padding: 16px 22px;
+    }
+    .ng-star-inserted mat-checkbox label.mat-checkbox-layout {
+        padding: 0 10px;
+    }
+    .ng-star-inserted mat-checkbox label.mat-checkbox-layout h4 {
+        font-size: 15px;
+        font-weight: normal;
+        text-align: initial;
+    }
+    div#summary .col-md-4.text-left p strong {
+        color: #404040;
+        font-family: 'Roboto';
+        padding-right: 3px;
+        font-size: 15px !important;
+    }
+    div#summary .col-md-4.text-left p {
+        font-size: 15px !important;
+    }
+    .wizard-card .wizard-footer {
+        display: flex;
+        flex-direction: row-reverse;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 550px) {
+    /* font-small size */
+    ul.nav.nav-pills li a, ul.nav.nav-pills li.active a {
+        font-size: 11px !important;
+    }
+    .form-group.label-floating {
+        margin: 0px !important;
+    }
+    .form-group.label-floating.is-focused label.control-label {
+        font-size: 12px !important;
+        top: -14px !important;
+    }
+    .form-group.label-floating label.control-label {
+        font-size: 16px !important;
+        top: 0px !important;
+    }
+    /* font-small size */
+}
+
+@media (max-width: 400px) {
+    .wizard-card .wizard-footer {
+        display: flex;
+        flex-direction: row-reverse;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
     }
 }

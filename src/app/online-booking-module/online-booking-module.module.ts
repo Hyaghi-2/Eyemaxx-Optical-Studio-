@@ -22,9 +22,10 @@ import { DialogModule } from 'primeng/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DropdownModule } from 'primeng/dropdown';
 import { MatSelectModule } from '@angular/material/select';
+import { TempComponent } from './components/temp/temp.component';
 
 @NgModule({
-  declarations: [BaseContentComponent, ErrormessageComponent, PagenotfoundComponent, CovidPreScreeningComponent, OptimitristOpticianSelectionComponent, AppointmentstypesComponent, AppointmentslutsComponent, AppointmentsummaryComponent, OpticianappointmentComponent, AppointmentconfirmationComponent],
+  declarations: [BaseContentComponent, ErrormessageComponent, PagenotfoundComponent, CovidPreScreeningComponent, OptimitristOpticianSelectionComponent, AppointmentstypesComponent, AppointmentslutsComponent, AppointmentsummaryComponent, OpticianappointmentComponent, AppointmentconfirmationComponent, TempComponent],
   imports: [
     CommonModule,
     OnlineBookingModuleRoutingModule,

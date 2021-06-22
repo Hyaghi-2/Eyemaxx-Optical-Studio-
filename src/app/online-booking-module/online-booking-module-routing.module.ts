@@ -10,6 +10,7 @@ import { ErrormessageComponent } from './components/errormessage/errormessage.co
 import { OpticianappointmentComponent } from './components/opticianappointment/opticianappointment.component';
 import { OptimitristOpticianSelectionComponent } from './components/optimitrist-optician-selection/optimitrist-optician-selection.component';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
+import { TempComponent } from './components/temp/temp.component';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
     ]
   },
   { path: 'error', component: ErrormessageComponent },
+  { path: 'temp', component: TempComponent },
   { path: '**', component: PagenotfoundComponent },
 ];
 

@@ -47,9 +47,8 @@ export class BaseContentComponent implements OnInit {
 
   ngOnInit(): void {
     if (!localStorage.getItem('reload')) {
-      localStorage.setItem('reload', 'no reload');
-      location.reload();
-
+      localStorage.setItem('reload', 'no reload')
+      this.router.navigate(['/']);
     } else {
       localStorage.removeItem('reload')
     }

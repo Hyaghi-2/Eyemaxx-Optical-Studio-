@@ -229,6 +229,7 @@ export class AppointmentconfirmationComponent implements OnInit {
     let body: CreatePatientBody = new CreatePatientBody();
     body = Object.assign(this.newPatientForm.value);
     body.email = this.typedEmail;
+    body.isDefaultSms = true;
     this.serv.createPatient(body).subscribe(x => {
       let p: Patient = new Patient();
       p = p.Initialize(x);

@@ -51,3 +51,440 @@
 .footer{
     bottom: 0%;
 }
+
+/*
+amani updates
+*/
+
+@media (min-width:550px){
+.moving-tab {display: none;}
+
+.wizard-container .wizard-navigation ul {
+    background-color: hsla(0,0%,78.4%,.2);
+}
+.wizard-container .wizard-navigation ul>li.active>a, .wizard-container .wizard-navigation ul>li.active>a:focus, .wizard-container .wizard-navigation ul>li.active>a:hover, .wizard-container .wizard-navigation ul>li>a:focus, .wizard-container .wizard-navigation ul>li>a:hover {
+    background-color: inherit;
+}
+.wizard-container .wizard-navigation ul>li.active>a, .wizard-container .wizard-navigation ul>li.active>a:focus, .wizard-container .wizard-navigation ul>li.active>a:hover, .wizard-container .wizard-navigation ul>li>a:focus, .wizard-container .wizard-navigation ul>li>a:hover {
+    background-color: inherit;
+}
+.nav>li>a {
+    padding: 10px 15px;
+}
+.nav>li, .nav>li>a {
+    position: relative;
+    display: block;
+}
+.wizard-container .wizard-navigation {
+    position: relative;
+}
+.wizard-container .wizard-navigation ul>li>a {
+    outline: none;
+    border: 0!important;
+    border-radius: 0;
+    line-height: 18px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 500;
+    min-width: 100px;
+    text-align: center;
+    color: #555!important;
+    padding: 10px 15px;
+}
+.wizard-card .wizard-container .wizard-navigation ul>li {
+    text-align: center;
+}
+.wizard-container .wizard-navigation ul>li {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    float: left;
+    justify-content: center;
+}
+
+.nav>li, .nav>li>a {
+    position: relative;
+    display: block;
+}
+
+.wizard-container .wizard-navigation ul {
+    background-color: #f4f4f4 !important;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+}
+.nav {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.wizard-container .wizard-navigation {
+    position: relative;
+}
+ul.nav.wizard-container .wizard-navigation li.active:nth-child(odd) a {
+    box-shadow: 3px 4px 5px #c7c7c7;
+}
+ul.nav.wizard-container .wizard-navigation li.active a {
+    background: #79a0df;
+    font-size: 11px!important;
+    color: #fff!important;
+    border-radius: 3px;
+    font-weight: 900!important;
+    padding: 17px 8px;
+    margin: -4px;
+    display: block;
+}
+
+.nav>li>a {
+    padding: 10px 15px;
+    padding-top: 10px;
+    padding-right: 15px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+}
+}
+
+
+
+@media (max-width:550px) {
+
+  .nav-pills,
+  .wizard-navigation ul {
+      background-color: rgba(200, 200, 200, 0.2);
+  }
+
+
+  .ng-tns-c66-2.p-dialog-mask.p-component-overlay.p-dialog-mask-scrollblocker.p-dialog-top.ng-star-inserted .ng-trigger.ng-trigger-animation.ng-tns-c66-2.p-dialog.p-component.ng-star-inserted {
+    width: 83vw !important;
+}
+
+  ul.nav.nav-pills li.active a,
+  .wizard-navigation ul li.active a {
+      background: #79a0df;
+      font-size: 11px !important;
+      color: #fff !important;
+      border-radius: 3px;
+      font-weight: 900 !important;
+      padding: 16px 11px;
+      margin: -10px -20px;
+      display: block;
+  }
+
+  .wizard-container .wizard-navigation {
+      position: relative;
+  }
+
+  .wizard-container {
+      padding-top: 100px;
+      z-index: 3;
+  }
+
+  .wizard-navigation ul {
+      background-color: rgba(200, 200, 200, 0.2);
+  }
+
+  .wizard-navigation ul > li + li {
+      margin-left: 0;
+  }
+
+  .wizard-navigation ul > li > a {
+      outline: none;
+      border: 0 !important;
+      border-radius: 0;
+      line-height: 18px;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 500;
+      min-width: 100px;
+      text-align: center;
+      color: #555555 !important;
+  }
+
+  .wizard-navigation ul > li.active > a,
+  .wizard-navigation ul > li.active > a:hover,
+  .wizard-navigation ul > li.active > a:focus,
+  .wizard-navigation ul > li > a:hover,
+  .wizard-navigation ul > li > a:focus {
+      background-color: inherit;
+  }
+
+  .wizard-navigation ul > li i {
+      display: block;
+      font-size: 30px;
+      padding: 15px 0;
+  }
+
+  .wizard-card ul > li {
+      text-align: center;
+  }
+
+  .wizard-navigation ul > li > a {
+      outline: none;
+      border: 0 !important;
+      border-radius: 0;
+      line-height: 18px;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 500;
+      min-width: 100px;
+      text-align: center;
+      color: #555555 !important;
+  }
+
+  .wizard-card .nav-pills > li,
+  .wizard-card ul > li {
+      width: 50%;
+      margin: 10px;
+      max-width: calc(50% - 20px) !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+
+  ul.nav.nav-pills,
+  .wizard-navigation ul {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      padding: 11px 0;
+  }
+
+  .wizard-card .wizard-title {
+      padding: 0 13px 20px 13px;
+  }
+
+  .wizard-card .wizard-header h5 {
+      padding: 0 13px !important;
+      font-size: 16px !important;
+      font-weight: normal !important;
+      color: #737373;
+  }
+
+  .wizard-card .info-text {
+      font-size: 16px !important;
+      font-weight: normal !important;
+  }
+
+  .mat-checkbox-layout .mat-checkbox-label {
+      font-size: 14px !important;
+      font-weight: normal !important;
+  }
+
+  .wizard-card h4.info-text {
+      color: #737373;
+  }
+
+
+
+  .wizard-card .info-text h3 {
+      font-size: 10px !important;
+  }
+
+
+  h3.special-heading3 {
+      margin: 13px 13px;
+      font-weight: bold;
+  }
+
+  .tap-content p {
+      font-size: 16px !important;
+  }
+
+  a#get_dire[_ngcontent-kta-c68] {
+      margin-top: 26px;
+  }
+
+  ul.nav.nav-pills li.active:nth-child(odd) a,
+  .wizard-navigation ul lili.active:nth-child(odd) a {
+      box-shadow: 3px 4px 5px #c7c7c7;
+  }
+
+  ul.nav.nav-pills li.active:nth-child(even) a,
+  .wizard-navigation ul li.active:nth-child(even) a {
+      box-shadow: -3px 4px 5px #c7c7c7;
+  }
+
+  .wizard-card h4.info-text {
+      padding: 0 13px !important;
+  }
+
+  p-calendar.ng-tns-c52-5.ng-untouched.ng-pristine.ng-valid.p-inputwrapper-filled {
+      max-width: 250px !important;
+  }
+
+  .col-sm-6.ng-star-inserted p-calendar {
+      margin: 10px !important;
+  }
+
+  span.ng-tns-c52-5.p-calendar {
+      display: block;
+      margin: 10px !important;
+      max-width: 220px !important;
+  }
+
+  .p-datepicker table th span {
+      font-size: 14px !important;
+      text-align: center !important;
+      width: 100% !important;
+      display: block;
+  }
+
+  body .p-datepicker table td {
+      padding: 0.2rem !important;
+  }
+
+  body .p-datepicker table td span {
+      font-size: 14px !important;
+  }
+
+  ul.nav.nav-pills li a,
+  .wizard-navigation ul li a {
+      font-size: 11px;
+  }
+
+  .wizard-container .confirm-email-form .input-group .input-group-addon img {
+      width: 30px;
+      padding: 0 10px 19px 0;
+  }
+
+  .wizard-container .confirm-email-form .input-group .input-group-addon {
+      padding: 0px !important;
+      height: 74px !important;
+  }
+
+  .wizard-container mat-error#mat-error-0 {
+      margin-left: -30px;
+      font-weight: normal !important;
+      font-size: 13px !important;
+      margin-bottom: 10px;
+  }
+
+  .wizard-container button.btn.btn-secondary {
+      margin-bottom: 34px;
+  }
+
+
+  form.ng-dirty.ng-touched.ng-valid.confirm-email-form input.form-control,
+  .confirm-email-form input.form-control.ng-dirty.ng-touched.ng-invalid {
+      padding: 3px 10px !important;
+      margin: 0px !important;
+      /* margin-top: 10px !important; */
+  }
+
+
+  div#confirm form.ng-dirty.ng-touched.ng-valid.confirm-email-form {
+      height: 200px !important;
+  }
+
+
+  div#confirm form.ng-dirty.ng-touched.ng-invalid.confirm-email-form {
+      height: 159px !important;
+  }
+
+  form.ng-dirty.ng-touched.ng-invalid.confirm-email-form .form-group.label-floating {
+      margin: 0px !important;
+  }
+
+  .text-center.ng-star-inserted .mat-error.ng-star-inserted {
+      margin-left: -30px !important;
+      font-weight: normal !important;
+  }
+
+
+  .confirm-email-form .form-group.label-static label.control-label,
+  .confirm-email-form .form-group.label-floating.is-focused label.control-label,
+  .confirm-email-form .form-group.label-floating:not(.is-empty) label.control-label,
+  .confirm-email-form .form-group.label-floating.is-empty label.control-label {
+      margin-top: 0px;
+      position: absolute;
+      height: 28px;
+      left: 0px !important;
+      width: 100%;
+      text-align: left;
+  }
+
+  .confirm-email-form .form-group.label-floating label.control-label,
+  .confirm-email-form .form-group.label-placeholder label.control-label,
+  .confirm-email-form .form-group.label-floating.is-empty {
+      top: 0px !important;
+  }
+
+
+  ul.nav.nav-pills li.active:last-child a,
+  .wizard-navigation ul li.active:last-child a {
+      padding: 16px 22px;
+  }
+
+
+
+  .ng-star-inserted mat-checkbox label.mat-checkbox-layout {
+      padding: 0 10px;
+  }
+
+  .ng-star-inserted mat-checkbox label.mat-checkbox-layout h4 {
+      font-size: 15px;
+      font-weight: normal;
+      text-align: initial;
+  }
+
+
+  div#summary .col-md-4.text-left p strong {
+      color: #404040;
+      font-family: 'Roboto';
+      padding-right: 3px;
+      font-size: 15px !important;
+  }
+
+  div#summary .col-md-4.text-left p {
+      font-size: 15px !important;
+  }
+
+  .wizard-card .wizard-footer {
+      display: flex;
+      flex-direction: row-reverse;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+  }
+
+}
+
+@media (max-width: 550px) {
+
+  /* font-small size */
+  ul.nav.nav-pills li a,
+  ul.nav.nav-pills li.active a,
+  .wizard-navigation ul li a,
+  .wizard-navigation ul li.active a {
+      font-size: 11px !important;
+  }
+
+  .confirm-email-form .form-group.label-floating {
+      margin: 0px !important;
+  }
+
+  .confirm-email-form .form-group.label-floating.is-focused label.control-label {
+      font-size: 12px !important;
+      top: -14px !important;
+  }
+
+  .confirm-email-form .form-group.label-floating label.control-label {
+      font-size: 16px !important;
+      top: 0px !important;
+  }
+
+  /* font-small size */
+}
+
+@media (max-width: 400px) {
+  .wizard-card .wizard-footer {
+      display: flex;
+      flex-direction: row-reverse;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+  }
+
+
+}

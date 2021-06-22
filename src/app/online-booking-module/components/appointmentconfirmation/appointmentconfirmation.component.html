@@ -100,7 +100,7 @@
 
 
   <div class="row">
-    <form [formGroup]="newPatientForm" (ngSubmit)="onNewPatientFormSubmit($event)" *ngIf="newPatientFormEnabled">
+    <form class="confirm-email-form" [formGroup]="newPatientForm" (ngSubmit)="onNewPatientFormSubmit($event)" *ngIf="newPatientFormEnabled">
       <div class="col-md-12" id="optician-contact-form">
         <!-- col1 -->
         <div class="col-sm-4">

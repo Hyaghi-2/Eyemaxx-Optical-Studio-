@@ -50,8 +50,9 @@ export class BaseContentComponent implements OnInit {
     if (!localStorage.getItem('reload')) {
       localStorage.setItem('reload', 'no reload');
 
-      this.router.navigate(['/']);
-      location.reload();
+      // this.router.navigate(['/']);
+      // location.reload();
+      window.location.href = '/';
       // console.log(window.navigator);
     } else {
       localStorage.removeItem('reload')

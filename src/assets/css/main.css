@@ -2746,10 +2746,10 @@ section.instagram .owl-carousel .block4 {
         height: 74px!important;
     }
     .wizard-container mat-error#mat-error-0 {
-        margin-left: -30px;
         font-weight: normal !important;
         font-size: 13px !important;
         margin-bottom: 10px;
+        margin: 1px !important;
     }
     .wizard-container button.btn.btn-secondary {
         margin-bottom: 34px;

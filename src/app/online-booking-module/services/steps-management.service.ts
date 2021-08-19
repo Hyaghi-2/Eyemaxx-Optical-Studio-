@@ -28,14 +28,14 @@ export class StepsManagementService {
     this.preDefinedExamTypes.push(new AppointmentType(1278, 'Full Exam: Non-Contact Lens Wearer - $120', true, 1));
     this.preDefinedExamTypes.push(new AppointmentType(1280, 'Full Exam: Contact Lens Wearer (Previous Patient) - $140', true, 2));
     this.preDefinedExamTypes.push(new AppointmentType(1279, 'Full Exam: Contact Lens Wear (New Patient)  - $160', true, 3));
-    this.preDefinedExamTypes.push(new AppointmentType(1264, 'OHIP Child: 0-19', true, 4));
-    this.preDefinedExamTypes.push(new AppointmentType(1265, 'OHIP Senior: 65+', true, 5));
-    this.preDefinedExamTypes.push(new AppointmentType(1291, 'Non-Ohip Child: 0-19', true, 6));
-    this.preDefinedExamTypes.push(new AppointmentType(1290, 'Non-Ohip Senior: 65+', true, 7));
-    this.preDefinedExamTypes.push(new AppointmentType(54460, 'Glasses Shopping', false, 8));
-    this.preDefinedExamTypes.push(new AppointmentType(55173, 'Pick Up Order', false, 9));
-    this.preDefinedExamTypes.push(new AppointmentType(55172, 'Repair/Adjustment', false, 10));
-    this.preDefinedExamTypes.push(new AppointmentType(55170, 'Lenses Edgedown', false, 11));
+    // this.preDefinedExamTypes.push(new AppointmentType(1264, 'OHIP Child: 0-19', true, 4));
+    // this.preDefinedExamTypes.push(new AppointmentType(1265, 'OHIP Senior: 65+', true, 5));
+    this.preDefinedExamTypes.push(new AppointmentType(1291, 'Non-Ohip Child: 0-19', true, 4));
+    this.preDefinedExamTypes.push(new AppointmentType(1290, 'Non-Ohip Senior: 65+', true, 5));
+    this.preDefinedExamTypes.push(new AppointmentType(54460, 'Glasses Shopping', false, 6));
+    this.preDefinedExamTypes.push(new AppointmentType(55173, 'Pick Up Order', false, 7));
+    this.preDefinedExamTypes.push(new AppointmentType(55172, 'Repair/Adjustment', false, 8));
+    this.preDefinedExamTypes.push(new AppointmentType(55170, 'Lenses Edgedown', false, 9));
   }
 
   clearSteps(id: number) {

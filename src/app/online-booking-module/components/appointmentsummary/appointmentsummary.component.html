@@ -27,34 +27,38 @@
         <div class="col-md-10">
 
 
-            <div class="col-md-4 text-left">
+            <div class="col-md-4 col-sm-offset-4 text-center">
                 <p><strong>First Name: </strong>{{appointmentConfirmationData.SelectedUser.firstName}}</p>
                 <p><strong>Last Name: </strong>{{appointmentConfirmationData.SelectedUser.lastName}}</p>
-                <p><strong>Street Number: </strong>{{appointmentConfirmationData.SelectedUser.streetNumber}}</p>
+                <!-- <p><strong>Street Number: </strong>{{appointmentConfirmationData.SelectedUser.streetNumber}}</p>
                 <p><strong>Unit Number: </strong>{{appointmentConfirmationData.SelectedUser.unit}}</p>
                 <p><strong>Street Name: </strong>{{appointmentConfirmationData.SelectedUser.streetName}}</p>
-                <p><strong>City: </strong>{{appointmentConfirmationData.SelectedUser.city}}</p>
+                <p><strong>City: </strong>{{appointmentConfirmationData.SelectedUser.city}}</p> -->
+                <p><strong>Email: </strong>{{appointmentConfirmationData.SelectedUser.email}}</p>
+                <p><strong>{{appointmentTypeData.isOptomitrist?'Optometrist:':'Optician:'}}
+                </strong>{{SelectedDoctor.firstName+
+                '
+                '+SelectedDoctor.lastName }}</p>
+                <p><strong>Exam Type: </strong>{{appointmentTypeData.ExamType.name}}</p>
+                <p><strong>Appointment Date & Time: </strong>{{appointmentSlotData.SelectedDate | date:'mediumDate'}}
+                    {{appointmentSlotData.SelectedTimeSlot.start}} - {{appointmentSlotData.SelectedTimeSlot.end}}</p>
             </div>
-            <div class="col-md-4 text-left">
+            <!-- <div class="col-md-4 text-left">
                 <p><strong>Province: </strong>{{appointmentConfirmationData.SelectedUser.province}}</p>
                 <p><strong>Postal Code: </strong> {{appointmentConfirmationData.SelectedUser.postalCode}}</p>
                 <p><strong>Date of Birth: </strong>{{appointmentConfirmationData.SelectedUser.dateOfBirth}}</p>
                 <p><strong>Cell Phone: </strong>{{appointmentConfirmationData.SelectedUser.cell}}</p>
-                <p><strong>Email: </strong>{{appointmentConfirmationData.SelectedUser.email}}</p>
+
                 <p><strong>Health Card & Expiry: </strong>{{appointmentConfirmationData.SelectedUser.medicalCardExp}}
                 </p>
-            </div>
-            <div class="col-md-4 text-left">
+            </div> -->
+            <!-- <div class="col-md-4 text-left">
                 <p><strong>Insurance Company: </strong> {{appointmentConfirmationData.SelectedUser.medicalCard}}</p>
-                <p><strong>{{appointmentTypeData.isOptomitrist?'Optometrist:':'Optician:'}}
-                    </strong>{{SelectedDoctor.firstName+
-                    '
-                    '+SelectedDoctor.lastName }}</p>
-                <p><strong>Exam Type: </strong>{{appointmentTypeData.ExamType.name}}</p>
-                <p><strong>Appointment Date & Time: </strong>{{appointmentSlotData.SelectedDate | date:'mediumDate'}}
-                    {{appointmentSlotData.SelectedTimeSlot.start}} - {{appointmentSlotData.SelectedTimeSlot.end}}</p>
 
-            </div>
+
+
+
+            </div> -->
         </div>
         <div class="col-md-1">
 

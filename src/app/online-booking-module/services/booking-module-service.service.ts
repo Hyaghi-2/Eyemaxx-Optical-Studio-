@@ -262,6 +262,9 @@ export class BookingModuleService implements HttpInterceptor {
     }
     return throwError(errorMessage);
   }
+
+  // 4th Step New Implementation. 
+  
 }
 
 

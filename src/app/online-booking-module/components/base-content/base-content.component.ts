@@ -63,7 +63,7 @@ export class BaseContentComponent implements OnInit {
       this.steps.InitiailzeExamTypes(this.steps.preDefinedExamTypes, this.steps.ExamTypesPreFetch.AppointmentTypes);
 
     });
-    this.CovidPopUpEnabled = true;
+    this.CovidPopUpEnabled = false;
 
   }
 

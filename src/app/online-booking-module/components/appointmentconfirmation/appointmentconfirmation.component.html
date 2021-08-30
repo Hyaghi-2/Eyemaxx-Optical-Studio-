@@ -6,9 +6,75 @@
       database,
       please create new account</h4>
 
-    <div class="col-sm-4">
+    <div class="flex-container-center-user-type" *ngIf="UserTypeSelectionPaneEnabled">
+      <!-- New User Button -->
+      <div>
+        <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="New User"
+          (click)="GeneralClickEvent('NewUserClick')">
+          <input type="radio" name="job" value="Code">
+          <div class="icon">
+            <i class="material-icons">person_add</i>
+          </div>
+          <h6>New Patient</h6>
+        </div>
+
+      </div>
+      <!-- Existing User Button -->
+      <div>
+        <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Existing User"
+          (click)="GeneralClickEvent('ExistingUserClick')">
+          <input type="radio" name="job" value="Design">
+          <div class="icon">
+            <i class="material-icons">person</i>
+          </div>
+          <h6>Existing Patient</h6>
+        </div>
+      </div>
     </div>
-    <form [formGroup]="emailForm" (ngSubmit)="onEmailFormSubmit($event)">
+
+    <form [formGroup]="UserLoginForm" *ngIf="UserLoginFormEnabled">
+      <div class="flex-container-center-direction-column-user-login">
+
+        <div class="input-group login-item">
+          <!-- <span class="input-group-addon">
+              <img src="../../../../assets/img/Cell Phone.png">
+            </span> -->
+          <div class="form-group label-floating">
+            <label class="control-label">Cell Phone Number
+            </label>
+            <input name="unit" type="text" class="form-control" formControlName="cell" tabindex="1">
+          </div>
+          <div *ngIf="UserLoginFormSubmitted && lfc.cell.errors">
+            <mat-error *ngIf="lfc.cell.errors?.required">Cell Phone Number is required</mat-error>
+            <mat-error *ngIf="lfc.cell.errors?.required ||lfc.cell.errors?.minlength || lfc.cell.errors?.maxlength ||
+              lfc.cell.errors?.pattern  ">Invalid Cell Phone Number format</mat-error>
+          </div>
+        </div>
+        <div class="input-group login-item">
+          <!-- <span class="input-group-addon">
+              <img src="../../../../assets/img/Cell Phone.png">
+            </span> -->
+          <div class="form-group label-floating">
+            <label class="control-label">Password
+            </label>
+            <input type="text" class="form-control" formControlName="password" tabindex="2">
+          </div>
+          <div *ngIf="UserLoginFormSubmitted && lfc.password.errors">
+            <mat-error *ngIf="lfc.password.errors?.required">Password is required</mat-error>
+          </div>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-secondary" style="text-align: center;width: 150px;">submit</button>
+        </div>
+
+      </div>
+    </form>
+
+
+
+    <!-- <div class="col-sm-4">
+    </div> -->
+    <!-- <form [formGroup]="emailForm" (ngSubmit)="onEmailFormSubmit($event)">
       <div class="col-sm-4 text-center">
         <div class="input-group">
           <span class="input-group-addon">
@@ -27,26 +93,15 @@
         </div>
         <button type="submit" class="btn btn-secondary" style="text-align: center;">submit</button>
       </div>
-    </form>
-    <div class="col-sm-4">
+    </form> -->
+    <!-- <div class="col-sm-4">
 
-    </div>
+    </div> -->
 
 
-    <!-- <div class="col-sm-6">
-            <div class="input-group">
-                <span class="input-group-addon">
-                    <i class="material-icons">email</i>
-                </span>
-                <div class="form-group label-floating">
-                    <label class="control-label">Email <small>(required)</small></label>
-                    <input name="email" type="text" class="form-control">
-                </div>
-            </div>
-        </div> -->
   </div>
   <h5 class="text-center" *ngIf="UsersList.patientList.length>0">Select patient or create a new patient</h5>
-  <div class="row">
+  <!-- <div class="row">
     <div style="text-align: center;" *ngIf="isLoadingSpinnerEnabled">
       <p-progressSpinner></p-progressSpinner>
     </div>
@@ -60,11 +115,7 @@
           <div class="icon">
             <i class="material-icons">person</i>
           </div>
-          <h6>{{p.firstName}} {{p.lastName}}</h6>
-          <!-- <button pButton pRipple type="button" icon="pi pi-user-edit" (click)="ShowPatientFormToEdit()" -->
-          <!-- <button style="font-size: 8pt;" pButton pRipple type="button" (click)="ShowPatientFormToEdit()"
-            *ngIf="(SelectedUser.id!='-1')&&(SelectedUser.id === p.id)" class="p-button-rounded p-button-outlined">Edit
-            User</button> -->
+          <h6>{{p.firstName}} {{p.lastName}}</h6> 
         </div>
       </div>
 
@@ -82,8 +133,8 @@
 
     </div>
 
-  </div>
-  <div class="row" *ngIf="isUserSelectSpinnerEnabled">
+  </div> -->
+  <!-- <div class="row" *ngIf="isUserSelectSpinnerEnabled">
     <div class="col-sm-4"></div>
     <div class="col-sm-4" style="text-align: center;">
       <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="5"
@@ -91,18 +142,14 @@
     </div>
     <div class="col-sm-4"></div>
 
-  </div>
-  <!-- <div class="row text-center">
-        <button type="button" (click)="ShowPatientFormToEdit()" class="btn btn-secondary"
-            *ngIf="SelectedUser.id!='-1'">Edit
-            Selected User</button>
-    </div> -->
+  </div> -->
 
 
-  <div class="row">
+
+  <!-- <div class="row">
     <form class="confirm-email-form" [formGroup]="newPatientForm" (ngSubmit)="onNewPatientFormSubmit($event)" *ngIf="newPatientFormEnabled">
       <div class="col-md-12" id="optician-contact-form">
-        <!-- col1 -->
+       
         <div class="col-sm-4">
           <div class="input-group">
             <span class="input-group-addon">
@@ -175,7 +222,7 @@
 
         </div>
 
-        <!-- col2 -->
+         
         <div class="col-sm-4">
           <div class="input-group">
             <span class="input-group-addon">
@@ -191,7 +238,7 @@
             </div>
           </div>
 
-          <!--street num-->
+           
           <div class="input-group">
             <span class="input-group-addon">
               <img src="../../../../assets/img/Street Number.png">
@@ -232,7 +279,7 @@
           </div>
         </div>
 
-        <!-- col3 -->
+      
         <div class="col-sm-4">
           <div class="input-group">
             <span class="input-group-addon">
@@ -304,6 +351,6 @@
       </div>
     </form>
 
-  </div>
+  </div> -->
 </div>
 <p-toast></p-toast>

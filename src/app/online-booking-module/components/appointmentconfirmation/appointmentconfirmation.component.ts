@@ -17,6 +17,16 @@ import { PrimeNGConfig } from 'primeng/api';
   styleUrls: ['./appointmentconfirmation.component.css']
 })
 export class AppointmentconfirmationComponent implements OnInit {
+  //New Implementation
+  UserTypeSelectionPaneEnabled: boolean = true;
+  //New User Form
+  NewUserFormEnabled: boolean = false;
+
+  //Login Form
+  UserLoginForm!: FormGroup;
+  UserLoginFormEnabled: boolean = false;
+  UserLoginFormSubmitted: boolean = false;
+
   emailForm: FormGroup;
   emailFormSubmitted: boolean = false;
   //Email from the previous step
@@ -106,6 +116,20 @@ export class AppointmentconfirmationComponent implements OnInit {
     }
   }
 
+  GeneralClickEvent(_type: string) {
+    switch (_type) {
+      case 'NewUserClick':
+        this.UserTypeSelectionPaneEnabled = false;
+        this.NewUserFormEnabled = true;
+        break;
+      case 'ExistingUserClick':
+        this.UserTypeSelectionPaneEnabled = false;
+        this.UserLoginFormEnabled = true;
+        break;
+      default:
+        break;
+    }
+  }
 
   onEmailFormSubmit(event: any) {
     this.emailFormSubmitted = true;
@@ -127,13 +151,17 @@ export class AppointmentconfirmationComponent implements OnInit {
     return this.emailForm.controls;
   }
 
-  get f() {
-    return this.newPatientForm.controls;
+  get lfc() {
+    return this.UserLoginForm.controls;
   }
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
-
+    this.UserLoginForm = this.fb.group({
+      cell: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')])],
+      password: ['', Validators.compose([Validators.required])]
+    });
+    
   }
 
   onNewPatientFormSubmit(event: any) {

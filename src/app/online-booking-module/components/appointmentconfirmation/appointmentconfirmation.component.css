@@ -1,27 +1,43 @@
-
-
-div#user_choice
-{
+div#user_choice {
   min-height: 185px;
 }
 
-.newUserStyle{
+.newUserStyle {
   margin-right: 2%;
 }
 
 h5#patient_sel {
-    color: #FF0000;
-    margin-left: 9%;
-    font-size: 12pt;
+  color: #FF0000;
+  margin-left: 9%;
+  font-size: 12pt;
 }
 
+.flex-container-center-user-type {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.flex-container-center-user-type>div {
+  padding: 2%;
+}
+
+.flex-container-center-direction-column-user-login {
+  display: flex;
+  flex-flow: column wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-container-center-direction-column-user-login > .login-item {
+  width: 50%;
+}
 
 @media only screen and (max-width: 500px) {
-
   h5#patient_sel {
     color: #FF0000;
     margin-left: 5%;
     font-size: 12pt;
-}
-
+  }
 }

@@ -21,7 +21,7 @@ export class StepsManagementService {
     this.Steps.push(new Step(1, 'COVID19preScr', false, true, false, 'covid19'));
     this.Steps.push(new Step(2, 'ExamType', false, false, false, 'appointment-type'));
     this.Steps.push(new Step(3, 'AppointmentsSlots', false, false, false, 'date-time'));
-    this.Steps.push(new Step(4, 'AppointmentConfirmation', false, false, false, 'confirmation'));
+    this.Steps.push(new Step(4, 'AppointmentConfirmation', false, true, true, 'confirmation'));
     this.Steps.push(new Step(5, 'Summary', false, false, false, 'summary'));
     this.currentStep = this.Steps.filter(x => x.order == 1)[0];
 
